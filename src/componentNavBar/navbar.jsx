@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from "../images/Logo1.png";
-import '../navbar.css';
+import '../style/navbar.css';
 
 const Navbar = () => {
   return (
@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="navbar-brand">
           <img src={Logo} alt="Logo" style={{ height: "30px", marginRight: "6px" }} />
           <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
-            <span> <b>JobMate</b></span>
+            <span> <b>Jobpilot</b></span>
           </Link>
         </div>
         <button
@@ -27,13 +27,13 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link to="/signup" className="nav-link text-primary btn border border-primary p-2 me-3 rounded" aria-label="Sign up">
+            <li className="nav-item signup me-3">
+              <Link to="/signup" className="signup" >
                 Sign Up
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/login" className="nav-link btn btn-primary text-white p-2 rounded" aria-label="Login">
+            <li className="nav-item login">
+              <Link to="/login" className="login" >
                 Login
               </Link>
             </li>

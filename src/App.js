@@ -4,13 +4,18 @@ import Navbar from "./componentNavBar/navbar";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import './style/home.css'
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
+      
       <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={
+        <div className="home">
+        <Navbar />
+       <Home />
+        </div>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
       </Routes>
