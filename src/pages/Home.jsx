@@ -1,14 +1,14 @@
-import React from "react";
-import HomImage from "../images/HomeIma.png";
+import React from 'react'
+import HomImage from "../assets/images/home.png";
 
 const Home = () => {
   return (
-    <div className="container mt-5">
+    <div className="container">
       <div className="row align-items-center">
         <div className="col-md-6">
-          <h3>
+          <h1>
             Find a job or internship that matches your passion and expertise.
-          </h3>
+          </h1>
           <p>
             Explore countless opportunities tailored to your goals. Build your
             future today with ease and confidence.
@@ -19,24 +19,28 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="row mt-4">
-        <div className="col-md-3 col-12 mb-3">
-          <div className="bg-white border shadow p-3 text-center">
-            <div className="d-flex justify-content-center align-items-center">
-              <i className="fa-solid fa-briefcase" style={{ color: 'blue', fontSize: '30px' }}></i>
-              <div className="ms-2">
+      <div className="row my-4">
+        <div className="col-sm-6 col-md-6 col-lg-3 mb-3">
+          <div className="bg-white border shadow p-2 text-center rounded">
+            <div className="row d-flex justify-content-center align-items-center">
+              <div className='col-3 homeIcon rounded d-flex justify-content-center align-items-center'>
+                <i className="fa-solid fa-briefcase"></i>
+              </div>
+              <div className="col-6 ms-2">
                 <h5>7,532</h5>
-                <p>Live Jobs</p>
+                <p className='text-secondary'>Live Jobs</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="col-md-3 col-12 mb-3">
-          <div className="bg-white border shadow p-3 text-center">
+        <div className="col-sm-6 col-md-6 col-lg-3 mb-3">
+          <div className="bg-white border shadow p-2 text-center rounded">
             <div className="d-flex justify-content-center align-items-center">
-              <i className="fa-regular fa-building" style={{color: 'blue', fontSize: '30px' }}></i>
-              <div className="ms-2">
+              <div className='col-3 homeIcon rounded d-flex justify-content-center align-items-center' style={{background: '#3d6cff'}}>
+                <i className="fa-regular fa-building" style={{color: '#fff'}}></i>
+              </div>
+              <div className="col-6 ms-2">
                 <h5>1,75,324</h5>
                 <p>Companies</p>
               </div>
@@ -44,11 +48,13 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="col-md-3 col-12 mb-3">
-          <div className="bg-white border shadow p-3 text-center">
+        <div className="col-sm-6 col-md-6 col-lg-3 mb-3">
+          <div className="bg-white border shadow p-2 text-center rounded">
             <div className="d-flex justify-content-center align-items-center">
-              <i className="fa-solid fa-users" style={{ color: 'blue', fontSize: '30px' }}></i>
-              <div className="ms-2">
+              <div className='col-3 homeIcon rounded d-flex justify-content-center align-items-center'>
+              <i className="fa-solid fa-users"></i>
+              </div>
+              <div className="col-6 ms-2">
                 <h5>97,354</h5>
                 <p>Candidates</p>
               </div>
@@ -56,11 +62,13 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="col-md-3 col-12 mb-3">
-          <div className="bg-white border shadow p-3 text-center">
+        <div className="col-sm-6 col-md-6 col-lg-3 mb-3">
+          <div className="bg-white border shadow p-2 text-center rounded">
             <div className="d-flex justify-content-center align-items-center">
-              <i className="fa-solid fa-briefcase" style={{ color: 'blue',fontSize: '30px' }}></i>
-              <div className="ms-2">
+              <div className='col-3 homeIcon rounded d-flex justify-content-center align-items-center'>
+                <i className="fa-solid fa-briefcase"></i>
+              </div>
+              <div className="col-6 ms-2">
                 <h5>38,47,154</h5>
                 <p>New jobs</p>
               </div>
@@ -69,7 +77,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

@@ -1,0 +1,15 @@
+.home{
+    background-color: rgb(243, 243, 250);
+  }
+.homeIcon{
+  background: #E7F0FA;
+  width: 60px;
+  height: 60px;
+  
+  /* padding: 18px;
+  border-radius: 5px; */
+}
+.homeIcon i{
+  font-size: 25px;
+  color: #3d6cff;
+}
