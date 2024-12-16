@@ -1,0 +1,32 @@
+.job-header{
+    border-radius: 20px;
+}
+.activeJob i{
+    color: rgb(44, 206, 44);
+    font-size: 30px;
+}
+.btsIcon{
+    font-size: large;
+    color: #a0a0a0;
+}
+.ViewDetatils{
+    color: #3d6cff;
+}
+/* .btnViewDetatils{
+    background: #f0f0f0;
+    color: #3d6cff;
+    border-radius: 0px;
+    font-weight: 800px;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+.btnViewDetatils:hover{
+    background: #3d6cff;
+    color: #f0f0f0;
+    border-radius: 0px;
+    font-weight: 800px;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 14px;
+} */

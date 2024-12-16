@@ -1,19 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "../assets/images/logo.png";
 import '../styles/navbar.css';
+import Logo from "./logo";
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white">
       <div className="container-fluid container px-3">
-        <div className="navbar-brand">
+        {/* <div className="navbar-brand">
           <img src={Logo} alt="Logo" style={{ height: "30px", marginRight: "6px" }} />
           <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
             <span> <b>JobMate</b></span>
           </Link>
-        </div>
+        </div> */}
+        <Logo />
         <button
           className="navbar-toggler"
           type="button"
