@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../index.css';
-import '../styles/sidebar.css'
+import '../../index.css';
+import '../../styles/sidebar.css'
 import { Link } from "react-router-dom";
 import { Nav, Navbar, InputGroup, Form, Button} from "react-bootstrap";
 
@@ -22,11 +22,13 @@ const SideBar = () => {
         </Nav.Item>
 
         {/* Example Page Links */}
-        <Nav.Link href="#overview" className="navItem p-0 mx-0 my-2 d-flex align-items-center">
+        <Link to='./overview'>
+        <Nav.Link  className="navItem p-0 mx-0 my-2 d-flex align-items-center">
           <div className="dec"></div>
           <i className="fa-solid fa-layer-group mx-4 "></i>
           <span>Overview</span>
         </Nav.Link>
+        </Link>
         <Nav.Link href="#appliedJob" className="navItem p-0 mx-0 my-2 d-flex align-items-center">
           <div className="dec"></div>
           <i className="fa-solid fa-briefcase mx-4"></i>
@@ -46,7 +48,7 @@ const SideBar = () => {
         {/* Log Out at Bottom */}
         <Nav.Link
           href="#logout"
-          className="navItem ps-4 mt-auto mb-3"
+          className="logout ps-4 mt-auto mb-3"
         >
           <i className="fa-solid fa-right-from-bracket me-3"></i>
           Log out

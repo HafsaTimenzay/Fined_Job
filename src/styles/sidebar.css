@@ -1,57 +1,81 @@
-
-
-.navItem.active{
-    background: #3d6dff30;
-    color: #3d6cff;
-}
-.navItem{
-    /* background: #a840406b; */
+/* General navigation item styles */
+.navItem {
     padding: 5px 0;
     margin: 10px 0;
     color: #616060;
     font-size: 14px;
+    position: relative; /* Allows positioning of ::before pseudo-element */
+    display: flex;
+    align-items: center; /* Vertically align content */
 }
-.navItem i{
+
+/* Active navigation item styles */
+.navItem.active {
+    background: #e7f0fa;
+    color: #0a65cc !important; /* Blue text color */
+}
+.navItem:hover {
+    color: #616060; /* Blue text color */
+}
+.logout {
+    color: #616060; /* Blue text color */
+}
+.logout:hover {
+    color: #616060; /* Blue text color */
+}
+.logout.active {
+    color: #0a65cc !important;
+}
+
+/* Blue left line effect for active item */
+.navItem.active::before {
+    content: "";
+    position: absolute;
+    left: 0; /* Align to the left edge */
+    top: 0;
+    height: 100%; /* Full height of the nav item */
+    width: 4px; /* Width of the line */
+    background: #0a65cc; /* Blue color */
+    border-radius: 2px; /* Optional: Rounded edges */
+}
+
+/* Navigation item icon styling */
+.navItem i {
     font-size: 18px;
+    margin-right: 10px; /* Space between icon and text */
 }
-.navItem.active .dec{
-    width: 6px;
+
+/* Top navigation item styling */
+.navItemTop {
+    font-size: 20px;
+}
+
+/* Decorative block inside active nav item (if used elsewhere) */
+.navItem.active .dec {
+    width: 2px;
     height: 40px;
-    background: #3d6cff;
+    background: #0a65cc;
     display: inline-block;
 }
 
-.navItemTop{
-    font-size: 20px;
-    color: #000;
+/* Top navigation bar styling */
+.topNav {
+    border-bottom: 1px #ccc solid;
 }
 
-.topNav{
-    border-bottom : 1px #ccc solid;
-}
-.sideNav{
+/* Sidebar (side navigation) styling */
+.sideNav {
     border-right: 1px #ccc solid;
     height: 100vh; /* Full height of the viewport */
     overflow-y: auto; /* Scroll only if content overflows */
     overflow-x: hidden;
     width: 250px;
+    background-color: #fff; /* Optional: white background */
 }
 
-.profile{
-    width : 40px;
-    height : 40px;
-    border-radius : 50%;
+/* Profile image styling */
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
-
-/* .navItem::before{
-    content: "";
-    width: 10px;
-    background: #3d6cff;
-} */
-/* .navItem::before {
-    content: "light";
-    width: 10px;
-    height: 10px;
-    background: #3d6cff;
-
-} */
