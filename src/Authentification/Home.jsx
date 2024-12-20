@@ -15,7 +15,7 @@ const Home = () => {
           </p>
         </div>
         <div className="col-md-6 text-center">
-          <img src={HomImage} alt="Home" className="img-fluid" />
+          <img src={HomImage} alt="Home" className="img-fluid" style={{width : "300px"}} />
         </div>
       </div>
 

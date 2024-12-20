@@ -1,28 +1,117 @@
+/* Sidebar Styles */
+.sideNav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 200px;
+    background-color: #fff;
+    min-height: 100vh;
+    border-right: 1px #ccc solid;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Fix the logout button at the bottom of the sidebar */
+.sideNav .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push logout button to the bottom */
+    flex-grow: 1;
+}
+
+.sideNav .nav-item.mt-auto {
+    margin-top: auto; /* Ensures logout button stays at the bottom */
+}
+
+/* Sticky Sidebar when scrolling */
+
+
+/* Additional adjustments for responsive behavior */
+@media (max-width: 768px) {
+    
+}
+
+
+.sideNav .navItem {
+    padding-left: 20px;
+}
+
+.sideNav .navItem i {
+    font-size: 1.2rem;
+}
+
+/* Content area that fills the rest of the screen */
+.content-area {
+    flex-grow: 1;
+    background-color: #ffffff;
+    /* To ensure it's visually distinct */
+    transition: margin-left 0.3s ease;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+    .sideNav {
+        width: 80px;
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    .sideNav .navItem {
+        padding: 0;
+    }
+
+    .sideNav .navItem span {
+        display: none;
+        /* Hide text beside icons */
+    }
+
+    .sideNav .navItem i {
+        margin: 0 auto;
+        /* Center icons */
+        font-size: 1.5rem;
+    }
+
+}
+
+
+
+
 /* General navigation item styles */
 .navItem {
     padding: 5px 0;
     margin: 10px 0;
     color: #616060;
     font-size: 14px;
-    position: relative; /* Allows positioning of ::before pseudo-element */
+    position: relative;
+    /* Allows positioning of ::before pseudo-element */
     display: flex;
-    align-items: center; /* Vertically align content */
+    align-items: center;
+    /* Vertically align content */
 }
 
 /* Active navigation item styles */
 .navItem.active {
     background: #e7f0fa;
-    color: #0a65cc !important; /* Blue text color */
+    color: #0a65cc !important;
+    /* Blue text color */
 }
+
 .navItem:hover {
-    color: #616060; /* Blue text color */
+    color: #616060;
+    /* Blue text color */
 }
+
 .logout {
-    color: #616060; /* Blue text color */
+    color: #616060;
+    /* Blue text color */
 }
+
 .logout:hover {
-    color: #616060; /* Blue text color */
+    color: #616060;
+    /* Blue text color */
 }
+
 .logout.active {
     color: #0a65cc !important;
 }
@@ -31,18 +120,24 @@
 .navItem.active::before {
     content: "";
     position: absolute;
-    left: 0; /* Align to the left edge */
+    left: 0;
+    /* Align to the left edge */
     top: 0;
-    height: 100%; /* Full height of the nav item */
-    width: 4px; /* Width of the line */
-    background: #0a65cc; /* Blue color */
-    border-radius: 2px; /* Optional: Rounded edges */
+    height: 100%;
+    /* Full height of the nav item */
+    width: 4px;
+    /* Width of the line */
+    background: #0a65cc;
+    /* Blue color */
+    border-radius: 2px;
+    /* Optional: Rounded edges */
 }
 
 /* Navigation item icon styling */
 .navItem i {
     font-size: 18px;
-    margin-right: 10px; /* Space between icon and text */
+    margin-right: 10px;
+    /* Space between icon and text */
 }
 
 /* Top navigation item styling */
@@ -61,21 +156,59 @@
 /* Top navigation bar styling */
 .topNav {
     border-bottom: 1px #ccc solid;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 100vh;
+    overflow-y: auto;
+
+}
+
+.topNav .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push logout button to the bottom */
+    flex-grow: 1;
+}
+
+/* Logout button at the bottom of the navbar */
+.topNav .nav-item.mt-auto {
+    margin-top: auto; /* Ensures logout button stays at the bottom */
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .topNav {
+        height: auto; /* Let it auto-adjust height in smaller screens */
+    }
+
+    .topNav .navbar-nav {
+        flex-direction: row; /* Change to horizontal layout on smaller screens */
+        justify-content: flex-start; /* Align items to the start */
+    }
+
+    .topNav .nav-item {
+        margin-right: 20px; /* Add some space between navbar items */
+    }
 }
 
 /* Sidebar (side navigation) styling */
-.sideNav {
-    border-right: 1px #ccc solid;
-    height: 100vh; /* Full height of the viewport */
-    overflow-y: auto; /* Scroll only if content overflows */
-    overflow-x: hidden;
-    width: 250px;
-    background-color: #fff; /* Optional: white background */
-}
+
 
 /* Profile image styling */
 .profile {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+/* Search Bar */
+
+.btnSearch {
+    border-radius: 2px;
+    background: #0a65cc;
+    color: #fff;
+    border: none;
+    padding: 0px 13px;
+
 }

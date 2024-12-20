@@ -6,6 +6,8 @@ import SignUp from "./Authentification/SignUp";
 import Login from "./Authentification/Login";
 import './styles/home.css'
 import Candidate from "./candidate/candidate";
+import Overview from  "./candidate/components_candidate/SideBar"
+import AppliedJob from  "./candidate/components_candidate/SideBar"
 
 const App = () => {
   return (
@@ -18,7 +20,14 @@ const App = () => {
         </div>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Candidate" element={<Candidate />} />
+        /* <Route path="/Candidate" element={<Candidate />}></Route>
+
+        {/* <Route path="/Candidate" element={<Candidate 
+        <Route path="/Candidate/appliedJob" element={<AppliedJob />} />
+        
+        />} /> */}
+
+
       </Routes>
     </Router>
   );

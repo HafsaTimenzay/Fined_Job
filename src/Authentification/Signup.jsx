@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoginImage from '../assets/images/login.jpeg';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
-import logo from '../assets/images/logo.png';
+import Logo from '../components/logo';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
@@ -17,17 +17,7 @@ const Signup = () => {
         {/* Partie gauche : formulaire */}
         <Col md={6} className="form-container bg-white p-3">
           <div className="container w-75">
-            <div className="d-flex align-items-center mb-5">
-              <img
-                src={logo}
-                alt="JobMate Logo"
-                style={{ width: "35px", height: "35px" }}
-                className="me-2"
-              />
-              <span className="fw-bold fs-5" style={{ color: "#000" }}>
-                JobMate
-              </span>
-            </div>
+            <Logo />
 
             <h2>Create account.</h2>
             <p>

@@ -1,17 +1,75 @@
 .job-header{
     border-radius: 20px;
 }
-.activeJob i{
-    color: rgb(44, 206, 44);
-    font-size: 30px;
-}
+
 .btsIcon{
-    font-size: large;
-    color: #a0a0a0;
+    font-size: small;
+    color: #3d6cff;
 }
 .ViewDetatils{
     color: #3d6cff;
 }
+
+/* Job Alert */
+/* cursor: "pointer", display: "flex", alignItems: "center", flexDirection: "row" */
+.jobCard{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    height: fit-content;
+}
+.jobImg{
+    width: 60px;
+    margin-right: 15px;
+    align-self: start;
+}
+.imgJobDes{
+    width: 60px;
+    height: 60px;
+    align-self: start;
+    border-radius: 5px;
+}
+
+.appliedBtn{
+    border-radius: 3px;
+    background: #0a65cc;
+    color: #fff;
+    border: none;
+    padding: 0px 13px;
+}
+
+.saveBtn{
+    width: 35px;
+    height: 35px;
+    background: #dfedff;
+}
+
+.sub-title{
+    color: #0a65cc;
+}
+
+.salary{
+    font-size: medium;
+}
+.linksIcon{
+    color: #0a65cc;
+    font-size: 20px;
+    padding-top: 5px;
+}
+.linksBtn{
+    width: 35px;
+    height: 35px;
+    background: #d2e6ff;
+    border-radius: 2px;
+}
+.linksBtn:hover, .linksBtn:active{
+    background: #b2d4fe;
+}
+
+
+
 /* .btnViewDetatils{
     background: #f0f0f0;
     color: #3d6cff;
