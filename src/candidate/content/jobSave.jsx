@@ -14,7 +14,6 @@ export default function jobSave() {
             location: "Rabat",
             maxSalary: "100",
             minSalary: "80",
-            dateApplied: "Feb 2, 2019",
             status: "Active"
         },
         {
@@ -24,7 +23,6 @@ export default function jobSave() {
             location: "Agadir",
             maxSalary: "80",
             minSalary: "50",
-            dateApplied: "Dec 7, 2019",
             status: "Expert"
         }
     ];

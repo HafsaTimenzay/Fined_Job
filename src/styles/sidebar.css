@@ -104,69 +104,58 @@
 
 
 
-/* General navigation item styles */
+
 .navItem {
-    padding: 5px 0;
-    margin: 10px 0;
+    padding: 8px; /* Padding for non-active items */
+    margin: 5px 0;  /* Reduced vertical margin */
     color: #616060;
     font-size: 14px;
     position: relative;
-    /* Allows positioning of ::before pseudo-element */
     display: flex;
     align-items: center;
-    line-height: 0.2rem;
-    /* Vertically align content */
+    line-height: 1.4;
 }
 
-/* Active navigation item styles */
-.navItem.active {
-    background: #e7f0fa;
-    color: #0a65cc !important;
-    /* Blue text color */
+/* Styling for active nav item */
+.nav-item.active .nav-link {
+    background: #e7f0fa; /* Light background when active */
+    color: #0a65cc !important; /* Blue color for active item */
+    padding: 12px 20px; /* Add padding to active item */
 }
 
-.navItem:hover {
-    color: #616060;
-    /* Blue text color */
+/* Ensure nav-link is stretched across the full width of the item */
+.nav-item .nav-link {
+    display: block; /* Makes the link take up full width */
+    width: 100%; /* Ensure it fills the parent element */
+    padding: 8px 10px; /* Default padding */
 }
 
-.logout {
-    color: #616060;
-    /* Blue text color */
-}
-
-.logout:hover {
-    color: #616060;
-    /* Blue text color */
-}
-
-.logout.active {
-    color: #0a65cc !important;
-}
-
-/* Blue left line effect for active item */
-.navItem.active::before {
+/* Active item’s left blue line (optional) */
+.nav-item.active .nav-link::before {
     content: "";
     position: absolute;
     left: 0;
-    /* Align to the left edge */
     top: 0;
     height: 100%;
-    /* Full height of the nav item */
     width: 4px;
-    /* Width of the line */
     background: #0a65cc;
-    /* Blue color */
-    border-radius: 2px;
-    /* Optional: Rounded edges */
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px; /* Optional: Rounded edges */
 }
 
 /* Navigation item icon styling */
 .navItem i {
     font-size: 18px;
-    margin-right: 10px;
-    /* Space between icon and text */
+    margin-right: 10px; /* Space between icon and text */
 }
+
+/* Space between nav and next section */
+.navbar-nav {
+    margin-bottom: 15px;
+}
+
+
+  
 
 /* Top navigation item styling */
 .navItemTop {

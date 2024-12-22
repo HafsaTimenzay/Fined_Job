@@ -29,7 +29,7 @@ const SideBar = () => {
           <ul className="navbar-nav flex-column w-100">
             <li className={`nav-item my-2 ${activeTab === "overview" ? "active" : ""}`}>
               <button
-                className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
+                className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
                 onClick={() => setActiveTab("overview")}
               >
                 <i className="fi fi-rr-layers mx-4"></i>
@@ -39,7 +39,7 @@ const SideBar = () => {
 
             <li className={`nav-item my-2 ${activeTab === "appliedJobs" ? "active" : ""}`}>
               <button
-                className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
+                className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
                 onClick={() => setActiveTab("appliedJobs")}
               >
                 <i className="fi fi-rr-briefcase mx-4"></i>
@@ -49,16 +49,16 @@ const SideBar = () => {
 
             <li className={`nav-item my-2 ${activeTab === "jobAlert" ? "active" : ""}`}>
               <button
-                className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
+                className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
                 onClick={() => setActiveTab("jobAlert")}
               >
                 <i className="fi fi-rs-bell mx-4"></i>
                 <span className="d-none d-md-inline">Job Alert</span>
               </button>
             </li>
-            <li className={`nav-item my-2 ${activeTab === "jobAlert" ? "active" : ""}`}>
+            <li className={`nav-item my-2 ${activeTab === "jobSave" ? "active" : ""}`}>
               <button
-                className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
+                className="btn nav-link navItem d-flex align-items-center py-2 px-0 m-0 w-100 text-start"
                 onClick={() => setActiveTab("jobSave")}
               >
                 <i class="fi fi-rr-bookmark mx-4"></i>
@@ -68,7 +68,7 @@ const SideBar = () => {
 
             <li className={`nav-item my-2 ${activeTab === "settings" ? "active" : ""}`}>
               <button
-                className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
+                className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
                 onClick={() => setActiveTab("settings")}
               >
                 <i className="fi fi-rr-settings mx-4"></i>

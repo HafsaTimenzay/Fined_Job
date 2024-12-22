@@ -4,6 +4,7 @@ import "../../styles/candidate.css";
 import Img1 from "../../assets/images/apple.jpg";
 
 const JobAlert = () => {
+
     const jobs = [
         {
             id: 1,
@@ -47,6 +48,16 @@ const JobAlert = () => {
     ];
 
     const [selectedJob, setSelectedJob] = useState(jobs[0]);
+
+    const [isLightBoxVisible, setLightBoxVisible] = useState(false);
+
+    const handleOpenLightBox = () => {
+        setLightBoxVisible(true); // Affiche la lightbox
+    };
+
+    const handleCloseLightBox = () => {
+        setLightBoxVisible(false); // Ferme la lightbox
+    };
 
     return (
         <div className="container-fluid">
@@ -104,10 +115,54 @@ const JobAlert = () => {
                                 </button>
 
 
-                                <button className="px-4 py-2 d-flex align-items-center appliedBtn">
+                                {/* Bouton pour ouvrir la lightbox */}
+                                <button
+                                    className="px-4 py-2 d-flex align-items-center appliedBtn"
+                                    onClick={handleOpenLightBox}
+                                >
                                     Apply Now
                                     <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
                                 </button>
+
+                                {/* Lightbox */}
+                                {isLightBoxVisible && (
+                                    <div className="lightbox-overlay" onClick={handleCloseLightBox}>
+                                        <div
+                                            className="lightbox-content"
+                                            style={{ position: "relative" }}
+                                            onClick={(e) => e.stopPropagation()} // Empêche la fermeture lorsqu'on clique à l'intérieur
+                                        >
+                                            <button className="close-btn" onClick={handleCloseLightBox}>
+                                                <i className="fi fi-rr-cross-small"></i>
+                                            </button>
+                                            <h2>Apply for the Job</h2>
+                                            <p>Please fill in the necessary details to proceed.</p>
+                                            <form>
+                                                <div className="boxLight mb-3">
+                                                    <label htmlFor="description" className="form-label text-left">Description</label>
+                                                    <textarea
+                                                        className="form-control"
+                                                        id="description"
+                                                        rows="4"
+                                                        placeholder="Enter your description here"
+                                                    ></textarea>
+                                                </div>
+
+                                                <div className="mb-3">
+                                                    <label htmlFor="fileUpload" className="form-label text-left">Upload CV</label>
+                                                    <input className="form-control" type="file" id="fileUpload" />
+                                                </div>
+
+                                                <button type="submit" className="px-4 py-2 appliedBtn">
+                                                    Send Description
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                )}
+
+
                             </div>
 
 
@@ -127,18 +182,18 @@ const JobAlert = () => {
                             {/* Requirements */}
                             <h5>Requirements</h5>
                             <ul>
-                            {selectedJob.requirements.map((requirement, index) => (
-                                <li key={index}>{requirement}</li>
-                            ))}
-                            
+                                {selectedJob.requirements.map((requirement, index) => (
+                                    <li key={index}>{requirement}</li>
+                                ))}
+
                             </ul>
 
                             {/* Benefits */}
                             <h5>Benefits</h5>
                             <ul>
-                            {selectedJob.benefits.map((benefit, index) => (
-                                <li key={index}>{benefit}</li>
-                            ))}
+                                {selectedJob.benefits.map((benefit, index) => (
+                                    <li key={index}>{benefit}</li>
+                                ))}
                             </ul>
 
                         </div>
