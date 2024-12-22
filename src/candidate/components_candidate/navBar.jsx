@@ -2,21 +2,20 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../index.css";
 import "../../styles/sidebar.css";
-import logoImage from "../../assets/images/logo.png";
 import profileImg from "../../assets/images/profile.jpg";
 import Logo from "../../components/logo";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg topNav" style={{ height: "70px" }}>
-      {/* Brand */}
-      <Logo/>
+    <nav className="navbar navbar-expand-lg topNav px-3" style={{ height: "auto" }}>
+      {/* Logo */}
+      <div className="d-flex align-items-center">
+        <Logo />
+      </div>
 
-
-      {/* Centered Search Bar */}
-      <div className="d-flex flex-grow-1 justify-content-center align-items-center">
-        <div className="input-group" style={{ maxWidth: "600px" }}>
-          {/* Job Title Input */}
+      {/* Search Bar */}
+      <div className="search-container flex-grow-1 d-flex justify-content-center order-2 order-md-1 mt-3 mt-md-0">
+        <div className="input-group" style={{ maxWidth: "600px", width: "100%" }}>
           <span className="input-group-text">
             <i className="bi bi-search"></i>
           </span>
@@ -26,8 +25,6 @@ const NavBar = () => {
             placeholder="Job title, Keyword..."
             aria-label="Job title, Keyword"
           />
-
-          {/* Location Input */}
           <span className="input-group-text">
             <i className="bi bi-geo-alt"></i>
           </span>
@@ -37,19 +34,14 @@ const NavBar = () => {
             placeholder="Your Location"
             aria-label="Your Location"
           />
-
-          {/* Find Job Button */}
           <button className="btnSearch" type="button">
             Find Job
           </button>
         </div>
       </div>
 
-      {/* Sidebar Links */}
-      <div className="ms-auto d-flex align-items-center customNav">
-        {/* <a href="#notification" className="nav-link mt-2 navItemTop">
-          <i className="fa-solid fa-bell"></i>
-        </a> */}
+      {/* Profile Image */}
+      <div className="ms-auto d-flex align-items-center order-1 order-md-2">
         <a href="#profile" className="nav-link mx-3 active navItemTop">
           <img src={profileImg} className="img-fluid profile" alt="profile" />
         </a>

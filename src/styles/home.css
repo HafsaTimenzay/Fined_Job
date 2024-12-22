@@ -1,4 +1,4 @@
-.home{
+body{
     background-color: #f3f3fa;
   }
 .homeIcon{
@@ -9,6 +9,7 @@
   /* padding: 18px;
   border-radius: 5px; */
 }
+
 .homeIcon i{
   font-size: 25px;
   color: #3d6cff;
@@ -32,4 +33,11 @@
 }
 .btnLog:hover{
   background: #fff;
+}
+@media (max-width : 577px) and (min-width : 239px) {
+  .infoCard{
+    width: 300px;
+    margin: auto;
+
+  }
 }

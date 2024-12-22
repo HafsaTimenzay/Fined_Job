@@ -49,8 +49,8 @@ export default function JobList() {
                                     <img src={Img2} style={{ width: '50px' }} alt="logo" className="me-3 rounded" />
                                     <div>
                                         <strong className='h5'>{job.title}</strong>
-                                        <span className="badge bg-label-primary ms-2 mt-2">{job.typeJob}</span>
-                                        <div className="text-muted small">
+                                        <span className="badge bg-label-primary medium ms-2 mt-2">{job.typeJob}</span>
+                                        <div className="text-muted small pt-1">
                                             <i className="fi fi-rs-marker text-muted small"></i> {job.location}
                                             <i className="fi fi-rr-dollar text-muted small ps-2"></i> {job.minSalary}DH-{job.maxSalary}DH/month
                                         </div>

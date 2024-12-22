@@ -1,4 +1,23 @@
-/* Sidebar Styles */
+/* Center the search bar when the screen is small */
+@media (max-width: 768px) {
+    .search-container {
+      margin-top: 15px;
+      justify-content: center; /* Center the search bar */
+    }
+  }
+  
+  /* Center the search bar between logo and profile on larger screens */
+  @media (min-width: 769px) {
+    .topNav {
+      display: flex;
+      align-items: center;
+    }
+  
+    .search-container {
+      order: 2; /* Place in the middle of the navbar */
+    }
+  }
+  
 .sideNav {
     position: sticky;
     top: 0;
