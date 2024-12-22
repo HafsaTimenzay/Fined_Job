@@ -20,6 +20,7 @@ const JobAlert = () => {
             jobExpires: "14 Aug, 2024",
             experience: "3+ years",
             typeJob: "Remote",
+            typePost: "Internship",
             education: "Bachelor's Degree",
             requirements: [
                 "Experience in Scrum methodology",
@@ -41,6 +42,7 @@ const JobAlert = () => {
             jobExpires: "20 Aug, 2024",
             experience: "2+ years",
             typeJob: "On-site",
+            typePost: "Job Opportunity",
             education: "Master's Degree",
             requirements: ["Experience with React Native", "Proficiency in JavaScript"],
             benefits: ["On-Site Gym", "Paid Leave"],
@@ -84,7 +86,7 @@ const JobAlert = () => {
                                 <h5 className="p-0 m-0">{job.title}</h5>
                                 <div className="text-muted small p-0 m-0">
                                     <p className="text-muted p-0 m-0">{job.company}</p>
-                                    <p className="text-muted p-0 m-0">{job.location} . ({job.typeJob})</p>
+                                    <p className="text-muted p-0 m-0">{job.location} . ({job.typePost})</p>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +106,7 @@ const JobAlert = () => {
                             <div>
                                 <h4 className="mb-0">{selectedJob.title}</h4>
                                 <p className="text-muted">
-                                    {selectedJob.company} · {selectedJob.location} . ({selectedJob.typeJob})
+                                    {selectedJob.company} · {selectedJob.location} . ({selectedJob.typePost})
                                 </p>
                             </div>
 
