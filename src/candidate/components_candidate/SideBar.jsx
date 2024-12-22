@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../index.css";
 import "../../styles/sidebar.css";
+import { Link } from "react-router-dom";
 import Overview from "../content/overview";
 import JobList from "../content/JobList";
 import JobAlert from "../content/jobAlert";
+import JobSave from "../content/jobSave";
 import Settings from "../content/settings";
+import Home from "../../Authentification/Home";
 
 const SideBar = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -29,7 +32,7 @@ const SideBar = () => {
                 className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
                 onClick={() => setActiveTab("overview")}
               >
-                <i className="fa-solid fa-layer-group mx-4"></i>
+                <i className="fi fi-rr-layers mx-4"></i>
                 <span className="d-none d-md-inline">Overview</span>
               </button>
             </li>
@@ -39,7 +42,7 @@ const SideBar = () => {
                 className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
                 onClick={() => setActiveTab("appliedJobs")}
               >
-                <i className="fa-solid fa-briefcase mx-4"></i>
+                <i className="fi fi-rr-briefcase mx-4"></i>
                 <span className="d-none d-md-inline">Applied Jobs</span>
               </button>
             </li>
@@ -49,8 +52,17 @@ const SideBar = () => {
                 className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
                 onClick={() => setActiveTab("jobAlert")}
               >
-                <i className="fa-solid fa-bell mx-4"></i>
+                <i className="fi fi-rs-bell mx-4"></i>
                 <span className="d-none d-md-inline">Job Alert</span>
+              </button>
+            </li>
+            <li className={`nav-item my-2 ${activeTab === "jobAlert" ? "active" : ""}`}>
+              <button
+                className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
+                onClick={() => setActiveTab("jobSave")}
+              >
+                <i class="fi fi-rr-bookmark mx-4"></i>
+                <span className="d-none d-md-inline">Save Jobs</span>
               </button>
             </li>
 
@@ -59,16 +71,18 @@ const SideBar = () => {
                 className="btn nav-link navItem d-flex align-items-center p-0 w-100 text-start"
                 onClick={() => setActiveTab("settings")}
               >
-                <i className="fa-solid fa-gear mx-4"></i>
+                <i className="fi fi-rr-settings mx-4"></i>
                 <span className="d-none d-md-inline">Settings</span>
               </button>
             </li>
 
             {/* Log Out at Bottom */}
-            <li className="nav-item mt-auto mb-3">
-              <a href="#logout" className="nav-link logout ps-4">
-                <i className="fa-solid fa-right-from-bracket me-3"></i>
-                <span className="d-none d-md-inline">Log out</span>
+            <li className="nav-item mt-5 pt-5 ">
+              <a className="nav-link logout ps-4 text-muted navItem">
+                <i className="fi fi-ss-sign-out-alt me-3"></i>
+                <Link to="/" className="login">  {/* Change to "/" for the homepage */}
+                  <span className="d-none d-md-inline">Log out</span>
+                </Link>
               </a>
             </li>
           </ul>
@@ -80,6 +94,7 @@ const SideBar = () => {
         {activeTab === "overview" && <Overview />}
         {activeTab === "appliedJobs" && <JobList />}
         {activeTab === "jobAlert" && <JobAlert />}
+        {activeTab === "jobSave" && <JobSave />}
         {activeTab === "settings" && <Settings />}
       </div>
     </div>

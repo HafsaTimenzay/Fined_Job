@@ -7,7 +7,8 @@ import Logo from "../../components/logo";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg topNav px-3" style={{ height: "auto" }}>
+    <nav className="navbar navbar-expand-lg topNav px-3 custom-fixed-top" style={{ height: "auto" }}>
+      
       {/* Logo */}
       <div className="d-flex align-items-center">
         <Logo />
@@ -17,24 +18,24 @@ const NavBar = () => {
       <div className="search-container flex-grow-1 d-flex justify-content-center order-2 order-md-1 mt-3 mt-md-0">
         <div className="input-group" style={{ maxWidth: "600px", width: "100%" }}>
           <span className="input-group-text">
-            <i className="bi bi-search"></i>
+            <i className="bi bi-search p-1"></i>
           </span>
           <input
             type="text"
-            className="form-control"
+            className="form-control p-1"
             placeholder="Job title, Keyword..."
             aria-label="Job title, Keyword"
           />
           <span className="input-group-text">
-            <i className="bi bi-geo-alt"></i>
+            <i className="bi bi-geo-alt p-1"></i>
           </span>
           <input
             type="text"
-            className="form-control"
+            className="form-control p-1"
             placeholder="Your Location"
             aria-label="Your Location"
           />
-          <button className="btnSearch" type="button">
+          <button className="btnSearch px-3" type="button">
             Find Job
           </button>
         </div>

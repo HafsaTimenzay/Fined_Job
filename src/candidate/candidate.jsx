@@ -12,27 +12,12 @@ export default function Candidate() {
   return (
     <div className="container-fluid p-0 m-0">
       <div className="row">
-        {/* Aside (barre latérale) */}
-        <div className="col">
+        <div>
           <NavBar />
         </div>
-
-        {/* Contenu principal */}
-        {/* <div className="d-flex"> */}
-        {/* Sidebar with fixed width */}
           <div>
             <SideBar />
-
-            
           </div>
-
-        {/* Main content taking the remaining space */}
-        {/* <div className="flex-grow-1">
-          <main className="m-0">
-            <JobList />
-          </main>
-        </div> */}
-      {/* </div> */}
 
         </div>
       </div>
