@@ -16,7 +16,7 @@ const Navbar = () => {
               Sign Up
             </Link>
           </button>
-          <button className="btn btn-outline-primary text-primary btnLog">
+          <button className="btnLog">
             <Link to="/login" className="login text-decoration-none">
               Login
             </Link>
