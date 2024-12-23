@@ -52,11 +52,9 @@ export default function jobSave() {
                             <td className="text-center align-middle">
                                 <span className="pt-5">
                                     {job.status === "Active" ? (
-                                        <button className="btn btn-primary btn-sm">Applied Now <i class="fi fi-rr-arrow-right"></i></button>
-                                    ) : job.status === "Expert" ? (
-                                        <button className="btn btn-secondary btn-sm">Deadline Expired</button>
+                                        <button className=" appliedBtn p-2">Applied Now <i class="fi fi-rr-arrow-right px-2"></i></button>
                                     ) : (
-                                        <button className="btn btn-primary btn-sm">Applied Now <i class="fi fi-rr-arrow-right"></i></button>
+                                        <button className="ExpiredBtn py-2 px-3">Deadline Expired</button>
                                     )}
                                 </span>
 

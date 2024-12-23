@@ -65,7 +65,7 @@ const JobAlert = () => {
         <div className="container-fluid">
             <div className="row">
                 {/* Sidebar: Job List */}
-                <div className="col-md-4 p-3 border-end">
+                <div className="col-md-4 pt-1 py-3 border-end">
                     <h5 className="my-3">Top Job Picks</h5>
                     {jobs.map((job) => (
                         <div

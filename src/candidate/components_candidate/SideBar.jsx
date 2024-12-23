@@ -11,7 +11,7 @@ import Settings from "../content/settings";
 import Home from "../../Authentification/Home";
 
 const SideBar = () => {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("jobAlert");
 
   return (
     <div className="d-flex">
@@ -27,13 +27,23 @@ const SideBar = () => {
 
           {/* Sidebar Links */}
           <ul className="navbar-nav flex-column w-100">
-            <li className={`nav-item my-2 ${activeTab === "overview" ? "active" : ""}`}>
+            {/* <li className={`nav-item my-2 ${activeTab === "overview" ? "active" : ""}`}>
               <button
                 className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
                 onClick={() => setActiveTab("overview")}
               >
                 <i className="fi fi-rr-layers mx-4"></i>
                 <span className="d-none d-md-inline">Overview</span>
+              </button>
+            </li> */}
+
+            <li className={`nav-item my-2 ${activeTab === "jobAlert" ? "active" : ""}`}>
+              <button
+                className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
+                onClick={() => setActiveTab("jobAlert")}
+              >
+                <i className="fi fi-rs-bell mx-4"></i>
+                <span className="d-none d-md-inline">Job Alert</span>
               </button>
             </li>
 
@@ -47,15 +57,7 @@ const SideBar = () => {
               </button>
             </li>
 
-            <li className={`nav-item my-2 ${activeTab === "jobAlert" ? "active" : ""}`}>
-              <button
-                className="btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start"
-                onClick={() => setActiveTab("jobAlert")}
-              >
-                <i className="fi fi-rs-bell mx-4"></i>
-                <span className="d-none d-md-inline">Job Alert</span>
-              </button>
-            </li>
+          
             <li className={`nav-item my-2 ${activeTab === "jobSave" ? "active" : ""}`}>
               <button
                 className="btn nav-link navItem d-flex align-items-center py-2 px-0 m-0 w-100 text-start"
@@ -91,9 +93,9 @@ const SideBar = () => {
 
       {/* Content Area */}
       <div className="content-area p-4 w-100">
-        {activeTab === "overview" && <Overview />}
-        {activeTab === "appliedJobs" && <JobList />}
         {activeTab === "jobAlert" && <JobAlert />}
+        {/* {activeTab === "overview" && <Overview />} */}
+        {activeTab === "appliedJobs" && <JobList />}
         {activeTab === "jobSave" && <JobSave />}
         {activeTab === "settings" && <Settings />}
       </div>

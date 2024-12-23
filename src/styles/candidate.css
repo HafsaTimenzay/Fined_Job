@@ -144,4 +144,18 @@
     text-align: right;
 
   }
+
+  .outLineBtn{
+    border-radius: 3px;
+    background: #fff;
+    color: #0a65cc;
+    border: 1px #0a65cc solid;
+
+  }
+  .ExpiredBtn{
+    border-radius: 3px;
+    background: #CCC;
+    color: #101316;
+    border: none;
+  }
   
