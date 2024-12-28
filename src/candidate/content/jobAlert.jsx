@@ -26,6 +26,8 @@ const JobAlert = () => {
         "English level B2 or higher",
       ],
       benefits: ["Remote Work", "Health Insurance", "Flexible Hours"],
+      linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
+      website: "https://hafsatimenzay.github.io/Portfolio/"
     },
     {
       id: 2,
@@ -42,6 +44,8 @@ const JobAlert = () => {
       education: "Master's Degree",
       requirements: ["Experience with React Native", "Proficiency in JavaScript"],
       benefits: ["On-Site Gym", "Paid Leave"],
+      linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
+      website: "https://hafsatimenzay.github.io/Portfolio/"
     },
   ];
 
@@ -49,23 +53,35 @@ const JobAlert = () => {
   const [isLightBoxVisible, setLightBoxVisible] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
 
+  const [savedJobs, setSavedJobs] = useState([]);
+
+  const handleSaveJob = (jobId) => {
+    // Check if job is already saved
+    if (savedJobs.includes(jobId)) {
+      setSavedJobs(savedJobs.filter(id => id !== jobId)); // Remove job from saved list
+    } else {
+      setSavedJobs([...savedJobs, jobId]); // Add job to saved list
+    }
+  };
+  
+
   // Effect to update filtered jobs whenever title or location changes
   useEffect(() => {
     // Normalize both location and job location for consistent comparison
     const normalizedJobLocation = jobLocation ? jobLocation.trim().toLowerCase() : null;
     const normalizedTitle = title ? title.trim().toLowerCase() : null;
-  
+
     const filtered = jobs.filter((job) => {
       const titleMatch =
         !normalizedTitle || job.title.toLowerCase().includes(normalizedTitle);
       const locationMatch =
         !normalizedJobLocation || job.location.trim().toLowerCase() === normalizedJobLocation;
-  
+
       return titleMatch && locationMatch;
     });
-  
+
     setFilteredJobs(filtered);
-  
+
     // Set the first job from filtered jobs as the selected job
     if (filtered.length > 0) {
       setSelectedJob(filtered[0]);
@@ -73,7 +89,7 @@ const JobAlert = () => {
       setSelectedJob(jobs[0]); // Fallback to the first job if no filter matches
     }
   }, [title, jobLocation]);
-  
+
 
   const handleOpenLightBox = () => {
     setLightBoxVisible(true); // Show the lightbox
@@ -131,8 +147,14 @@ const JobAlert = () => {
                 </p>
               </div>
               <div className="d-flex align-items-center ms-auto align-self-start">
-                <button className="btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center linksBtn">
-                  <i className="fi fi-rr-bookmark" style={{ color: "#0a65cc" }}></i>
+                <button
+                  className="btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center linksBtn"
+                  onClick={() => handleSaveJob(selectedJob.id)} // On button click, save the job
+                >
+                  <i
+                    className={`fi ${savedJobs.includes(selectedJob.id) ? 'fi-sr-bookmark' : 'fi-rr-bookmark'}`}
+                    style={{ color: "#0a65cc" }}
+                  ></i>
                 </button>
 
                 {/* Button to open the lightbox */}
@@ -216,7 +238,7 @@ const JobAlert = () => {
                 <h5 className="text-success salary">{selectedJob.salary}</h5>
               </div>
 
-              <div className="bg-light p-3 mb-3 rounded">
+              <div className="bg-light mb-3 p-4 rounded shadow-sm">
                 <h6 className="sub-title mb-4 fw-bold text-dark">Job Details</h6>
                 <div className="d-flex align-items-start mb-2">
                   <i
@@ -228,20 +250,6 @@ const JobAlert = () => {
                     <span className="text-muted">{selectedJob.jobPosted}</span>
                   </div>
                 </div>
-                <div className="d-flex align-items-start">
-                  <i
-                    className="fi fi-rr-clock me-3"
-                    style={{ color: "#0a65cc", fontSize: "1.5rem" }}
-                  ></i>
-                  <div>
-                    <strong className="text-dark">Job Expires:</strong>{" "}
-                    <span className="text-muted">{selectedJob.jobExpires}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-light mb-3 p-4 rounded shadow-sm">
-                <h6 className="sub-title mb-4 fw-bold text-dark">Job Overview</h6>
                 <div className="d-flex align-items-start mb-3">
                   <i
                     className="fi fi-rs-map me-3"
@@ -290,16 +298,30 @@ const JobAlert = () => {
               <div className="bg-light p-3 mb-3 rounded">
                 <h6 className="sub-title mb-4 fw-bold text-dark">Related Links</h6>
                 <div className="d-flex align-items-center">
-                  <button className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center">
+                  {/* LinkedIn Button */}
+                  <a
+                    href={selectedJob.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
+                  >
                     <i className="fi fi-brands-linkedin linksIcon"></i>
-                  </button>
-                  <button className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center">
+                  </a>
+                  {/* Portfolio Button */}
+                  <a
+                    href={selectedJob.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
+                  >
                     <i className="fi fi-ss-globe linksIcon"></i>
-                  </button>
+                  </a>
                 </div>
               </div>
+
             </div>
           </div>
+          {/* <PostDetail /> */}
         </div>
       </div>
     </div>

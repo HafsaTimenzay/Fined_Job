@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/candidate.css';
-import Img1 from '../../assets/images/micro.png';
 import Img2 from '../../assets/images/apple.jpg';
-import Img3 from '../../assets/images/google.png';
-import Img4 from '../../assets/images/meta.jpeg';
 
-export default function jobSave() {
-    const jobs = [
+export default function JobSave() {
+    // Initial JSON array of jobs (all jobs saved by default)
+    const initialJobs = [
         {
             id: 1,
             title: "Networking Engineer",
@@ -27,12 +25,23 @@ export default function jobSave() {
         }
     ];
 
+    // State to hold saved jobs
+    const [savedJobs, setSavedJobs] = useState(initialJobs);
+
+    // Handler to remove job from saved jobs (and update UI dynamically)
+    const handleUnsaveJob = (jobId) => {
+        const updatedJobs = savedJobs.filter((job) => job.id !== jobId);
+        setSavedJobs(updatedJobs);
+    };
+
     return (
         <div className="container-fluid table-responsive">
-            <h5 className='m-3'>Favorite Jobs <span className='small text-secondary'>({jobs.length})</span></h5>
+            <h5 className='m-3'>
+                Favorite Jobs <span className='small text-secondary'>({savedJobs.length})</span>
+            </h5>
             <table className="table">
                 <tbody>
-                    {jobs.map((job) => (
+                    {savedJobs.map((job) => (
                         <tr key={job.id}>
                             <td>
                                 <div className="d-flex align-items-center">
@@ -47,18 +56,29 @@ export default function jobSave() {
                                     </div>
                                 </div>
                             </td>
-                            
+
+                            <td className="text-center align-middle">
+                                <button
+                                    className="btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center linksBtn"
+                                    onClick={() => handleUnsaveJob(job.id)} // Remove job from the saved list
+                                >
+                                    <i className="fi fi-sr-bookmark" style={{ color: "#0a65cc" }}></i>
+                                </button>
+                            </td>
 
                             <td className="text-center align-middle">
                                 <span className="pt-5">
                                     {job.status === "Active" ? (
-                                        <button className=" appliedBtn p-2">Applied Now <i class="fi fi-rr-arrow-right px-2"></i></button>
+                                        <button className="appliedBtn p-2">
+                                            Applied Now <i className="fi fi-rr-arrow-right px-2"></i>
+                                        </button>
                                     ) : (
                                         <button className="ExpiredBtn py-2 px-3">Deadline Expired</button>
                                     )}
                                 </span>
-
                             </td>
+
+                            
                         </tr>
                     ))}
                 </tbody>
