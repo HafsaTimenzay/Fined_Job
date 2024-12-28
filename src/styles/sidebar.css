@@ -117,21 +117,21 @@
 }
 
 /* Styling for active nav item */
-.nav-item.active .nav-link {
+.nav-link.active {
     background: #e7f0fa; /* Light background when active */
     color: #0a65cc !important; /* Blue color for active item */
     padding: 12px 20px; /* Add padding to active item */
 }
 
 /* Ensure nav-link is stretched across the full width of the item */
-.nav-item .nav-link {
+.nav-link {
     display: block; /* Makes the link take up full width */
     width: 100%; /* Ensure it fills the parent element */
     padding: 8px 10px; /* Default padding */
 }
 
 /* Active item’s left blue line (optional) */
-.nav-item.active .nav-link::before {
+.nav-link.active::before {
     content: "";
     position: absolute;
     left: 0;
@@ -144,7 +144,7 @@
 }
 
 /* Navigation item icon styling */
-.navItem i {
+.nav-link i {
     font-size: 18px;
     margin-right: 10px; /* Space between icon and text */
 }

@@ -69,7 +69,7 @@ export default function JobSave() {
                             <td className="text-center align-middle">
                                 <span className="pt-5">
                                     {job.status === "Active" ? (
-                                        <button className="appliedBtn p-2">
+                                        <button className="appliedBtn p-2 ps-3">
                                             Applied Now <i className="fi fi-rr-arrow-right px-2"></i>
                                         </button>
                                     ) : (
