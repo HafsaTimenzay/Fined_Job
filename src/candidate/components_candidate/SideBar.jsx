@@ -23,6 +23,17 @@ const SideBar = () => {
 
           {/* Liens de la sidebar */}
           <ul className="navbar-nav flex-column w-100">
+          <li className="nav-item my-2">
+              <NavLink
+                to="/Candidate/overview"
+                className={({ isActive }) =>
+                  `btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start ${isActive ? "active" : ""}`
+                }
+              >
+                <i className="fi fi-rs-bell mx-4"></i>
+                <span className="d-none d-md-inline">Overview</span>
+              </NavLink>
+            </li>
             <li className="nav-item my-2">
               <NavLink
                 to="/Candidate/job-alert"

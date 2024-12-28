@@ -6,6 +6,7 @@ import SignUp from "./Authentification/Signup";
 import Login from "./Authentification/Login";
 import './styles/home.css';
 import Candidate from "./candidate/candidate";
+import Overview from "./candidate/content/overview";
 import JobAlert from "./candidate/content/jobAlert";
 import JobList from "./candidate/content/JobList";
 import JobSave from "./candidate/content/jobSave";
@@ -13,6 +14,7 @@ import Settings from "./candidate/content/settings";
 import SignIn from './enreprise/components_entreprise/Sigin'
 import VerficationPage from './enreprise/components_entreprise/verificationPage'
 import Enreprise from './enreprise/enreprise'
+// import Overview from "./enreprise/content/overview";
 
 
 const App = () => {
@@ -34,7 +36,8 @@ const App = () => {
         {/* Route pour le candidat */}
         <Route path="/Candidate" element={<Candidate />}>
           {/* Routes imbriquées pour le candidat */}
-          <Route index element={<JobAlert />} />
+          <Route index element={<Overview />} />
+          <Route path="overview" element={<Overview />} />
           <Route path="job-alert" element={<JobAlert />} />
           <Route path="applied-jobs" element={<JobList />} />
           <Route path="saved-jobs" element={<JobSave />} />
