@@ -200,20 +200,20 @@ export default function Settings() {
               <button
                 className={`nav-link ${activeTab === tab.key ? "active" : ""}`}
                 onClick={() => setActiveTab(tab.key)}
-                // style={{
-                //     display: "flex",
-                //     alignItems: "center",
-                //     justifyContent: "center",
-                //     padding: "10px 20px",
-                //     borderRadius: "8px",
-                //     border: "none",
-                //     backgroundColor: activeTab === tab.key ? "#007bff" : "#f8f9fa",
-                //     color: activeTab === tab.key ? "#fff" : "#6c757d",
-                //     fontWeight: activeTab === tab.key ? "bold" : "normal",
-                //     cursor: "pointer",
-                //     transition: "all 0.3s ease",
-                //     marginRight: "10px",
-                //   }}
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "10px 20px",
+                    borderRadius: "8px",
+                    border: "none",
+                    backgroundColor: activeTab === tab.key ? "#007bff" : "#f8f9fa",
+                    color: activeTab === tab.key ? "#fff" : "#6c757d",
+                    fontWeight: activeTab === tab.key ? "bold" : "normal",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    marginRight: "10px",
+                  }}
               >
               <i className={tab.icon} style={{ marginRight: "8px" }}></i>
                 {tab.label}

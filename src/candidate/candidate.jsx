@@ -6,7 +6,7 @@ import JobList from "./content/JobList";
 import Settings from "./content/settings";
 import JobAlert from "./content/jobAlert";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter  } from "react-router-dom";
 
 export default function Candidate() {
   return (
@@ -16,7 +16,9 @@ export default function Candidate() {
           <NavBar />
         </div>
           <div>
-            <SideBar />
+          
+      <SideBar />
+  
           </div>
 
         </div>

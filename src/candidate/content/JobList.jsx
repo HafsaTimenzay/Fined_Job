@@ -4,6 +4,7 @@ import Img1 from '../../assets/images/micro.png';
 import Img2 from '../../assets/images/apple.jpg';
 import Img3 from '../../assets/images/google.png';
 import Img4 from '../../assets/images/meta.jpeg';
+import Candidate from '../candidate';
 
 export default function JobList() {
     const jobs = [
@@ -30,6 +31,9 @@ export default function JobList() {
     ];
 
     return (
+        <>
+        {/* <Candidate/> */}
+        
         <div className="container-fluid table-responsive">
             <h5 className='m-3'>Applied Jobs <span className='small text-secondary'>({jobs.length})</span></h5>
             <table className="table">
@@ -69,5 +73,6 @@ export default function JobList() {
                 </tbody>
             </table>
         </div>
+        </>
     );
 }

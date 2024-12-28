@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { InputGroup, Form, Button } from "react-bootstrap";
-import JobAlert from "../content/jobAlert";
+import JobAlert from "../content/PostJob";
 
 export default function SearchBar() {
   const [searchParams, setSearchParams] = useState({ title: "", location: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Form submitted!"); 
     const title = e.target.title.value.trim();
     const location = e.target.location.value.trim();
     setSearchParams({ title, location });
-    console.log("Search Parameters:", { title, location }); 
   };
 
   return (
@@ -41,10 +39,9 @@ export default function SearchBar() {
             />
 
             {/* Find Job Button */}
-            <button 
-             type="submit">
+            <Button variant="primary" type="submit">
               Find Job
-            </button>
+            </Button>
           </InputGroup>
         </form>
       </div>
