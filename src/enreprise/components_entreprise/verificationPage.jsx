@@ -1,14 +1,10 @@
 import React from "react";
+import { Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../../styles/entreprise.css'
 
 const VerificationPage = () => {
-  const navigate = useNavigate();
 
-  const handleVerification = () => {
-    // Logique de vérification réussie
-    navigate("/Enreprise");
-  };
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center vh-100 text-center">
@@ -20,13 +16,18 @@ const VerificationPage = () => {
         <p className="text-muted text-center">Your information is being verified...</p>
         {/* <p className="text-muted text-center">Your compte is verified, Welcome to JobMate</p> */}
         <div>
-          <button className="white-btn me-2" onClick={handleVerification}>
+        <Link to='../Enreprise/overview'>  
+
+          <button className="white-btn me-2">
             View Dashboard
           </button>
-          <button className="blue-btn ms-2" onClick={handleVerification}>
+          </Link>
+          <Link to='../Enreprise/post-job'>  
+          <button className="blue-btn ms-2"> 
             Post Job
             <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
           </button>
+          </Link>
         </div>
       </div>
   

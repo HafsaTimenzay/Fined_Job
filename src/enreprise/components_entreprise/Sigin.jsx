@@ -6,39 +6,39 @@ import Logo from '../../components/logo'
 
 export default function MultiStepForm() {
   const [activeTab, setActiveTab] = useState("companyInfo");
-  const [socialLinks, setSocialLinks] = useState([
-    { platform: "Facebook", url: "" },
-    { platform: "Twitter", url: "" },
-    { platform: "Instagram", url: "" },
-    { platform: "YouTube", url: "" },
-  ]);
+  // const [socialLinks, setSocialLinks] = useState([
+  //   { platform: "Facebook", url: "" },
+  //   { platform: "Twitter", url: "" },
+  //   { platform: "Instagram", url: "" },
+  //   { platform: "YouTube", url: "" },
+  // ]);
   const navigate = useNavigate();
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  const handleSocialLinkChange = (index, field, value) => {
-    const updatedLinks = [...socialLinks];
-    updatedLinks[index][field] = value;
-    setSocialLinks(updatedLinks);
-  };
+  // const handleSocialLinkChange = (index, field, value) => {
+  //   const updatedLinks = [...socialLinks];
+  //   updatedLinks[index][field] = value;
+  //   setSocialLinks(updatedLinks);
+  // };
 
-  const handleAddSocialLink = () => {
-    setSocialLinks([...socialLinks, { platform: "", url: "" }]);
-  };
+  // const handleAddSocialLink = () => {
+  //   setSocialLinks([...socialLinks, { platform: "", url: "" }]);
+  // };
 
-  const handleRemoveSocialLink = (index) => {
-    const updatedLinks = socialLinks.filter((_, i) => i !== index);
-    setSocialLinks(updatedLinks);
-  };
+  // const handleRemoveSocialLink = (index) => {
+  //   const updatedLinks = socialLinks.filter((_, i) => i !== index);
+  //   setSocialLinks(updatedLinks);
+  // };
 
   const handleFinishEditing = () => {
     navigate("/Enreprise/verification");
   };
 
   return (
-    <div className="container mt-4 ">
+    <div className="container mt-4">
       <Logo />
       <div className="card mt-4 d-flex justify-content-center">
         <div className="card-body">
@@ -80,7 +80,7 @@ export default function MultiStepForm() {
                 <h6 className="my-4" >Company Information</h6>
                 <form>
                   {/* Company Info Form */}
-                  <div className="mb-5">
+                  <div className="mb-3">
                     <div className="row g-3">
                       <div className="col-md-3">
                         <label className="form-label">Logo</label>
@@ -141,7 +141,7 @@ export default function MultiStepForm() {
                 <h6 className="my-4">Founding Info</h6>
                 <form>
                   {/* Founding Info Form */}
-                  <div className="mb-5">
+                  <div className="mb-3">
                     <div className="row g-3">
                       <div className="col-md-4">
                         <label htmlFor="OrganizationType" className="form-label">Organization Type</label>

@@ -20,7 +20,7 @@ const SideBar = () => {
 
           {/* Liens de la sidebar */}
           <ul className="navbar-nav flex-column w-100">
-          <li className="nav-item my-2">
+          <li className="nav-item my-2 Nvg">
               <NavLink
                 to="/Candidate/overview"
                 className={({ isActive }) =>
@@ -31,7 +31,7 @@ const SideBar = () => {
                 <span className="d-none d-md-inline">Overview</span>
               </NavLink>
             </li>
-            <li className="nav-item my-2">
+            <li className="nav-item my-2 Nvg">
               <NavLink
                 to="/Candidate/job-alert"
                 className={({ isActive }) =>
@@ -43,7 +43,7 @@ const SideBar = () => {
               </NavLink>
             </li>
 
-            <li className="nav-item my-2">
+            <li className="nav-item my-2 Nvg">
               <NavLink
                 to="/Candidate/applied-jobs"
                 className={({ isActive }) =>
@@ -55,7 +55,7 @@ const SideBar = () => {
               </NavLink>
             </li>
 
-            <li className="nav-item my-2">
+            <li className="nav-item my-2 Nvg">
               <NavLink
                 to="/Candidate/saved-jobs"
                 className={({ isActive }) =>
@@ -67,7 +67,7 @@ const SideBar = () => {
               </NavLink>
             </li>
 
-            <li className="nav-item my-2">
+            <li className="nav-item my-2 Nvg">
               <NavLink
                 to="/Candidate/settings"
                 className={({ isActive }) =>

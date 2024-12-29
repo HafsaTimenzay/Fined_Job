@@ -15,6 +15,11 @@ import Post from "./candidate/content/post";
 import SignIn from './enreprise/components_entreprise/Sigin'
 import VerficationPage from './enreprise/components_entreprise/verificationPage'
 import Enreprise from './enreprise/enreprise'
+import OverviewEnr from './enreprise/content/overview'
+import MyJobs from './enreprise/content/myJobs'
+import SavedCandidate from './enreprise/content/candidateSaved'
+import PostJob from './enreprise/content/PostJob'
+import SettingsEnr from './enreprise/content/settings'
 // import Overview from "./enreprise/content/overview";
 
 
@@ -48,7 +53,14 @@ const App = () => {
 
         <Route path="/Enreprise/SignIn" element={<SignIn />} />
         <Route path="/Enreprise/verification" element={<VerficationPage />} />
-        <Route path="/Enreprise" element={<Enreprise />} />
+        <Route path="/Enreprise" element={<Enreprise />} >
+          <Route index element={<OverviewEnr />} />
+          <Route path="overview" element={<OverviewEnr />} />
+          <Route path="post-job" element={<PostJob />} />
+          <Route path="my-jobs" element={<MyJobs />} />
+          <Route path="saved-candidates" element={<SavedCandidate />} />
+          <Route path="settings" element={<SettingsEnr />} />
+        </Route>
       </Routes>
     </Router>
   );

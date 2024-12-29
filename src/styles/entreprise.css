@@ -1,4 +1,6 @@
-
+/* body{
+    background: #fff;
+} */
 /* Verification Page */
 .blue-btn{
     border-radius: 3px;
@@ -28,6 +30,9 @@
 }
 
 /* Sign Entreprise */
+.signInBg{
+    background: #fff;
+}
 .NavDes{
     border-bottom: 0.1rem solid #0a65cc;
     
