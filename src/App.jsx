@@ -42,7 +42,7 @@ const App = () => {
           <Route path="job-alert" element={<JobAlert />} />
           <Route path="applied-jobs" element={<JobList />} />
           <Route path="saved-jobs" element={<JobSave />} />
-          {/* <Route path="settings" element={<Settings />} /> */}
+          <Route path="settings" element={<Settings />} />
           <Route path="job-alert/post" element={<Post />} />
         </Route>
 

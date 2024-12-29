@@ -27,7 +27,7 @@ const SideBar = () => {
                   `btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start ${isActive ? "active" : ""}`
                 }
               >
-                <i className="fi fi-rs-bell mx-4"></i>
+                <i className="fi fi-rr-layers mx-4"></i>
                 <span className="d-none d-md-inline">Overview</span>
               </NavLink>
             </li>
