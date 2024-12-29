@@ -1,12 +1,9 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";  // Ajout de Outlet pour afficher les sous-routes
+import { NavLink, Outlet } from "react-router-dom"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../index.css";
 import "../../styles/sidebar.css";
-import JobAlert from "../content/jobAlert";
-import JobList from "../content/JobList";
-import JobSave from "../content/jobSave";
-import Settings from "../content/settings";
+
 
 const SideBar = () => {
   return (

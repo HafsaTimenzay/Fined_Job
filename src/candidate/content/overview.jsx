@@ -55,7 +55,7 @@ const Overview = () => {
       <div className="row">
         <div className="col-md-4">
           <div
-            className="card text-center shadow-sm p-3"
+            className="card text-center shadow-sm p-2 my-2"
             style={{ backgroundColor: "#EAF3FF", border: "none", borderRadius: "10px" }}
           >
             <div className="card-body">
@@ -74,7 +74,7 @@ const Overview = () => {
         </div>
         <div className="col-md-4">
           <div
-            className="card text-center shadow-sm p-3"
+            className="card text-center shadow-sm p-2 my-2"
             style={{ backgroundColor: "#FFF7E6", border: "none", borderRadius: "10px" }}
           >
             <div className="card-body">
@@ -93,7 +93,7 @@ const Overview = () => {
         </div>
         <div className="col-md-4">
           <div
-            className="card text-center shadow-sm p-3"
+            className="card text-center shadow-sm p-2 my-2"
             style={{ backgroundColor: "#EBFAEB", border: "none", borderRadius: "10px" }}
           >
             <div className="card-body">

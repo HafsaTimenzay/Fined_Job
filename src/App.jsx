@@ -11,6 +11,7 @@ import JobAlert from "./candidate/content/jobAlert";
 import JobList from "./candidate/content/JobList";
 import JobSave from "./candidate/content/jobSave";
 import Settings from "./candidate/content/settings";
+import Post from "./candidate/content/post";
 import SignIn from './enreprise/components_entreprise/Sigin'
 import VerficationPage from './enreprise/components_entreprise/verificationPage'
 import Enreprise from './enreprise/enreprise'
@@ -41,7 +42,8 @@ const App = () => {
           <Route path="job-alert" element={<JobAlert />} />
           <Route path="applied-jobs" element={<JobList />} />
           <Route path="saved-jobs" element={<JobSave />} />
-          <Route path="settings" element={<Settings />} />
+          {/* <Route path="settings" element={<Settings />} /> */}
+          <Route path="job-alert/post" element={<Post />} />
         </Route>
 
         <Route path="/Enreprise/SignIn" element={<SignIn />} />
