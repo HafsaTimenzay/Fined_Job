@@ -7,9 +7,11 @@ export default function SearchBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert("Form submitted!"); 
     const title = e.target.title.value.trim();
     const location = e.target.location.value.trim();
     setSearchParams({ title, location });
+    console.log("Search Parameters:", { title, location }); 
   };
 
   return (
@@ -39,9 +41,10 @@ export default function SearchBar() {
             />
 
             {/* Find Job Button */}
-            <Button variant="primary" type="submit">
+            <button 
+             type="submit">
               Find Job
-            </Button>
+            </button>
           </InputGroup>
         </form>
       </div>

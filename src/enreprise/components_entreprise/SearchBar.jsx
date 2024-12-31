@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { InputGroup, Form, Button } from "react-bootstrap";
-import JobAlert from "../content/jobAlert";
+import JobAlert from "../content/PostJob";
 
 export default function SearchBar() {
   const [searchParams, setSearchParams] = useState({ title: "", location: "" });

@@ -1,11 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
+import { Link,useNavigate} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../index.css";
-import "../../styles/sidebar.css";
+// import "../../styles/sidebar.css";
 import profileImg from "../../assets/images/profile.jpg";
 import Logo from "../../components/logo";
 
+
 const NavBar = () => {
+    const [showLightbox, setShowLightbox] = useState(false); // State for the lightbox
+    const navigate = useNavigate(); 
+    const handleLogout = () => {
+      console.log("User logged out");
+      setShowLightbox(false); // Close the lightbox
+    };
+    const handleSettings = () => {
+      navigate("/settings");
+      setShowLightbox(false); // Close the lightbox
+    };
   return (
     <nav className="navbar navbar-expand-lg topNav px-3 custom-fixed-top" style={{ height: "auto" }}>
       
@@ -14,38 +26,53 @@ const NavBar = () => {
         <Logo />
       </div>
 
-      {/* Search Bar */}
-      <div className="search-container flex-grow-1 d-flex justify-content-center order-2 order-md-1 mt-3 mt-md-0">
-        <div className="input-group" style={{ maxWidth: "600px", width: "100%" }}>
-          <span className="input-group-text">
-            <i className="bi bi-search p-1"></i>
-          </span>
-          <input
-            type="text"
-            className="form-control p-1"
-            placeholder="Job title, Keyword..."
-            aria-label="Job title, Keyword"
-          />
-          <span className="input-group-text">
-            <i className="bi bi-geo-alt p-1"></i>
-          </span>
-          <input
-            type="text"
-            className="form-control p-1"
-            placeholder="Your Location"
-            aria-label="Your Location"
-          />
-          <button className="btnSearch px-3" type="button">
-            Find Job
-          </button>
-        </div>
-      </div>
-
       {/* Profile Image */}
-      <div className="ms-auto d-flex align-items-center order-1 order-md-2">
-        <a href="#profile" className="nav-link mx-3 active navItemTop">
-          <img src={profileImg} className="img-fluid profile" alt="profile" />
-        </a>
+      <div className="ms-auto d-flex align-items-center">
+        <Link to='post-job'>  
+        <button className="outside-btn me-2">Add A Jobs</button>
+        </Link>
+      <div className="ms-auto d-flex align-items-center order-1 order-md-2 position-relative">
+            <img
+              src={profileImg}
+              className="img-fluid profile rounded-circle"
+              alt="profile"
+              onClick={() => setShowLightbox(!showLightbox)} // Toggle the lightbox
+              style={{ cursor: "pointer", width: "40px", height: "40px" }}
+            />
+    
+            {/* Lightbox */}
+            {showLightbox && (
+              <div
+                className="lightbox position-absolute bg-white p-4 shadow-lg rounded"
+                style={{
+                  top: "60px",
+                  right: "10px",
+                  zIndex: "10",
+                  width: "200px",
+                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <Link to="/">
+                <button
+                  className="btn btn-danger w-100 mb-3"
+                  style={{ fontSize: "14px", fontWeight: "bold" }}
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+                </Link>
+                <Link to="/Candidate/settings">
+                <button
+                  className="btn btn-primary w-100"
+                  style={{ fontSize: "14px", fontWeight: "bold" }}
+                  onClick={handleSettings}
+                >
+                  Settings
+                </button>
+                </Link>
+              </div>
+            )}
+          </div>
       </div>
     </nav>
   );

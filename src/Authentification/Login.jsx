@@ -11,7 +11,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container-fluid full-height m-0 p-0">
+    <div className="container-fluid full-height m-0 p-0 ">
       <div className="row w-100 m-0 p-0">
         
         {/* Left Side: Form */}
@@ -36,7 +36,7 @@ const Login = () => {
                 <input type="checkbox" className="form-check-input" id="rememberMe" />
                 <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
               </div>
-              <Link to="/Candidate" className="btn btn-primary w-100 mb-3">
+              <Link to="/Candidate/overview" className="btn btn-primary w-100 mb-3">
                 Log In
                 <i className="fa-solid fa-arrow-right ms-2"></i>
               </Link>

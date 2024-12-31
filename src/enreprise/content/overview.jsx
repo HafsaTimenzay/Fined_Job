@@ -1,9 +1,18 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/candidate.css";
-import JobList from "./JobList";
+import JobList from "./myJobs";
+import { Link} from "react-router-dom";
+
 
 const Overview = () => {
+  const candidate = 
+    {
+      id: 1,
+      firstName : "Howard",
+      lastName : "Esther"
+    }
+  
   const jobs = [
     {
       id: 1,
@@ -35,27 +44,28 @@ const Overview = () => {
   ];
 
   return (
-    <div className="container-fluid" style={{ height: "1000px" }}>
+    <div className="container-fluid main-content" style={{ height: "1000px" }}>
       {/* Main Content */}
       <main className="col-md p-4">
         {/* Overview Section */}
         <section className="mb-4">
-          <h4>Hello, Esther Howard</h4>
+          <h4>Hello, {candidate.firstName} {candidate.lastName}</h4>
           <p>Here is your daily activities and job alerts</p>
           <div className="container my-5">
       <div className="row">
         <div className="col-md-4">
           <div
-            className="card text-center shadow-sm p-3"
+            className="card text-center shadow-sm p-2 my-2"
             style={{ backgroundColor: "#EAF3FF", border: "none", borderRadius: "10px" }}
           >
             <div className="card-body">
                 <div className="row">
                     <div className="col"> 
               <h5 className="card-title mb-1">589</h5>
-              <p className="card-text text-muted">Applied Jobs</p>
+              <p className="card-text text-muted">Open Jobs</p>
               </div>
               <div className="col"> 
+                
               <i className="fas fa-briefcase fa-2x text-primary bg-white p-3 border border-white rounded-2"></i>
 
               </div>
@@ -65,36 +75,18 @@ const Overview = () => {
         </div>
         <div className="col-md-4">
           <div
-            className="card text-center shadow-sm p-3"
+            className="card text-center shadow-sm p-2 my-2"
             style={{ backgroundColor: "#FFF7E6", border: "none", borderRadius: "10px" }}
           >
             <div className="card-body">
             <div className="row">
             <div className="col"> 
               <h5 className="card-title mb-1">238</h5>
-              <p className="card-text text-muted">Favorite Jobs</p>
+              <p className="card-text text-muted">Saved Candidates</p>
               </div>
               <div className="col">
-              <i className="fas fa-bookmark fa-2x text-warning  bg-white p-3 border border-white rounded-2"></i>
-              </div>
-              </div>
+              <i className="fas fa-id-card fa-2x text-warning bg-white p-3 border border-white rounded-2"></i>
 
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div
-            className="card text-center shadow-sm p-3"
-            style={{ backgroundColor: "#EBFAEB", border: "none", borderRadius: "10px" }}
-          >
-            <div className="card-body">
-            <div className="row">
-            <div className="col"> 
-              <h5 className="card-title mb-1">574</h5>
-              <p className="card-text text-muted">Job Alerts</p>
-              </div>
-              <div className="col">
-              <i className="fas fa-bell fa-2x text-success bg-white p-3 border border-white rounded-2"></i>
               </div>
               </div>
 
@@ -104,10 +96,7 @@ const Overview = () => {
       </div>
     </div>
 
-          <div className="alert alert-danger mt-4 d-flex justify-content-between align-items-center">
-            <span>Your profile editing is not completed.</span>
-            <button className="btn btn-primary btn-sm" style={{ backgroundColor: 'white', border: 'none',color:'#be2637' }}>Edit Profile</button>
-          </div>
+          
         </section>
 
         {/* Recently Applied Jobs */}

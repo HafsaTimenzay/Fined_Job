@@ -3,7 +3,7 @@ import HomImage from "../assets/images/home.png";
 
 const Home = () => {
   return (
-    <div className="container py-0 my-0">
+    <div className="container py-0 my-0 main-content">
       <div className="row align-items-center my-5">
         <div className="col-md-6 my-5">
           <h1>
