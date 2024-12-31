@@ -101,6 +101,98 @@ const JobAlert = () => {
 
   return (
     <div className="container-fluid main-content">
+      <div className="container-fluid d-flex justify-content-center">
+        <div className="row align-items-center p-3">
+          {/* Jobs Dropdown */}
+          <div className="col-12 col-md-auto btn-group">
+            <button
+              type="button"
+              className="btn-primary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Work Type
+            </button>
+            <ul className="dropdown-menu">
+              <li><a className="dropdown-item" href="#">Internship</a></li>
+              <li><a className="dropdown-item" href="#">Employee</a></li>
+            </ul>
+          </div>
+
+          {/* Work Mode Dropdown */}
+          <div className="col-12 col-md-auto btn-group">
+            <button
+              type="button"
+              className="btn-primary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Work Mode
+            </button>
+            <ul className="dropdown-menu">
+              <li><a className="dropdown-item" href="#">Hybrid</a></li>
+              <li><a className="dropdown-item" href="#">Remote</a></li>
+              <li><a className="dropdown-item" href="#">On-site</a></li>
+            </ul>
+          </div>
+
+          {/* Date Posted Dropdown */}
+          <div className="col-12 col-md-auto btn-group">
+            <button
+              type="button"
+              className="btn-outline-primary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Date Posted
+            </button>
+            <ul className="dropdown-menu">
+              <li><a className="dropdown-item" href="#">Past 24 hours</a></li>
+              <li><a className="dropdown-item" href="#">Past week</a></li>
+              <li><a className="dropdown-item" href="#">Past month</a></li>
+            </ul>
+          </div>
+
+          {/* Experience Level Dropdown */}
+          <div className="col-12 col-md-auto btn-group">
+            <button
+              type="button"
+              className="btn-outline-primary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Experience
+            </button>
+            <ul className="dropdown-menu">
+              <li><a className="dropdown-item" href="#">+1 years</a></li>
+              <li><a className="dropdown-item" href="#">+3 years</a></li>
+              <li><a className="dropdown-item" href="#">+7 years</a></li>
+            </ul>
+          </div>
+
+          {/* Company Dropdown */}
+          <div className="col-12 col-md-auto btn-group">
+            <button
+              type="button"
+              className="btn-outline-primary dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Company Industry
+            </button>
+            <ul className="dropdown-menu">
+              <li><a className="dropdown-item" href="#">Digital</a></li>
+              <li><a className="dropdown-item" href="#">Agriculture</a></li>
+              <li><a className="dropdown-item" href="#">Medical</a></li>
+            </ul>
+          </div>
+
+          {/* Reset Button */}
+          <div className="col-12 col-md-auto ms-auto">
+            <button className="btn btn-outline-danger w-100 w-md-auto">Reset</button>
+          </div>
+        </div>
+      </div>
       <div className="row">
         {/* Sidebar: Job List */}
         <div className="col-md-4 pt-1 py-3 border-end">
