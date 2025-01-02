@@ -275,3 +275,10 @@
 .btn-secondary:hover {
   background-color: #bbb;
 }
+.profileCont{
+  background: #FFF;
+  border: none;
+}
+/* .profileCont i{
+  align-self: flex-start;
+} */

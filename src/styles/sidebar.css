@@ -233,6 +233,26 @@ li.Nvg .nav-link i {
     padding: 0px 13px;
 
 }
+.LinkProf{
+    padding-top: 2px;
+    border-radius: 3px;
+}
+.LinkProf:hover{
+    background: #e7f0fa;
+    color: #0a65cc !important;
+
+}
+.LinkProf i{
+    font-size: 16px;
+    
+}
+.red-circle {
+    width: 13px;
+    height: 13px;
+    top: 6px;
+    left : 38px;
+    
+}
 
 
 /* Mina add style to the navbar */
