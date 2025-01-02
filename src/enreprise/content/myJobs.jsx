@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/entreprise.css';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-
-export default function myJobs() {
-    const jobs = [
+export default function MyJobs() {
+    const initialJobs = [
         {
             id: 1,
             title: "Networking Engineer",
@@ -23,6 +22,18 @@ export default function myJobs() {
         }
     ];
 
+    const [jobs, setJobs] = useState(initialJobs);
+
+    const handleMakeExpert = (jobId) => {
+        const updatedJobs = jobs.map((job) => {
+            if (job.id === jobId) {
+                return { ...job, status: "Expert" }; // Update the status to "Expert"
+            }
+            return job;
+        });
+        setJobs(updatedJobs); // Update the state
+    };
+
     return (
         <div className="container-fluid table-responsive main-content">
             <h5 className='m-3'>Applied Jobs <span className='small text-secondary'>({jobs.length})</span></h5>
@@ -33,6 +44,7 @@ export default function myJobs() {
                         <th scope="col">STATUS</th>
                         <th scope="col">APPLICATIONS</th>
                         <th scope="col" className="text-center">ACTION</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,39 +62,45 @@ export default function myJobs() {
                                 </div>
                             </td>
                             <td className="align-middle fw-bold activeJob">
-                                {/* <i className="fi fi-rr-users-alt"></i>
-                            <i className="fi fi-rr-cross-circle"></i> */}
-                                <span className='pt-5' style={{ color: job.status == "Active" ? "#16b91e" : "#b93416" }}>{job.status}</span>
+                                <span className='pt-5' style={{ color: job.status === "Active" ? "#16b91e" : "#b93416" }}>
+                                    {job.status}
+                                </span>
                             </td>
                             <td className="align-middle fw-bold activeJob">
-                                {/* <i className="fi fi-rr-users-alt"></i> */}
                                 <span className='pt-5 text-muted fw-normal'>{job.applicationsTotal} Applications</span>
                             </td>
-                            <td className="text-center align-middle d-flex align-items-end">
+                            <td className="text-center align-middle">
                                 <Link to={"applications"}>
-                                <button className="grayBlue-btn">View Applications</button>
+                                    <button className="grayBlue-btn">View Applications</button>
                                 </Link>
-                                
                             </td>
-                            <td>
+                            <td className="text-center align-middle">
                                 <div className="dropdown">
                                     <button
                                         type="button"
-                                        className="btn p-0 dropdown-toggle hide-arrow"
+                                        className="p-0 dropdown-toggle hide-arrow"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
+                                        style={{ background: "white", border: "none" }}
                                     >
                                         <i className="fi fi-br-menu-dots-vertical"></i>
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li><a className="dropdown-item" href="#">Item 1</a></li>
-                                        <li><a className="dropdown-item" href="#">Item 2</a></li>
-                                        <li><a className="dropdown-item" href="#">Item 3</a></li>
+                                        <li><Link className="dropdown-item LinkProf" to={"details"}>
+                                            <i className="fi fi-rs-eye align-self-center me-2" style={{ fontSize: "15px" }}></i>
+                                            View Details
+                                        </Link></li>
+                                        <li><a
+                                            className="dropdown-item LinkProf"
+                                            href="#"
+                                            onClick={() => handleMakeExpert(job.id)} // Handle click
+                                        >
+                                            <i className="fi fi-rr-cross-circle align-self-center me-2" style={{ fontSize: "13px" }}></i>
+                                            Make it Expert
+                                        </a></li>
                                     </ul>
                                 </div>
                             </td>
-
-
                         </tr>
                     ))}
                 </tbody>

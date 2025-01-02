@@ -47,8 +47,8 @@ export default function Post() {
   };
 
     return (
-        <div className="container main-content">
-            <div className="row">
+        <div className="container main-content mt-4">
+            <div className="row justify-content-center mx-3">
                 <div className="d-flex align-items-center mb-3">
                     <img
                         src={Img1} // Replace with company logo
@@ -126,8 +126,8 @@ export default function Post() {
             </div>
 
             {/* Job Description, Requirements, and Benefits */}
-            <div className="row ">
-                <div className="col-md-7 ms-3 pt-3">
+            <div className="row justify-content-center">
+                <div className="col-md-7 ms-3 pt-3 ">
                     <h5>Job Description</h5>
                     <p>{job.description}</p>
 

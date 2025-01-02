@@ -163,3 +163,7 @@
     background: #dfedff;
 
 }
+
+.dropdown-toggle::after {
+    display: none; /* Hide the dropdown triangle */
+}

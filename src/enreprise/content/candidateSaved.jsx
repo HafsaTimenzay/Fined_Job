@@ -97,19 +97,19 @@ export default function SavedCandidate() {
                 </div>
               </td>
               <td>
-              <button
-                className="btn btn-light me-2 p-3 rounded border  d-flex align-items-center justify-content-center linksBtn p-0 mx-1"
-                onClick={() => handleUnsaveCandiate(job.id)}
-              >
-                <i
-                  className="fi fi-sr-star"
-                  style={{ color: "#0a65cc" }}
-                ></i>
-              </button>
+                <button
+                  className="btn btn-light me-2 p-3 rounded border  d-flex align-items-center justify-content-center linksBtn p-0 mx-1"
+                  onClick={() => handleUnsaveCandiate(job.id)}
+                >
+                  <i
+                    className="fi fi-sr-star"
+                    style={{ color: "#0a65cc" }}
+                  ></i>
+                </button>
 
               </td>
 
-              <td className="text-center align-middle me-3" style={{width : "150px"}}>
+              <td className="text-center align-middle me-3" style={{ width: "150px" }}>
                 <button className="white-btn" onClick={handleOpenLightBox}>
                   View Profile
                   <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
@@ -237,6 +237,29 @@ export default function SavedCandidate() {
                     </div>
                   </div>
                 )}
+              </td>
+              <td className="text-center align-middle">
+                <div className="dropdown">
+                  <button
+                    type="button"
+                    className="p-0 dropdown-toggle hide-arrow"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style={{ background: "white", border: "none" }}
+                  >
+                    <i className="fi fi-br-menu-dots-vertical"></i>
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li className="p-1"><a className="dropdown-item LinkProf" href="#">
+                      <i className="fi fi-rr-envelope align-self-center me-2" style={{ fontSize: "14px" }}></i>
+                      Send Email
+                    </a></li>
+                    <li className="p-1"><a className="dropdown-item LinkProf" href="#">
+                      <i className="fi fi-sr-download align-self-center me-2" style={{ fontSize: "13px" }}></i>
+                      Download Cv
+                    </a></li>
+                  </ul>
+                </div>
               </td>
             </tr>
           ))}

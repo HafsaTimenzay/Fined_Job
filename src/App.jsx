@@ -63,6 +63,7 @@ const App = () => {
           <Route path="saved-candidates" element={<SavedCandidate />} />
           <Route path="settings" element={<SettingsEnr />} />
           <Route path="my-jobs/applications" element={<Applications />} />
+          <Route path="my-jobs/details" element={<Post />} />
         </Route>
       </Routes>
     </Router>
