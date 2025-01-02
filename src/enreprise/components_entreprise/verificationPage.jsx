@@ -16,13 +16,13 @@ const VerificationPage = () => {
         <p className="text-muted text-center">Your information is being verified...</p>
         {/* <p className="text-muted text-center">Your compte is verified, Welcome to JobMate</p> */}
         <div>
-        <Link to='../Enreprise/overview'>  
+        <Link to='../Entreprise/overview'>  
 
           <button className="white-btn me-2">
             View Dashboard
           </button>
           </Link>
-          <Link to='../Enreprise/post-job'>  
+          <Link to='../Entreprise/post-job'>  
           <button className="blue-btn ms-2"> 
             Post Job
             <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>

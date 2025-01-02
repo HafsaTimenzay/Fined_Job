@@ -34,7 +34,7 @@ export default function MultiStepForm() {
   // };
 
   const handleFinishEditing = () => {
-    navigate("/Enreprise/verification");
+    navigate("/Entreprise/verification");
   };
 
   return (

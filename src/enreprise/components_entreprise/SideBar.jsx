@@ -14,7 +14,7 @@ const SideBar = () => {
           {/* Header de la page */}
           <div className="my-3 d-flex justify-content-center align-items-center d-none d-md-flex">
             <span className="text-uppercase text-muted small">
-              Enreprise Dashboard
+              Entreprise Dashboard
             </span>
           </div>
 
@@ -22,7 +22,7 @@ const SideBar = () => {
           <ul className="navbar-nav flex-column w-100">
           <li className="nav-item my-2 Nvg">
               <NavLink
-                to="/Enreprise/overview"
+                to="/Entreprise/overview"
                 className={({ isActive }) =>
                   `btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start ${isActive ? "active" : ""}`
                 }
@@ -33,7 +33,7 @@ const SideBar = () => {
             </li>
             <li className="nav-item my-2 Nvg">
               <NavLink
-                to="/Enreprise/post-job"
+                to="/Entreprise/post-job"
                 className={({ isActive }) =>
                   `btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start ${isActive ? "active" : ""}`
                 }
@@ -45,7 +45,7 @@ const SideBar = () => {
 
             <li className="nav-item my-2 Nvg">
               <NavLink
-                to="/Enreprise/my-jobs"
+                to="/Entreprise/my-jobs"
                 className={({ isActive }) =>
                   `btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start ${isActive ? "active" : ""}`
                 }
@@ -57,7 +57,7 @@ const SideBar = () => {
 
             <li className="nav-item my-2 Nvg">
               <NavLink
-                to="/Enreprise/saved-candidates"
+                to="/Entreprise/saved-candidates"
                 className={({ isActive }) =>
                   `btn nav-link navItem d-flex align-items-center py-2 px-0 m-0 w-100 text-start ${isActive ? "active" : ""}`
                 }
@@ -69,7 +69,7 @@ const SideBar = () => {
 
             <li className="nav-item my-2 Nvg">
               <NavLink
-                to="/Enreprise/settings"
+                to="/Entreprise/settings"
                 className={({ isActive }) =>
                   `btn nav-link navItem d-flex align-items-center px-0 m-0 py-2 w-100 text-start ${isActive ? "active" : ""}`
                 }
@@ -79,13 +79,6 @@ const SideBar = () => {
               </NavLink>
             </li>
 
-            {/* Déconnexion en bas */}
-            <li className="nav-item mt-5 pt-5">
-              <NavLink to="/" className="nav-link logout ps-4 text-muted navItem">
-                <i className="fi fi-ss-sign-out-alt me-3"></i>
-                <span className="d-none d-md-inline">Log out</span>
-              </NavLink>
-            </li>
           </ul>
         </div>
       </nav>

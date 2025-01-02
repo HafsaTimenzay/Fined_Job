@@ -40,11 +40,11 @@ const Signup = () => {
                     Candidate
                   </button>
                   <button
-                    className={`btn ${accountType === "Enreprise" ? "btn-primary" : "btn-light"} w-50 rounded`}
-                    onClick={() => handleAccountTypeChange("Enreprise")}
+                    className={`btn ${accountType === "Entreprise" ? "btn-primary" : "btn-light"} w-50 rounded`}
+                    onClick={() => handleAccountTypeChange("Entreprise")}
                   >
                     <i className="fa-regular fa-building me-2"></i>
-                    Enreprise
+                    Entreprise
                   </button>
                 </div>
               </div>
@@ -93,7 +93,7 @@ const Signup = () => {
                     I’ve read and agree with your Terms of Services
                   </label>
                 </div>
-                <Link to={`${accountType==="Candidate" ? "/Candidate/overview" :"/Enreprise/SignIn"} `} className="btn btn-primary w-100 mb-3">
+                <Link to={`${accountType==="Candidate" ? "/Candidate/overview" :"/Entreprise/SignIn"} `} className="btn btn-primary w-100 mb-3">
                   Create Account
                   <i className="fa-solid fa-arrow-right ms-2"></i>
                 </Link>

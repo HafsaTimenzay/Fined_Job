@@ -85,7 +85,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [searchParams, setSearchParams] = useState({ title: "", location: "" });
-  const [showLightbox, setShowLightbox] = useState(false); // State for the lightbox
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [isLightBoxVisible, setLightBoxVisible] = useState(false);
+  // State for the lightbox
   const navigate = useNavigate(); // For navigating programmatically
 
   const handleChange = (e) => {
@@ -110,6 +112,15 @@ const NavBar = () => {
     navigate("/settings");
     setShowLightbox(false); // Close the lightbox
   };
+
+  const handleOpenLightBox = () => {
+    setLightBoxVisible(true); // Show the lightbox
+  };
+
+  const handleCloseLightBox = () => {
+    setLightBoxVisible(false); // Close the lightbox
+  };
+
 
   return (
     <nav className="navbar navbar-expand-lg topNav px-3 custom-fixed-top" style={{ height: "auto" }}>
@@ -154,71 +165,98 @@ const NavBar = () => {
       {/* Profile Image */}
       <div className="ms-auto d-flex align-items-center order-1 order-md-2 position-relative">
         {/* Profile Picture */}
-        <img
-          src={profileImg}
-          className="img-fluid profile rounded-circle"
-          alt="profile"
-          onClick={() => setShowLightbox(!showLightbox)} // Toggle the lightbox
-          style={{ cursor: "pointer", width: "40px", height: "40px" }}
-        />
+        <div className="position-relative">
+          <img
+            src={profileImg}
+            className="img-fluid profile rounded-circle"
+            alt="profile"
+            onClick={() => setShowLightbox(!showLightbox)} // Toggle the lightbox
+            style={{ cursor: "pointer", width: "40px", height: "40px" }}
+          />
+          {/* Red Circle Indicator */}
+          <span
+            className="position-absolute bg-danger border border-light rounded-circle"
+            style={{
+              width: "10px",
+              height: "10px",
+              top: "5px",
+              right: "5px",
+              transform: "translate(50%, -50%)",
+            }}
+          ></span>
+        </div>
 
         {/* Lightbox */}
         {showLightbox && (
-  <div
-    className="lightbox position-absolute bg-white p-3 shadow-lg rounded"
-    style={{
-      top: "60px",
-      right: "10px",
-      zIndex: "10",
-      width: "250px",
-      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    }}
-  >
-    {/* Profile Section */}
-    <div className="d-flex align-items-center mb-3">
-      {/* Profile Image with Status Indicator */}
-      <div className="position-relative me-2">
-        <img
-          src={profileImg}
-          className="img-fluid rounded-circle"
-          alt="profile"
-          style={{ width: "40px", height: "40px" }}
-        />
-        <span
-          className="position-absolute translate-middle p-1 bg-danger border border-light rounded-circle red-circle"
-        ></span>
-      </div>
-      
-      {/* User Info */}
-      <div>
-        <h6 className="mb-0">Howard Esther</h6>
-      </div>
-    </div>
+          <div
+            className="lightbox position-absolute bg-white p-3 shadow-lg rounded"
+            style={{
+              top: "60px",
+              right: "10px",
+              zIndex: "10",
+              width: "250px",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            }}
+            onClick={(e) => e.stopPropagation()} // Prevent click inside lightbox from closing it
+          >
+            {/* Profile Section */}
+            <div className="d-flex align-items-center mb-3">
+              {/* Profile Image */}
+              <div className="position-relative me-2">
+                <img
+                  src={profileImg}
+                  className="img-fluid rounded-circle"
+                  alt="profile"
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </div>
+              {/* User Info */}
+              <div>
+                <h6 className="mb-0">Howard Esther</h6>
+              </div>
+            </div>
 
-    <hr className="m-0 p-0 mb-2" />
+            <hr className="m-0 p-0 mb-2" />
 
-    {/* Links */}
-    <div className="d-flex flex-column">
-      <Link
-        to="/Candidate/settings"
-        className="LinkProf d-flex align-items-center mb-2 text-decoration-none text-dark m-0 py-1"
-      >
-        <i className="fi fi-rr-user px-3"></i>
-        My Profile
-      </Link>
-      <hr className="m-0 p-0 mb-2" />
-      <Link
-        to="/"
-        className="LinkProf d-flex align-items-center text-decoration-none text-dark m-0 py-1"
-      >
-        <i className="fi fi-rr-sign-out-alt px-3"></i>
-        Log Out
-      </Link>
-    </div>
-  </div>
-)}
-
+            {/* Links */}
+            <div className="d-flex flex-column">
+              <Link
+                to="/Candidate/settings"
+                className="LinkProf d-flex align-items-center mb-2 text-decoration-none text-dark m-0 py-1"
+              >
+                <i className="fi fi-rr-user px-3"></i>
+                My Profile
+              </Link>
+              <hr className="m-0 p-0 mb-2" />
+              <Link
+                to="/"
+                className="LinkProf d-flex align-items-center text-decoration-none text-dark m-0 py-1"
+              >
+                <i className="fi fi-rr-sign-out-alt px-3"></i>
+                Log Out
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Close Lightbox on Outside Click */}
+      {showLightbox && (
+        <div
+          className="backdrop"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: "9",
+            background: "transparent",
+          }}
+          onClick={() => setShowLightbox(false)} // Close the lightbox when clicking outside
+        ></div>
+      )}
+
 
     </nav>
   );

@@ -66,7 +66,7 @@ export default function Settings() {
   // };
 
   const handleFinishEditing = () => {
-    navigate("/Enreprise/verification");
+    navigate("/Entreprise/verification");
   };
 
 

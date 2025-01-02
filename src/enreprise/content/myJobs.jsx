@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/entreprise.css';
+import {Link} from "react-router-dom";
 
 
 export default function myJobs() {
@@ -58,7 +59,12 @@ export default function myJobs() {
                                 <span className='pt-5 text-muted fw-normal'>{job.applicationsTotal} Applications</span>
                             </td>
                             <td className="text-center align-middle d-flex align-items-end">
+                                <Link to={"applications"}>
                                 <button className="grayBlue-btn">View Applications</button>
+                                </Link>
+                                
+                            </td>
+                            <td>
                                 <div className="dropdown">
                                     <button
                                         type="button"
