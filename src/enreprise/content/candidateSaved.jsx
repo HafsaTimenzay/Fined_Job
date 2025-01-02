@@ -68,6 +68,12 @@ export default function SavedCandidate() {
     setLightBoxVisible(false); // Close the lightbox
   };
 
+  const [candidateSaved, setCandidateSaved] = useState(jobs); // Initialize with jobs
+
+  const handleUnsaveCandiate = (idCan) => {
+    const updatedCandidates = candidateSaved.filter((candidate) => candidate.id !== idCan);
+    setCandidateSaved(updatedCandidates);
+  };
   const { candidate } = userData; // Destructure candidate from userData
 
   return (
@@ -77,7 +83,7 @@ export default function SavedCandidate() {
       </h5>
       <table className="table">
         <tbody>
-          {jobs.map((job) => (
+          {candidateSaved.map((job) => (
             <tr key={job.id}>
               <td>
                 <div className="d-flex align-items-center">
@@ -90,8 +96,20 @@ export default function SavedCandidate() {
                   </div>
                 </div>
               </td>
+              <td>
+              <button
+                className="btn btn-light me-2 p-3 rounded border  d-flex align-items-center justify-content-center linksBtn p-0 mx-1"
+                onClick={() => handleUnsaveCandiate(job.id)}
+              >
+                <i
+                  className="fi fi-sr-star"
+                  style={{ color: "#0a65cc" }}
+                ></i>
+              </button>
 
-              <td className="text-center align-middle">
+              </td>
+
+              <td className="text-center align-middle me-3" style={{width : "150px"}}>
                 <button className="white-btn" onClick={handleOpenLightBox}>
                   View Profile
                   <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
