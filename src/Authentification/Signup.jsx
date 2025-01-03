@@ -4,7 +4,7 @@ import Logo from '../components/logo';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
-  const [accountType, setAccountType] = useState('Candidate'); // Default to Candidate
+  const [accountType, setAccountType] = useState('Candidate'); 
 
   const handleAccountTypeChange = (type) => {
     setAccountType(type);
