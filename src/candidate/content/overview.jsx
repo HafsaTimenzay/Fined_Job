@@ -49,7 +49,7 @@ const Overview = () => {
       <main className="col-md p-4">
         {/* Overview Section */}
         <section className="mb-4">
-          <h4>Hello, {candidate.firstName} {candidate.lastName}</h4>
+          <h4>Hello there!</h4>
           <p>Here is your daily activities and job alerts</p>
           <div className="container my-5">
       <div className="row">

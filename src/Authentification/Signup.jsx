@@ -55,8 +55,8 @@ const Signup = () => {
           window.location.href = "/Entreprise/SignIn";
         }
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Registration failed");
+         window.location.href = "/login";
+         alert("You are successfully registered! Please log in.");
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
