@@ -6,32 +6,12 @@ import Logo from '../../components/logo'
 
 export default function MultiStepForm() {
   const [activeTab, setActiveTab] = useState("companyInfo");
-  // const [socialLinks, setSocialLinks] = useState([
-  //   { platform: "Facebook", url: "" },
-  //   { platform: "Twitter", url: "" },
-  //   { platform: "Instagram", url: "" },
-  //   { platform: "YouTube", url: "" },
-  // ]);
   const navigate = useNavigate();
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  // const handleSocialLinkChange = (index, field, value) => {
-  //   const updatedLinks = [...socialLinks];
-  //   updatedLinks[index][field] = value;
-  //   setSocialLinks(updatedLinks);
-  // };
-
-  // const handleAddSocialLink = () => {
-  //   setSocialLinks([...socialLinks, { platform: "", url: "" }]);
-  // };
-
-  // const handleRemoveSocialLink = (index) => {
-  //   const updatedLinks = socialLinks.filter((_, i) => i !== index);
-  //   setSocialLinks(updatedLinks);
-  // };
 
   const handleFinishEditing = () => {
     navigate("/Entreprise/verification");

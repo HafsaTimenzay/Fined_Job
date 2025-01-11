@@ -4,54 +4,81 @@ import "../../styles/candidate.css";
 import Img1 from "../../assets/images/apple.jpg";
 import { useLocation } from "react-router-dom";
 
-const JobAlert = () => {
-  const { title, location: jobLocation } = useLocation().state || {}; // Renamed 'location' to 'jobLocation' to avoid conflict
-  const jobs = [
-    {
-      id: 1,
-      title: "Programador Host",
-      company: "Knowmad Mood",
-      location: "Agadir",
-      description: `InnovationTeam is a forward-thinking technology company...`,
-      salary: "$80,000 - $100,000",
-      jobPosted: "14 Jul, 2024",
-      jobExpires: "14 Aug, 2024",
-      experience: "3+ years",
-      typeJob: "Remote",
-      typePost: "Internship",
-      education: "Bachelor's Degree",
-      requirements: [
-        "Experience in Scrum methodology",
-        "Good communication skills",
-        "English level B2 or higher",
-      ],
-      benefits: ["Remote Work", "Health Insurance", "Flexible Hours"],
-      linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
-      website: "https://hafsatimenzay.github.io/Portfolio/"
-    },
-    {
-      id: 2,
-      title: "Développeur Applications Mobiles",
-      company: "Majjane",
-      location: "Rabat",
-      description: `Arabic Computer Systems is seeking an experienced iOS Application Developer...`,
-      salary: "$60,000 - $80,000",
-      jobPosted: "20 Jun, 2024",
-      jobExpires: "20 Aug, 2024",
-      experience: "2+ years",
-      typeJob: "On-site",
-      typePost: "Job Opportunity",
-      education: "Master's Degree",
-      requirements: ["Experience with React Native", "Proficiency in JavaScript"],
-      benefits: ["On-Site Gym", "Paid Leave"],
-      linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
-      website: "https://hafsatimenzay.github.io/Portfolio/"
-    },
-  ];
 
-  const [selectedJob, setSelectedJob] = useState(jobs[0]);
+
+const JobAlert = () => {
+  const locationData = useLocation();
+  const { title, location: jobLocation } = locationData.state || {};  // const jobs = [
+  //   {
+  //     id: 1,
+  //     title: "Programador Host",
+  //     company: "Knowmad Mood",
+  //     location: "Agadir",
+  //     description: `InnovationTeam is a forward-thinking technology company...`,
+  //     salary: "$80,000 - $100,000",
+  //     jobPosted: "14 Jul, 2024",
+  //     jobExpires: "14 Aug, 2024",
+  //     experience: "3+ years",
+  //     typeJob: "Remote",
+  //     typePost: "Internship",
+  //     education: "Bachelor's Degree",
+  //     requirements: [
+  //       "Experience in Scrum methodology",
+  //       "Good communication skills",
+  //       "English level B2 or higher",
+  //     ],
+  //     benefits: ["Remote Work", "Health Insurance", "Flexible Hours"],
+  //     linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
+  //     website: "https://hafsatimenzay.github.io/Portfolio/"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Développeur Applications Mobiles",
+  //     company: "Majjane",
+  //     location: "Rabat",
+  //     description: `Arabic Computer Systems is seeking an experienced iOS Application Developer...`,
+  //     salary: "$60,000 - $80,000",
+  //     jobPosted: "20 Jun, 2024",
+  //     jobExpires: "20 Aug, 2024",
+  //     experience: "2+ years",
+  //     typeJob: "On-site",
+  //     typePost: "Job Opportunity",
+  //     education: "Master's Degree",
+  //     requirements: ["Experience with React Native", "Proficiency in JavaScript"],
+  //     benefits: ["On-Site Gym", "Paid Leave"],
+  //     linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
+  //     website: "https://hafsatimenzay.github.io/Portfolio/"
+  //   },
+  // ];
+
+  const [selectedJob, setSelectedJob] = useState();
   const [isLightBoxVisible, setLightBoxVisible] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
+  const [jobs, setJobs] = useState([]);
+
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/jobs/all");
+        if (response.ok) {
+          const data = await response.json();
+          setJobs(data);
+
+          // Set the first job as selected by default
+          if (data.length > 0) {
+            setSelectedJob(data[0]);
+          }
+        } else {
+          console.error("Failed to fetch jobs");
+        }
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
 
   const [savedJobs, setSavedJobs] = useState([]);
 
@@ -63,33 +90,26 @@ const JobAlert = () => {
       setSavedJobs([...savedJobs, jobId]); // Add job to saved list
     }
   };
-  
+
 
   // Effect to update filtered jobs whenever title or location changes
   useEffect(() => {
-    // Normalize both location and job location for consistent comparison
-    const normalizedJobLocation = jobLocation ? jobLocation.trim().toLowerCase() : null;
-    const normalizedTitle = title ? title.trim().toLowerCase() : null;
-
     const filtered = jobs.filter((job) => {
-      const titleMatch =
-        !normalizedTitle || job.title.toLowerCase().includes(normalizedTitle);
-      const locationMatch =
-        !normalizedJobLocation || job.location.trim().toLowerCase() === normalizedJobLocation;
-
+      const normalizedJobLocation = jobLocation ? jobLocation.trim().toLowerCase() : null;
+      const normalizedTitle = title ? title.trim().toLowerCase() : null;
+      const titleMatch = !normalizedTitle || job.title.toLowerCase().includes(normalizedTitle);
+      const locationMatch = !normalizedJobLocation || job.location.trim().toLowerCase() === normalizedJobLocation;
       return titleMatch && locationMatch;
     });
-
+  
     setFilteredJobs(filtered);
-
-    // Set the first job from filtered jobs as the selected job
     if (filtered.length > 0) {
       setSelectedJob(filtered[0]);
     } else {
-      setSelectedJob(jobs[0]); // Fallback to the first job if no filter matches
+      setSelectedJob(jobs[0]); // Fallback
     }
-  }, [title, jobLocation]);
-
+  }, [title, jobLocation, jobs]);
+  
 
   const handleOpenLightBox = () => {
     setLightBoxVisible(true); // Show the lightbox
@@ -100,14 +120,13 @@ const JobAlert = () => {
   };
 
   return (
-    <div className="container-fluid main-content">
-      <div className="container-fluid d-flex justify-content-center">
-        <div className="row align-items-center p-3">
+    <div className="container-fluid mt-5">
+        <div className="row align-items-center py-3">
           {/* Jobs Dropdown */}
           <div className="col-12 col-md-auto btn-group">
             <button
               type="button"
-              className="btn-primary dropdown-toggle"
+              className="btn btn-primary dropdown-toggle"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -123,7 +142,7 @@ const JobAlert = () => {
           <div className="col-12 col-md-auto btn-group">
             <button
               type="button"
-              className="btn-primary dropdown-toggle"
+              className="btn btn-primary dropdown-toggle"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -140,7 +159,7 @@ const JobAlert = () => {
           <div className="col-12 col-md-auto btn-group">
             <button
               type="button"
-              className="btn-outline-primary dropdown-toggle"
+              className="btn btn-outline-primary dropdown-toggle"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -157,7 +176,7 @@ const JobAlert = () => {
           <div className="col-12 col-md-auto btn-group">
             <button
               type="button"
-              className="btn-outline-primary dropdown-toggle"
+              className="btn btn-outline-primary dropdown-toggle"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -174,7 +193,7 @@ const JobAlert = () => {
           <div className="col-12 col-md-auto btn-group">
             <button
               type="button"
-              className="btn-outline-primary dropdown-toggle"
+              className="btn btn-outline-primary dropdown-toggle"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -192,7 +211,8 @@ const JobAlert = () => {
             <button className="btn btn-outline-danger w-100 w-md-auto">Reset</button>
           </div>
         </div>
-      </div>
+      
+
       <div className="row">
         {/* Sidebar: Job List */}
         <div className="col-md-4 pt-1 py-3 border-end">
@@ -233,18 +253,18 @@ const JobAlert = () => {
                 className="me-3 imgJobDes"
               />
               <div>
-                <h4 className="mb-0">{selectedJob.title}</h4>
+                <h4 className="mb-0">{selectedJob?.title}</h4>
                 <p className="text-muted">
-                  {selectedJob.company} · {selectedJob.location} . ({selectedJob.typePost})
+                  {selectedJob?.company} · {selectedJob?.location} . ({selectedJob?.type})
                 </p>
               </div>
               <div className="d-flex align-items-center ms-auto align-self-start">
                 <button
                   className="btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center linksBtn"
-                  onClick={() => handleSaveJob(selectedJob.id)} // On button click, save the job
+                  onClick={() => handleSaveJob(selectedJob?.id)} // On button click, save the job
                 >
                   <i
-                    className={`fi ${savedJobs.includes(selectedJob.id) ? 'fi-sr-bookmark' : 'fi-rr-bookmark'}`}
+                    className={`fi ${savedJobs.includes(selectedJob?.id) ? 'fi-sr-bookmark' : 'fi-rr-bookmark'}`}
                     style={{ color: "#0a65cc" }}
                   ></i>
                 </button>
@@ -306,20 +326,21 @@ const JobAlert = () => {
           <div className="row">
             <div className="col-md-8 pt-3">
               <h5>Job Description</h5>
-              <p>{selectedJob.description}</p>
+              <p>{selectedJob?.description}</p>
 
               <h5>Requirements</h5>
-              <ul>
-                {selectedJob.requirements.map((requirement, index) => (
+              {/* <ul>
+                {selectedJob?.requirements.map((requirement, index) => (
                   <li key={index}>{requirement}</li>
                 ))}
+              </ul> */}
+              <ul>
+                  <li>{selectedJob?.requirements}</li>
               </ul>
 
               <h5>Benefits</h5>
               <ul>
-                {selectedJob.benefits.map((benefit, index) => (
-                  <li key={index}>{benefit}</li>
-                ))}
+                  <li>{selectedJob?.benefits}</li>
               </ul>
             </div>
 
@@ -327,7 +348,7 @@ const JobAlert = () => {
             <div className="col-md-4">
               <div className="bg-light p-3 mb-3 rounded">
                 <h6 className="sub-title mb-4 fw-bold text-dark">Salary</h6>
-                <h5 className="text-success salary">{selectedJob.salary}</h5>
+                <h5 className="text-success salary">{selectedJob?.minSalary} DH - {selectedJob?.maxSalary} DH</h5>
               </div>
 
               <div className="bg-light mb-3 p-4 rounded shadow-sm">
@@ -339,7 +360,7 @@ const JobAlert = () => {
                   ></i>
                   <div>
                     <strong className="text-dark">Job Posted:</strong>{" "}
-                    <span className="text-muted">{selectedJob.jobPosted}</span>
+                    <span className="text-muted">{selectedJob?.postedDate}</span>
                   </div>
                 </div>
                 <div className="d-flex align-items-start mb-3">
@@ -349,7 +370,7 @@ const JobAlert = () => {
                   ></i>
                   <div>
                     <strong className="text-dark">Location:</strong>{" "}
-                    <span className="text-muted">{selectedJob.location}</span>
+                    <span className="text-muted">{selectedJob?.location}</span>
                   </div>
                 </div>
 
@@ -360,7 +381,7 @@ const JobAlert = () => {
                   ></i>
                   <div>
                     <strong className="text-dark">Type:</strong>{" "}
-                    <span className="text-muted">{selectedJob.typeJob}</span>
+                    <span className="text-muted">{selectedJob?.subType}</span>
                   </div>
                 </div>
 
@@ -371,7 +392,7 @@ const JobAlert = () => {
                   ></i>
                   <div>
                     <strong className="text-dark">Experience:</strong>{" "}
-                    <span className="text-muted">{selectedJob.experience}</span>
+                    <span className="text-muted">{selectedJob?.experience}</span>
                   </div>
                 </div>
 
@@ -382,7 +403,7 @@ const JobAlert = () => {
                   ></i>
                   <div>
                     <strong className="text-dark">Education:</strong>{" "}
-                    <span className="text-muted">{selectedJob.education}</span>
+                    <span className="text-muted">{selectedJob?.education}</span>
                   </div>
                 </div>
               </div>
@@ -392,7 +413,7 @@ const JobAlert = () => {
                 <div className="d-flex align-items-center">
                   {/* LinkedIn Button */}
                   <a
-                    href={selectedJob.linkedIn}
+                    href={selectedJob?.linkedInUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
@@ -401,7 +422,7 @@ const JobAlert = () => {
                   </a>
                   {/* Portfolio Button */}
                   <a
-                    href={selectedJob.website}
+                    href={selectedJob?.companyWebsite}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"

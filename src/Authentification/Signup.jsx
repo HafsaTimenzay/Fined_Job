@@ -1,79 +1,93 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import LoginImage from "../assets/images/login.jpeg";
-import Logo from "../components/logo";
+import React, { useState } from 'react';
+import LoginImage from '../assets/images/login.jpeg';
+import Logo from '../components/logo';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
+  const [accountType, setAccountType] = useState('Candidate');
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    accountType: "Candidate", // Default to Candidate
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState(''); // New state for email error
+  const navigate = useNavigate();
 
-  const [error, setError] = useState("");
-
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Clear errors as user types
+    if (name === 'password' || name === 'confirmPassword') {
+      setPasswordError('');
+    }
+    if (name === 'email') {
+      setEmailError('');
+    }
   };
 
-  // Handle account type selection
-  const handleAccountTypeChange = (type) => {
-    setFormData({ ...formData, accountType: type });
+  const handleTermsChange = (e) => {
+    setTermsAccepted(e.target.checked);
   };
 
-  // Submit form data
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+    if (!termsAccepted) {
+      alert('You must agree to the Terms of Service.');
       return;
     }
 
-    try {
-      const response = await fetch("http://localhost:8080/api/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-          role: formData.accountType === "Candidate" ? "CANDIDATE" : "RECRUITER",
-        }),
-      });
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordError('Passwords do not match.');
+      return;
+    }
 
-      if (response.ok) {
-        if (formData.accountType === "Candidate") {
-          window.location.href = "/Candidate/overview";
+    if (accountType === 'Candidate') {
+      try {
+        const response = await fetch('http://localhost:8080/api/users/signup/candidate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+          }),
+        });
+
+        if (response.ok) {
+          navigate('/Candidate/overview');
         } else {
-          window.location.href = "/Entreprise/SignIn";
+          const errorData = await response.json();
+          if (errorData.message && errorData.message.toLowerCase().includes('email')) {
+            setEmailError('This email is already in use.');
+          } else {
+            alert(`Error: ${errorData.message || 'Something went wrong.'}`);
+          }
         }
-      } else {
-         window.location.href = "/login";
-         alert("You are successfully registered! Please log in.");
+      } catch (error) {
+        alert('Failed to register candidate. Please try again.');
       }
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
     }
   };
 
   return (
     <div className="container-fluid full-height m-0 p-0">
       <div className="row w-100 m-0 p-0">
-        {/* Left side: Form */}
         <div className="col-md-6 form-container bg-white p-3">
           <Logo />
           <div className="d-flex justify-content-center align-items-center vh-100">
             <div className="container w-75">
               <h2>Create account.</h2>
               <p>
-                Already have an account?{" "}
+                Already have an account?{' '}
                 <Link to="/login" className="login">
                   Log In
                 </Link>
@@ -82,102 +96,106 @@ const Signup = () => {
                 <p className="text-secondary fw-bold">CREATE ACCOUNT AS A</p>
                 <div className="btn-group w-100" role="group">
                   <button
-                    className={`btn ${
-                      formData.accountType === "Candidate" ? "btn-primary" : "btn-light"
-                    } me-2 w-50 rounded`}
-                    onClick={() => handleAccountTypeChange("Candidate")}
+                    className={`btn ${accountType === 'Candidate' ? 'btn-primary' : 'btn-light'} me-2 w-50 rounded`}
+                    onClick={() => setAccountType('Candidate')}
                   >
                     <i className="fa-regular fa-circle-user me-2"></i>
                     Candidate
                   </button>
                   <button
-                    className={`btn ${
-                      formData.accountType === "Entreprise" ? "btn-primary" : "btn-light"
-                    } w-50 rounded`}
-                    onClick={() => handleAccountTypeChange("Entreprise")}
+                    className={`btn ${accountType === 'Enreprise' ? 'btn-primary' : 'btn-light'} w-50 rounded`}
+                    onClick={() => setAccountType('Enreprise')}
                   >
                     <i className="fa-regular fa-building me-2"></i>
-                    Entreprise
+                    Enreprise
                   </button>
                 </div>
               </div>
-
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3 d-flex">
-                  <input
-                    className="form-control w-50 me-2"
-                    type="text"
-                    placeholder="First Name"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                  />
-                  <input
-                    className="form-control w-50"
-                    type="text"
-                    placeholder="Last Name"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                  />
-                </div>
+              <form onSubmit={handleFormSubmit}>
+                {accountType === 'Candidate' && (
+                  <div className="mb-3 d-flex">
+                    <input
+                      className="form-control w-50 me-2"
+                      type="text"
+                      name="firstname"
+                      placeholder="First Name"
+                      value={formData.firstname}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <input
+                      className="form-control w-50"
+                      type="text"
+                      name="lastname"
+                      placeholder="Last Name"
+                      value={formData.lastname}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                )}
                 <div className="mb-3">
                   <input
                     className="form-control"
                     type="email"
-                    placeholder="Email"
                     name="email"
+                    placeholder="Email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                   />
+                  {emailError && (
+                    <span className="text-danger small">{emailError}</span>
+                  )}
                 </div>
                 <div className="mb-3">
                   <input
                     className="form-control"
                     type="password"
-                    placeholder="Password"
                     name="password"
+                    placeholder="Password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div className="mb-3">
                   <input
                     className="form-control"
                     type="password"
-                    placeholder="Confirm Password"
                     name="confirmPassword"
+                    placeholder="Confirm Password"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
+                    required
                   />
+                  {passwordError && (
+                    <span className="text-danger small">{passwordError}</span>
+                  )}
                 </div>
                 <div className="form-check mb-3">
                   <input
                     className="form-check-input"
                     type="checkbox"
                     id="termsCheck"
+                    checked={termsAccepted}
+                    onChange={handleTermsChange}
+                    required
                   />
                   <label className="form-check-label" htmlFor="termsCheck">
                     I’ve read and agree with your Terms of Services
                   </label>
                 </div>
-                {error && <p className="text-danger">{error}</p>}
                 <button type="submit" className="btn btn-primary w-100 mb-3">
-                  Create Account
+                  {accountType === 'Candidate' ? 'Create Account' : 'Complete Your Profile'}
                   <i className="fa-solid fa-arrow-right ms-2"></i>
                 </button>
               </form>
             </div>
           </div>
         </div>
-
-        {/* Right side: Image */}
         <div className="col-md-6 image-container p-0 m-0">
-          <img
-            src={LoginImage}
-            alt="Jobpilot"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          <img src={LoginImage} alt="Jobpilot" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       </div>
     </div>
