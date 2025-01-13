@@ -39,15 +39,21 @@ const JobAlert = () => {
 
   const [savedJobs, setSavedJobs] = useState([]);
 
-  const handleSaveJob = (jobId) => {
-    // Check if job is already saved
-    if (savedJobs.includes(jobId)) {
-      setSavedJobs(savedJobs.filter(id => id !== jobId)); // Remove job from saved list
-    } else {
-      setSavedJobs([...savedJobs, jobId]); // Add job to saved list
-    }
-  };
+const handleSaveJob = (job) => {
+  const isJobSaved = savedJobs.some(savedJob => savedJob.id === job.id);
+  const updatedSavedJobs = isJobSaved
+    ? savedJobs.filter(savedJob => savedJob.id !== job.id)
+    : [...savedJobs, job];
 
+  setSavedJobs(updatedSavedJobs);
+  localStorage.setItem("savedJobs", JSON.stringify(updatedSavedJobs));
+};
+
+useEffect(() => {
+  const saved = JSON.parse(localStorage.getItem("savedJobs")) || [];
+  setSavedJobs(saved);
+}, []);
+  
 
   // Effect to update filtered jobs whenever title or location changes
   useEffect(() => {
@@ -275,12 +281,12 @@ const JobAlert = () => {
               <div className="d-flex align-items-center ms-auto align-self-start">
                 <button
                   className="btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center linksBtn"
-                  onClick={() => handleSaveJob(selectedJob?.id)} // On button click, save the job
+                  onClick={() => handleSaveJob(selectedJob)} // On button click, save the job
                 >
-                  <i
-                    className={`fi ${savedJobs.includes(selectedJob?.id) ? 'fi-sr-bookmark' : 'fi-rr-bookmark'}`}
-                    style={{ color: "#0a65cc" }}
-                  ></i>
+                 <i
+    className={`fi ${savedJobs.some(savedJob => savedJob.id === selectedJob?.id) ? 'fi-sr-bookmark' : 'fi-rr-bookmark'}`}
+    style={{ color: savedJobs.some(savedJob => savedJob.id === selectedJob?.id) ? "#0a65cc" : "inherit" }}
+  ></i>
                 </button>
 
                 {/* Button to open the lightbox */}
