@@ -5,8 +5,6 @@ import Img1 from "../../assets/images/apple.jpg";
 import ImgNotMatch from "../../assets/images/notmatch.svg";
 import { useLocation } from "react-router-dom";
 
-
-
 const JobAlert = () => {
   const locationData = useLocation();
   const { title, location: jobLocation } = locationData.state || {};  // const jobs = [
@@ -15,7 +13,8 @@ const JobAlert = () => {
   const [isLightBoxVisible, setLightBoxVisible] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [jobs, setJobs] = useState([]);
-
+  const [description, setDescription] = useState("");
+  const [resumeFile, setResumeFile] = useState(null);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -42,15 +41,21 @@ const JobAlert = () => {
 
   const [savedJobs, setSavedJobs] = useState([]);
 
-  const handleSaveJob = (jobId) => {
-    // Check if job is already saved
-    if (savedJobs.includes(jobId)) {
-      setSavedJobs(savedJobs.filter(id => id !== jobId)); // Remove job from saved list
-    } else {
-      setSavedJobs([...savedJobs, jobId]); // Add job to saved list
-    }
-  };
+const handleSaveJob = (job) => {
+  const isJobSaved = savedJobs.some(savedJob => savedJob.id === job.id);
+  const updatedSavedJobs = isJobSaved
+    ? savedJobs.filter(savedJob => savedJob.id !== job.id)
+    : [...savedJobs, job];
 
+  setSavedJobs(updatedSavedJobs);
+  localStorage.setItem("savedJobs", JSON.stringify(updatedSavedJobs));
+};
+
+useEffect(() => {
+  const saved = JSON.parse(localStorage.getItem("savedJobs")) || [];
+  setSavedJobs(saved);
+}, []);
+  
 
   // Effect to update filtered jobs whenever title or location changes
   useEffect(() => {
@@ -78,6 +83,63 @@ const JobAlert = () => {
   const handleCloseLightBox = () => {
     setLightBoxVisible(false); // Close the lightbox
   };
+  //Handle form submission
+  const handleSubmitApplication = async (e) => {
+    e.preventDefault();
+
+    if (!selectedJob || !description || !resumeFile) {
+        alert("Please fill in all fields and upload a resume.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("candidateId", 1); // Replace with the actual candidate ID (e.g., from authentication)
+    formData.append("jobId", selectedJob.id);
+    formData.append("description", description);
+    formData.append("resume", resumeFile);
+
+    try {
+       // Step 1: Upload the file
+       const fileFormData = new FormData();
+       fileFormData.append("file", resumeFile);
+
+       const uploadResponse = await fetch("http://localhost:8080/api/test/upload", {
+           method: "POST",
+           body: fileFormData,
+       });
+
+       if (!uploadResponse.ok) {
+           throw new Error("Failed to upload file");
+       }
+
+       const filePath = await uploadResponse.text(); // Get the file path or unique identifier
+
+       // Step 2: Submit the job application
+       const applicationData = {
+           candidateId: 1, // Replace with the actual candidate ID (e.g., from authentication)
+           jobId: selectedJob.id,
+           description: description,
+           resumePath: filePath, // Use the file path returned from the upload
+       };
+        const response = await fetch("http://localhost:8080/api/applications/apply", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            alert("Application submitted successfully!");
+            setLightBoxVisible(false);
+            setDescription("");
+            setResumeFile(null);
+        } else {
+            console.error("Failed to submit application");
+        }
+    } catch (error) {
+        console.error("Error submitting application:", error);
+    }
+};
+
+  
 
   return (
     <div className="container-fluid mt-5">
@@ -412,3 +474,4 @@ const JobAlert = () => {
 };
 
 export default JobAlert;
+

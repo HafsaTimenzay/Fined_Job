@@ -1,38 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom"; 
 import '../../styles/candidate.css';
 import Img2 from '../../assets/images/apple.jpg';
 
 export default function JobSave() {
-    // Initial JSON array of jobs (all jobs saved by default)
-    const initialJobs = [
-        {
-            id: 1,
-            title: "Networking Engineer",
-            typeJob: "Remote",
-            location: "Rabat",
-            maxSalary: "100",
-            minSalary: "80",
-            status: "Active"
-        },
-        {
-            id: 2,
-            title: "Product Designer",
-            typeJob: "Full Time",
-            location: "Agadir",
-            maxSalary: "80",
-            minSalary: "50",
-            status: "Expert"
-        }
-    ];
-
     // State to hold saved jobs
-    const [savedJobs, setSavedJobs] = useState(initialJobs);
+    const [savedJobs, setSavedJobs] = useState([]);
 
-    // Handler to remove job from saved jobs (and update UI dynamically)
+    // Fetch saved jobs from localStorage on component mount
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem("savedJobs")) || [];
+        setSavedJobs(saved);
+    }, []);
+
+    // Handler to remove job from saved jobs
     const handleUnsaveJob = (jobId) => {
         const updatedJobs = savedJobs.filter((job) => job.id !== jobId);
         setSavedJobs(updatedJobs);
+
+        // Update localStorage
+        localStorage.setItem("savedJobs", JSON.stringify(updatedJobs));
     };
 
     return (
@@ -49,7 +36,7 @@ export default function JobSave() {
                                     <img src={Img2} style={{ width: '50px' }} alt="logo" className="me-3 rounded" />
                                     <div>
                                         <strong className='h5'>{job.title}</strong>
-                                        <span className="badge bg-label-primary medium ms-2 mt-2">{job.typeJob}</span>
+                                        <span className="badge bg-label-primary medium ms-2 mt-2">{job.type}</span>
                                         <div className="text-muted small pt-1">
                                             <i className="fi fi-rs-marker text-muted small"></i> {job.location}
                                             <i className="fi fi-rr-dollar text-muted small ps-2"></i> {job.minSalary}DH-{job.maxSalary}DH/month
@@ -87,8 +74,6 @@ export default function JobSave() {
                                     )}
                                 </span>
                             </td>
-
-
                         </tr>
                     ))}
                 </tbody>
