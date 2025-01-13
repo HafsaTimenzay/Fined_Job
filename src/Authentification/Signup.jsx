@@ -76,6 +76,22 @@ const Signup = () => {
         alert('Failed to register candidate. Please try again.');
       }
     }
+    if(accountType === 'Entreprise'){
+      try {
+        const response = await fetch('http://localhost:8080/api/users/signup/recuiter', {
+          method : 'POST',
+          headers:{
+            'Content-Type': 'application/json',
+          },
+          body : JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          })
+        })
+      }catch (error){
+      alert('Failed to register entreprise. Please try again.');
+    }
+    } 
   };
 
   return (
@@ -103,11 +119,11 @@ const Signup = () => {
                     Candidate
                   </button>
                   <button
-                    className={`btn ${accountType === 'Enreprise' ? 'btn-primary' : 'btn-light'} w-50 rounded`}
-                    onClick={() => setAccountType('Enreprise')}
+                    className={`btn ${accountType === 'Entreprise' ? 'btn-primary' : 'btn-light'} w-50 rounded`}
+                    onClick={() => setAccountType('Entreprise')}
                   >
                     <i className="fa-regular fa-building me-2"></i>
-                    Enreprise
+                    Entreprise
                   </button>
                 </div>
               </div>

@@ -282,3 +282,13 @@
 /* .profileCont i{
   align-self: flex-start;
 } */
+.no-matching-jobs {
+  text-align: center;
+  color: #888;
+}
+
+.no-matching-jobs img {
+  width: 50px;
+  height: 50px;
+}
+
