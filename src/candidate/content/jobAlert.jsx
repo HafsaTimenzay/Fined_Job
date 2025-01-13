@@ -4,58 +4,15 @@ import "../../styles/candidate.css";
 import Img1 from "../../assets/images/apple.jpg";
 import { useLocation } from "react-router-dom";
 
-
-
 const JobAlert = () => {
   const locationData = useLocation();
-  const { title, location: jobLocation } = locationData.state || {};  // const jobs = [
-  //   {
-  //     id: 1,
-  //     title: "Programador Host",
-  //     company: "Knowmad Mood",
-  //     location: "Agadir",
-  //     description: `InnovationTeam is a forward-thinking technology company...`,
-  //     salary: "$80,000 - $100,000",
-  //     jobPosted: "14 Jul, 2024",
-  //     jobExpires: "14 Aug, 2024",
-  //     experience: "3+ years",
-  //     typeJob: "Remote",
-  //     typePost: "Internship",
-  //     education: "Bachelor's Degree",
-  //     requirements: [
-  //       "Experience in Scrum methodology",
-  //       "Good communication skills",
-  //       "English level B2 or higher",
-  //     ],
-  //     benefits: ["Remote Work", "Health Insurance", "Flexible Hours"],
-  //     linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
-  //     website: "https://hafsatimenzay.github.io/Portfolio/"
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Développeur Applications Mobiles",
-  //     company: "Majjane",
-  //     location: "Rabat",
-  //     description: `Arabic Computer Systems is seeking an experienced iOS Application Developer...`,
-  //     salary: "$60,000 - $80,000",
-  //     jobPosted: "20 Jun, 2024",
-  //     jobExpires: "20 Aug, 2024",
-  //     experience: "2+ years",
-  //     typeJob: "On-site",
-  //     typePost: "Job Opportunity",
-  //     education: "Master's Degree",
-  //     requirements: ["Experience with React Native", "Proficiency in JavaScript"],
-  //     benefits: ["On-Site Gym", "Paid Leave"],
-  //     linkedIn: "https://www.linkedin.com/in/hafsa-timenzay-698b72293/",
-  //     website: "https://hafsatimenzay.github.io/Portfolio/"
-  //   },
-  // ];
-
+  const { title, location: jobLocation } = locationData.state || {};  
   const [selectedJob, setSelectedJob] = useState();
   const [isLightBoxVisible, setLightBoxVisible] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [jobs, setJobs] = useState([]);
-
+  const [description, setDescription] = useState("");
+  const [resumeFile, setResumeFile] = useState(null);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -118,6 +75,63 @@ const JobAlert = () => {
   const handleCloseLightBox = () => {
     setLightBoxVisible(false); // Close the lightbox
   };
+  //Handle form submission
+  const handleSubmitApplication = async (e) => {
+    e.preventDefault();
+
+    if (!selectedJob || !description || !resumeFile) {
+        alert("Please fill in all fields and upload a resume.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("candidateId", 1); // Replace with the actual candidate ID (e.g., from authentication)
+    formData.append("jobId", selectedJob.id);
+    formData.append("description", description);
+    formData.append("resume", resumeFile);
+
+    try {
+       // Step 1: Upload the file
+       const fileFormData = new FormData();
+       fileFormData.append("file", resumeFile);
+
+       const uploadResponse = await fetch("http://localhost:8080/api/test/upload", {
+           method: "POST",
+           body: fileFormData,
+       });
+
+       if (!uploadResponse.ok) {
+           throw new Error("Failed to upload file");
+       }
+
+       const filePath = await uploadResponse.text(); // Get the file path or unique identifier
+
+       // Step 2: Submit the job application
+       const applicationData = {
+           candidateId: 1, // Replace with the actual candidate ID (e.g., from authentication)
+           jobId: selectedJob.id,
+           description: description,
+           resumePath: filePath, // Use the file path returned from the upload
+       };
+        const response = await fetch("http://localhost:8080/api/applications/apply", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            alert("Application submitted successfully!");
+            setLightBoxVisible(false);
+            setDescription("");
+            setResumeFile(null);
+        } else {
+            console.error("Failed to submit application");
+        }
+    } catch (error) {
+        console.error("Error submitting application:", error);
+    }
+};
+
+  
 
   return (
     <div className="container-fluid mt-5">
@@ -291,7 +305,7 @@ const JobAlert = () => {
                       </button>
                       <h2>Apply for the Job</h2>
                       <p>Please fill in the necessary details to proceed.</p>
-                      <form>
+                      <form onSubmit={handleSubmitApplication}>
                         <div className="boxLight mb-3">
                           <label htmlFor="description" className="form-label text-left">
                             Description
@@ -301,14 +315,21 @@ const JobAlert = () => {
                             id="description"
                             rows="4"
                             placeholder="Enter your description here"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                           ></textarea>
                         </div>
 
                         <div className="mb-3">
-                          <label htmlFor="fileUpload" className="form-label text-left">
+                          <label htmlFor="fileUpload" 
+                          className="form-label text-left">
                             Upload CV
                           </label>
-                          <input className="form-control" type="file" id="fileUpload" />
+                          <input className="form-control"
+                           type="file"
+                            id="fileUpload"
+                            onChange={(e) => setResumeFile(e.target.files[0])}
+                            />
                         </div>
 
                         <button type="submit" className="px-4 py-2 appliedBtn">
@@ -442,3 +463,4 @@ const JobAlert = () => {
 };
 
 export default JobAlert;
+
