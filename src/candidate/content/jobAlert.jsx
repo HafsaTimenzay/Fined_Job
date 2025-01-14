@@ -312,44 +312,51 @@ useEffect(() => {
 
                   {/* Lightbox */}
                   {isLightBoxVisible && (
-                    <div className="lightbox-overlay" onClick={handleCloseLightBox}>
-                      <div
-                        className="lightbox-content"
-                        style={{ position: "relative" }}
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
-                      >
-                        <button className="close-btn" onClick={handleCloseLightBox}>
-                          <i className="fi fi-rr-cross-small"></i>
+                  <div className="lightbox-overlay" onClick={handleCloseLightBox}>
+                    <div
+                      className="lightbox-content"
+                      style={{ position: "relative" }}
+                      onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                    >
+                      <button className="close-btn" onClick={handleCloseLightBox}>
+                        <i className="fi fi-rr-cross-small"></i>
+                      </button>
+                      <h2>Apply for the Job</h2>
+                      <p>Please fill in the necessary details to proceed.</p>
+                      <form onSubmit={handleSubmitApplication}>
+                        <div className="boxLight mb-3">
+                          <label htmlFor="description" className="form-label text-left">
+                            Description
+                          </label>
+                          <textarea
+                            className="form-control"
+                            id="description"
+                            rows="4"
+                            placeholder="Enter your description here"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                          ></textarea>
+                        </div>
+
+                        <div className="mb-3">
+                          <label htmlFor="fileUpload" 
+                          className="form-label text-left">
+                            Upload CV
+                          </label>
+                          <input className="form-control"
+                           type="file"
+                            id="fileUpload"
+                            onChange={(e) => setResumeFile(e.target.files[0])}
+                            />
+                        </div>
+
+                        <button type="submit" className="px-4 py-2 appliedBtn">
+                          Send Description
                         </button>
-                        <h2>Apply for the Job</h2>
-                        <p>Please fill in the necessary details to proceed.</p>
-                        <form>
-                          <div className="boxLight mb-3">
-                            <label htmlFor="description" className="form-label text-left">
-                              Description
-                            </label>
-                            <textarea
-                              className="form-control"
-                              id="description"
-                              rows="4"
-                              placeholder="Enter your description here"
-                            ></textarea>
-                          </div>
-
-                          <div className="mb-3">
-                            <label htmlFor="fileUpload" className="form-label text-left">
-                              Upload CV
-                            </label>
-                            <input className="form-control" type="file" id="fileUpload" />
-                          </div>
-
-                          <button type="submit" className="px-4 py-2 appliedBtn">
-                            Send Description
-                          </button>
-                        </form>
-                      </div>
+                      </form>
                     </div>
-                  )}
+                  </div>
+                )}
                 </div>
               </div>
             </div>

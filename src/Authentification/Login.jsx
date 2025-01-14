@@ -32,7 +32,7 @@ const Login = () => {
         if (data.role === 'CANDIDATE') {
           navigate('/Candidate/overview');
         } else if (data.role === 'RECRUITER') {
-          navigate('/Entreprise/SignIn');
+          navigate('/Entreprise/overview');
         }
       } else {
         const errorData = await response.json();

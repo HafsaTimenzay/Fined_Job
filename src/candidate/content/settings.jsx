@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useEmail } from "../EmailProvider"
+
 
 // Composant réutilisable pour les champs de saisie
 function InputField({ label, type, placeholder, value, onChange, required = false }) {
@@ -28,23 +31,23 @@ function FileUploader({ img, setImg, importtext }) {
 
   return (
     <div>
-    {img ? (
-      <div className="bg-dark img-container">
-        <img src={img} alt="Preview" width="100" />
-        <button className="close-Img" onClick={() => setImg("")}>
-          <i className="fi fi-rr-cross-small"></i>
-        </button>
+      {img ? (
+        <div className="bg-dark img-container">
+          <img src={img} alt="Preview" width="100" />
+          <button className="close-Img" onClick={() => setImg("")}>
+            <i className="fi fi-rr-cross-small"></i>
+          </button>
+        </div>
+      ) : (
+        <div>
+          <p>{importtext}</p>
+        </div>
+      )}
+      <div className="mt-3">
+        <input type="file" className="form-control" onChange={handleImageChange} />
       </div>
-    ) : (
-      <div>
-        <p>{importtext}</p>
-      </div>
-    )}
-    <div className="mt-3">
-      <input type="file" className="form-control" onChange={handleImageChange} />
     </div>
-  </div>
-  
+
 
 
   );
@@ -54,6 +57,36 @@ export default function Settings() {
   const [activeTab, setActiveTab] = useState("profile");
   const [img, setImg] = useState("");
   const [cv, setCv] = useState("");
+
+  const [candidate, setCandidate] = useState(null);
+  const [error, setError] = useState(null);
+  const location = useLocation();
+  // const email = location.state?.email;
+  // const email = "htimenzay3@gmail.com"
+  const { email } = useEmail();
+
+
+  useEffect(() => {
+    if (email) {
+      fetch(`http://localhost:8080/api/candidate/findByEmail?email=${email}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Candidate not found");
+          }
+          return response.json();
+        })
+        .then(data => setCandidate(data))
+        .catch(err => setError(err.message));
+    }
+  }, [email]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!candidate) {
+    return <div>Loading...</div>;
+  }
 
   const tabs = [
     { key: "profile", label: "Personal Info", icon: "bi bi-person-circle" },
@@ -85,16 +118,37 @@ export default function Settings() {
               <div className="col-md-9">
                 <div className="row">
                   <div className="col-md-6">
-                    <InputField label="First Name" type="text" placeholder="First Name.." />
+                    <InputField
+                      label="First Name"
+                      type="text"
+                      placeholder="First Name.."
+                      value={candidate?.firstname || ''}
+                      onChange={(e) => setCandidate(prev => ({ ...prev, firstname: e.target.value }))}
+                    />
+                    {/* <InputField label="First Name" type="text" placeholder="First Name.." /> */}
                   </div>
                   <div className="col-md-6">
-                    <InputField label="Last Name" type="text" placeholder="Last Name..." />
+
+                    <InputField
+                      label="Last Name"
+                      type="text"
+                      placeholder="Last Name..."
+                      value={candidate.lastname || ''}
+                      onChange={(e) => setCandidate({ ...candidate, lastname: e.target.value })}
+                    />
+                    {/* <InputField label="Last Name" type="text" placeholder="Last Name..." /> */}
                   </div>
                   <div className="col-md-6">
-                    <InputField label="Date Of Birth" type="date" />
+                    <InputField label="Date Of Birth" type="date"
+                      value={candidate?.date_of_birth || ''}
+                      onChange={(e) => setCandidate(prev => ({ ...prev, date_of_birth: e.target.value }))}
+                    />
                   </div>
                   <div className="col-md-6">
-                    <InputField label="Telephone Number" type="tel" placeholder="06/07 0000 0000" />
+                    <InputField label="Telephone Number" type="tel" placeholder="06/07 0000 0000"
+                      value={candidate?.phone_number || ''}
+                      onChange={(e) => setCandidate(prev => ({ ...prev, phone_number: e.target.value }))}
+                    />
                   </div>
 
                   <div className="col-md-6">
@@ -106,6 +160,7 @@ export default function Settings() {
                           className="form-check-input"
                           id="male"
                           name="sex"
+
                         />
                         <label className="form-check-label" htmlFor="male">
                           Male
@@ -138,26 +193,50 @@ export default function Settings() {
           <h5>Professional Information</h5>
           <form>
             <div className="row mb-3">
+              <div>
+              <InputField label="bio" type="text" placeholder="Biography"
+                  value={candidate?.bio || ''}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, bio: e.target.value }))}
+                />
+              </div>
               <div className="col-md">
                 <FileUploader img={cv} setImg={setCv} importtext="Importer votre CV" />
               </div>
             </div>
             <div className="row mb-3">
               <div className="col-md-4">
-                <InputField label="Experience" type="text" placeholder="Experience" />
+                <InputField label="Experience" type="text" placeholder="Experience"
+                  value={candidate?.experience_years || ''}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, experience_years: e.target.value }))}
+                />
 
               </div>
               <div className="col-md-4">
-                <InputField label="Education" type="text" placeholder="Education" />
+                <InputField label="Education" type="text" placeholder="Education"
+                  value={candidate?.education_level || ''}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, education_level: e.target.value }))}
+                />
 
               </div>
               <div className="col-md-4">
-                <InputField label="Role" type="text" placeholder="Role" />
+                <InputField label="Role" type="text" placeholder="Role"
+                  value={candidate?.job_title || ''}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, job_title: e.target.value }))}
+                />
 
               </div>
             </div>
-            <InputField label="Linkden" type="url" placeholder="Linkden URL..." />
-            <InputField label="Personal Website" type="url" placeholder="Website URL..." />
+            <div>
+              <InputField label="Linkden" type="url" placeholder="Linkden URL..."
+                value={candidate?.linkedin_url || ''}
+                onChange={(e) => setCandidate(prev => ({ ...prev, linkedin_url: e.target.value }))}
+              />
+              <InputField label="Personal Website" type="url" placeholder="Website URL..."
+                value={candidate?.personal_website || ''}
+                onChange={(e) => setCandidate(prev => ({ ...prev, personal_website: e.target.value }))}
+              />
+            </div>
+
 
             <button type="submit" className="blue-btn"
               style={{ float: "right" }}

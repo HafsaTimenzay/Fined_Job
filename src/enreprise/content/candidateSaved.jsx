@@ -1,270 +1,411 @@
 import React, { useState } from "react";
 import "../../styles/candidate.css";
 import Img2 from "../../assets/images/Profile.jpg";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 export default function SavedCandidate() {
   const userData = {
-    candidate: {
-      id: 1,
-      profilePicture: "https://example.com/profile.jpg",
-      name: "Jane Doe",
-      profession: "Software Engineer",
-      location: "New York, USA",
-      availability: "Available for Remote Work",
-      email: "jane.doe@example.com",
-      phone: "+1 123-456-7890",
-      about:
-        "Passionate software engineer with 5+ years of experience in building scalable web applications. Skilled in React, Node.js, and cloud infrastructure.",
-      skills: ["React.js", "Node.js", "AWS", "MongoDB", "Express.js"],
-      experience: [
-        {
-          role: "Frontend Developer",
-          company: "TechCorp",
-          duration: "Jan 2020 - Dec 2022",
-        },
-        {
-          role: "Software Engineer",
-          company: "Innovatech",
-          duration: "Mar 2018 - Dec 2019",
-        },
-      ],
-      yearsExperience: 5,
-      education: "Bachelor's Degree in Computer Science",
-      linkedIn: "https://linkedin.com/in/janedoe",
-      website: "https://janedoe.dev",
-    },
+    id: 1,
+    profilePicture: "https://example.com/profile.jpg",
+    name: "Jane Doe",
+    jobTitle: "Android Developer",
+    description: "Passionate software engineer with 5+ years of experience in building scalable web applications.",
+
+
+
+    profession: "Software Engineer",
+    location: "New York, USA",
+    availability: "Available for Remote Work",
+    email: "jane.doe@example.com",
+    phone: "+1 123-456-7890",
+    about:
+      "Passionate software engineer with 5+ years of experience in building scalable web applications. Skilled in React, Node.js, and cloud infrastructure.",
+    experience: "Frontend Developer",
+    cover_letter: "Diplômée en développement Full Stack Digital à CMC Agadir, et ayant développé une expérience pratique à travers des projets tels qu’un système de gestion d’orphelinat, je suis enthousiaste à l’idée de rejoindre votre entreprise en tant que Développeur Full Stack.Lors de ma formation, j’ai acquis des compétences solides en développement front-end et back-end, maîtrisant des technologies comme React, TypeScript, Spring Boot, et la gestion des bases de données complexes. Dans le cadre de mon projet de gestion d’orphelinat, j’ai conçu des interfaces utilisateur intuitives, intégré des fonctionnalités de gestion avancées et optimisé la performance globale de l’application.Mon expertise technique s’accompagne d’un esprit rigoureux et créatif, ce qui me permet de m’adapter rapidement aux besoins d’un projet et d’apporter des solutions modernes et efficaces. En travaillant chez Tech Innovators Maroc, je souhaite contribuer au développement de vos produits innovants tout en continuant à relever de nouveaux défis dans un environnement collaboratif et stimulant.Je suis motivée par l’idée de mettre mes compétences au service de vos projets et d’évoluer au sein de votre équipe. Je serais ravie de discuter plus en détail de mes qualifications lors d’un entretien.Dans l’attente de votre retour, je vous remercie pour votre attention et reste à votre disposition pour toute information complémentaire.",
+    yearsExperience: 5,
+    education: "Bachelor's Degree in Computer Science",
+    linkedIn: "https://linkedin.com/in/janedoe",
+    website: "https://janedoe.dev",
+    CV: "mina.pdf"
   };
 
-  const jobs = [
-    {
-      id: 1,
-      firstName: "Jacob",
-      lastName: "John",
-      jobTitle: "Android Developer",
-      location: "Rabat",
-      maxSalary: "100",
-      minSalary: "80",
-      status: "Active",
-    },
-    {
-      id: 2,
-      firstName: "Robert",
-      lastName: "Fox",
-      jobTitle: "Marketing Manager",
-      location: "Agadir",
-      maxSalary: "80",
-      minSalary: "50",
-      status: "Expert",
-    },
-  ];
-
   const [isLightBoxVisible, setLightBoxVisible] = useState(false);
+  const [savedJobs, setSavedJobs] = useState([]);
+  const [selectedJob, setSelectedJob] = useState(userData); // Add selectedJob state to store job details
 
   const handleOpenLightBox = () => {
-    setLightBoxVisible(true); // Show the lightbox
+    setLightBoxVisible(true);
   };
 
   const handleCloseLightBox = () => {
-    setLightBoxVisible(false); // Close the lightbox
+    setLightBoxVisible(false);
   };
 
-  const [candidateSaved, setCandidateSaved] = useState(jobs); // Initialize with jobs
-
-  const handleUnsaveCandiate = (idCan) => {
-    const updatedCandidates = candidateSaved.filter((candidate) => candidate.id !== idCan);
-    setCandidateSaved(updatedCandidates);
+  const handleSaveJob = (jobId) => {
+    if (savedJobs.includes(jobId)) {
+      setSavedJobs(savedJobs.filter(id => id !== jobId));
+    } else {
+      setSavedJobs([...savedJobs, jobId]);
+    }
   };
-  const { candidate } = userData; // Destructure candidate from userData
 
   return (
-    <div className="container-fluid table-responsive main-content">
-      <h5 className="m-3">
-        Favorite Jobs <span className="small text-secondary">({jobs.length})</span>
-      </h5>
+    <div className=" container-fluid table-responsive main-content">
+      <h5 className="m-3">Favorite Candidate</h5>
       <table className="table">
         <tbody>
-          {candidateSaved.map((job) => (
-            <tr key={job.id}>
-              <td>
-                <div className="d-flex align-items-center">
-                  <img src={Img2} style={{ width: "50px" }} alt="logo" className="me-3 rounded" />
-                  <div>
-                    <strong className="h5">
-                      {job.firstName} {job.lastName}
-                    </strong>
-                    <div className="text-muted small pt-1">{job.jobTitle}</div>
+          <tr>
+            <td>
+              <div className="d-flex align-items-center">
+                <img
+                  src={Img2}
+                  style={{ width: "50px" }}
+                  alt="logo"
+                  className="me-3 rounded"
+                />
+                <div>
+                  <strong className="h5">{userData.name}</strong>
+                  <div className="text-muted small pt-1">
+                    {userData.jobTitle}
                   </div>
                 </div>
-              </td>
-              <td>
-                <button
-                  className="btn btn-light me-2 p-3 rounded border  d-flex align-items-center justify-content-center linksBtn p-0 mx-1"
-                  onClick={() => handleUnsaveCandiate(job.id)}
+              </div>
+            </td>
+            <td
+              className="text-center align-middle me-3"
+              style={{ width: "150px" }}
+            >
+              <button className="white-btn" onClick={handleOpenLightBox}>
+                View Profile
+                <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
+              </button>
+
+              {isLightBoxVisible && (
+                <div
+                  className="lightbox-overlay mainnn-content"
+                  onClick={handleCloseLightBox}
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(0, 0, 0, 0.8)",
+                    zIndex: 9999,
+                  }}
                 >
-                  <i
-                    className="fi fi-sr-star"
-                    style={{ color: "#0a65cc" }}
-                  ></i>
-                </button>
-
-              </td>
-
-              <td className="text-center align-middle me-3" style={{ width: "150px" }}>
-                <button className="white-btn" onClick={handleOpenLightBox}>
-                  View Profile
-                  <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
-                </button>
-
-                {/* Lightbox */}
-                {isLightBoxVisible && (
-                  <div className="lightbox-overlay" onClick={handleCloseLightBox}>
-                    <div
-                      className="lightbox-content"
-                      style={{ position: "relative" }}
-                      onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                  <div
+                    className="lightbox-content"
+                    style={{
+                      position: "relative",
+                      maxWidth: "800px",
+                      margin: "50px auto",
+                      background: "#fff",
+                      borderRadius: "15px",
+                      padding: "20px",
+                      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      className="close-btn"
+                      onClick={handleCloseLightBox}
+                      style={{
+                        position: "absolute",
+                        top: "15px",
+                        right: "15px",
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
                     >
-                      <button className="close-btn" onClick={handleCloseLightBox}>
-                        <i className="fi fi-rr-cross-small"></i>
-                      </button>
-                      <div className="container">
-                        <div className="row">
-                          <div className="d-flex align-items-center mb-3">
+                      <i
+                        className="fi fi-rr-cross-small"
+                        style={{ fontSize: "20px", color: "#333" }}
+                      ></i>
+                    </button>
+                    <div className="container">
+
+
+
+                      <div className="row">
+
+                        <div className="col-md-8 pt-3">
+                          <div className="d-flex align-items-center mb-4">
                             <img
-                              src={candidate.profilePicture}
+                              src={Img2}
                               alt="Candidate Profile"
                               className="me-3 imgCandidate"
+                              style={{
+                                width: "120px",
+                                height: "120px",
+                                borderRadius: "50%",
+                                border: "4px solid #f0f0f0",
+                              }}
                             />
                             <div>
-                              <h4 className="mb-0">{candidate.name}</h4>
-                              <p className="text-muted">
-                                {candidate.profession} · {candidate.location} · ({candidate.availability})
+                              <h2 className="mb-1" style={{ color: "#2c3e50", textAlign: "start" }}>
+                                {userData.name}
+                              </h2>
+                              <p className="text-muted" style={{ textAlign: "start" }}>
+                                {userData.profession} · {userData.location} ·{" "}
+                                {userData.availability}
                               </p>
                             </div>
                           </div>
+                          <h4
+                            style={{
+                              color: "#2c3e50",
+                              marginBottom: "15px",
+                              textAlign: "start"
+                            }}
+                          >
+                            BIOGRAPHY
+                          </h4>
+                          <p style={{ lineHeight: "1.8", color: "#7f8c8d", textAlign: "start" }}>
+                            {userData.about}
+                          </p>
+                          <hr />
+                          <h4
+                            style={{
+                              color: "#2c3e50",
+                              marginBottom: "15px",
+                              textAlign: "start"
+                            }}
+                          >
+                            COVER LETTER
+                          </h4>
+                          <p style={{ lineHeight: "1.8", color: "#7f8c8d", textAlign: "start" }}>
+                            {userData.cover_letter}
+                          </p>
+                          <hr />
+
                         </div>
 
-                        {/* Candidate Overview, Skills, and Experience */}
-                        <div className="row">
-                          <div className="col-md-7 ms-3 pt-3">
-                            <h5>About the Candidate</h5>
-                            <p>{candidate.about}</p>
+                        <div className="col-md-4 pt-1 " style={{ paddingBottom: '20px' }}>
+                          <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
+                            {/* Send Email Button */}
+                            <button
+                              style={{
+                                background: "#0077B5",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "5px",
+                                // padding: "10px 15px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px",
+                                cursor: "pointer",
 
-                            <h5>Skills</h5>
-                            <ul>
-                              {candidate.skills.map((skill, index) => (
-                                <li key={index}>{skill}</li>
-                              ))}
-                            </ul>
+                              }}
+                              onClick={() => alert("Send Email Clicked")}
+                            >
+                              <i
+                                className="fi fi-rr-envelope"
+                                style={{ fontSize: "16px" }}
+                              ></i>{" "}
+                              Send Mail
+                            </button>
 
-                            <h5>Experience</h5>
-                            <ul>
-                              {candidate.experience.map((exp, index) => (
-                                <li key={index}>
-                                  {exp.role} at {exp.company} ({exp.duration})
-                                </li>
-                              ))}
-                            </ul>
+                            {/* Save Icon */}
+                            <button
+                              className="btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center linksBtn"
+
+                              onClick={() => handleSaveJob(userData.id)} // On button click, save the job
+                            >
+                              <i
+                                className={`fi ${savedJobs.includes(userData.id) ? 'fi-sr-star' : 'fi-rr-star'}`}
+                                style={{ color: "#0a65cc" }}
+                              ></i>
+                            </button>
+                          </div>
+                          {/* Download the CV */}
+                          <div
+                            className="p-3 mb-4 rounded"
+                            style={{
+                              background: "#f7f9fb",
+                              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                              marginBottom: "15px"
+                            }}
+                          >
+                            <h5 style={{ color: "#2c3e50" }}>
+
+                              Download My Resume
+                            </h5>
+                            <div className="row">
+                              <i
+                                className="col  me-1  fas fa-file-pdf"
+                                style={{ fontSize: "6rem", color: "#ffffff" }}
+                              ></i>
+                              <div className="col me-5 p-3">
+                                <div className="row">
+                                  <p className=" text-muted"> {userData.name}</p>
+                                  <strong>PDF</strong>
+                                </div>
+                              </div>
+                              {/* Button with dynamic download icon */}
+                              <a
+                                href={userData.CV} // Replace with the actual path to your CV file
+                                download={userData.CV} // Optional: Set the default filename for the download
+                                // className="col btn btn-light me-2 p-3 rounded border d-flex align-items-center justify-content-center "
+                                style={{
+                                  backgroundColor: "#C7DBF2",
+
+                                  color: "#0a65cc",
+                                  textDecoration: "none",
+                                  borderRadius: "5px",
+                                  display: "inline-block",
+                                  marginTop: "10px"
+                                }}
+                              >
+                                <i
+                                  className='fi fi-rr-download'
+                                  style={{ fontSize: "1.5rem" }}
+                                ></i>
+                              </a>
+                            </div>
+                          </div>
+
+
+
+                          {/* Contact Information */}
+                          <div
+                            className="p-3 mb-4 rounded"
+                            style={{
+                              background: "#f7f9fb",
+                              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                              marginBottom: "15px"
+                            }}
+                          >
+                            <h5 style={{ color: "#2c3e50" }}>
+                              Contact Information
+                            </h5>
+                            <div className="d-flex align-items-start mb-3" style={{ marginBottom: "5px" }}>
+                            <i className="fi fi-rr-envelope" style={{ color: "#0a65cc", fontSize: "1.5rem" }}></i>
+                              <div>
+                                <strong className="text-dark">Email:</strong>{" "}
+                                <span className="text-muted">{userData.email}</span>
+                              </div>
+                            </div>
+                            <div className="d-flex align-items-start mb-3" style={{ marginBottom: "5px" }}>
+                              <i className="fi fi-rr-phone-flip me-3" style={{ color: "#0a65cc", fontSize: "1.5rem" }}></i>
+                              <div>
+                                <strong className="text-dark">Phone:</strong>{" "}
+                                <span className="text-muted">{userData.phone}</span>
+                              </div>
+                            </div>
+
+
                           </div>
 
                           {/* Candidate Details */}
-                          <div className="col-md-4">
-                            <div className="bg-light p-3 mb-3 rounded">
-                              <h6 className="sub-title mb-4 fw-bold text-dark">Contact Information</h6>
-                              <p className="text-muted">{candidate.email}</p>
-                              <p className="text-muted">{candidate.phone}</p>
+                          <div
+                            className="p-3 rounded"
+                            style={{
+                              background: "#f7f9fb",
+                              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                            }}
+                          >
+                            <h5 style={{ color: "#2c3e50", marginBottom: "15px" }}>
+                              Candidate Details
+                            </h5>
+                            <div className="d-flex align-items-start mb-3" style={{ marginBottom: "15px" }}>
+                              <i
+                                className="fi fi-rs-briefcase me-3"
+                                style={{ color: "#0a65cc", fontSize: "1.5rem" }}
+                              ></i>
+                              <div>
+                                <strong className="text-dark">Profession:</strong>{" "}
+                                <span className="text-muted">{userData.profession}</span>
+                              </div>
                             </div>
-
-                            <div className="bg-light mb-3 p-4 rounded shadow-sm">
-                              <h6 className="sub-title mb-4 fw-bold text-dark">Candidate Details</h6>
-                              <div className="d-flex align-items-start mb-3">
-                                <i
-                                  className="fi fi-rr-employee-man me-3"
-                                  style={{ color: "#0a65cc", fontSize: "1.5rem" }}
-                                ></i>
-                                <div>
-                                  <strong className="text-dark">Profession:</strong>{" "}
-                                  <span className="text-muted">{candidate.profession}</span>
-                                </div>
-                              </div>
-
-                              <div className="d-flex align-items-start mb-3">
-                                <i
-                                  className="fi fi-rr-briefcase me-3"
-                                  style={{ color: "#0a65cc", fontSize: "1.5rem" }}
-                                ></i>
-                                <div>
-                                  <strong className="text-dark">Years of Experience:</strong>{" "}
-                                  <span className="text-muted">{candidate.yearsExperience}</span>
-                                </div>
-                              </div>
-
-                              <div className="d-flex align-items-start">
-                                <i
-                                  className="fi fi-rr-graduation-cap me-3"
-                                  style={{ color: "#0a65cc", fontSize: "1.5rem" }}
-                                ></i>
-                                <div>
-                                  <strong className="text-dark">Education:</strong>{" "}
-                                  <span className="text-muted">{candidate.education}</span>
-                                </div>
+                            <div className="d-flex align-items-start mb-3">
+                              <i
+                                className="fi fi-rs-briefcase me-3"
+                                style={{ color: "#0a65cc", fontSize: "1.5rem" }}
+                              ></i>
+                              <div>
+                                <strong className="text-dark">Experience:</strong>{" "}
+                                <span className="text-muted">{userData.experience}</span>
                               </div>
                             </div>
 
-                            <div className="bg-light p-3 mb-3 rounded">
-                              <h6 className="sub-title mb-4 fw-bold text-dark">Social Links</h6>
-                              <div className="d-flex align-items-center">
-                                <a
-                                  href={candidate.linkedIn}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
-                                >
-                                  <i className="fi fi-brands-linkedin linksIcon"></i>
-                                </a>
-                                <a
-                                  href={candidate.website}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
-                                >
-                                  <i className="fi fi-ss-globe linksIcon"></i>
-                                </a>
+                            <div className="d-flex align-items-start mb-3" style={{ marginBottom: "15px" }}>
+                              <i
+                                className="fi fi-rs-clock me-3"
+                                style={{ color: "#0a65cc", fontSize: "1.5rem" }}
+                              ></i>
+                              <div>
+                                <strong className="text-dark">Years of Experience:</strong>{" "}
+                                <span className="text-muted">{userData.yearsExperience}</span>
                               </div>
                             </div>
+
+                            <div className="d-flex align-items-start mb-3" style={{ marginBottom: "15px" }}>
+                              <i
+                                className="fi fi-rs-graduation-cap me-3"
+                                style={{ color: "#0a65cc", fontSize: "1.5rem" }}
+                              ></i>
+                              <div>
+                                <strong className="text-dark">Education:</strong>{" "}
+                                <span className="text-muted">{userData.education}</span>
+                              </div>
+                            </div>
+
+
                           </div>
+
+                          {/* Social Media Links */}
+                          <div className="bg-light p-3 mb-3 social-media-icons rounded">
+                  <h6 className="sub-title mb-4 fw-bold text-dark">Related Links</h6>
+                  <div className="d-flex align-items-center">
+                    {/* LinkedIn Button */}
+                    <a
+                      href={selectedJob?.linkedInUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
+                    >
+                      <i className="fi fi-brands-linkedin linksIcon"></i>
+                    </a>
+                    {/* Portfolio Button */}
+                    <a
+                      href={selectedJob?.companyWebsite}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="linksBtn btn btn-light me-3 p-3 rounded border d-flex align-items-center justify-content-center"
+                    >
+                      <i className="fi fi-ss-globe linksIcon"></i>
+                    </a>
+                  </div>
+                </div>
+                          {/* <div
+                            className="social-media-icons"
+                            style={{
+                              marginTop: "20px",
+                              display: "flex",
+                              gap: "15px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <a href={userData.linkedIn} target="_blank" rel="noopener noreferrer">
+                              <FaLinkedin size={24} color="#0077B5" />
+                            </a>
+                            <a href={userData.website} target="_blank" rel="noopener noreferrer">
+                              <FaGlobe size={24} color="#4CAF50" />
+                            </a>
+                          </div> */}
                         </div>
+
                       </div>
                     </div>
                   </div>
-                )}
-              </td>
-              <td className="text-center align-middle">
-                <div className="dropdown">
-                  <button
-                    type="button"
-                    className="p-0 dropdown-toggle hide-arrow"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style={{ background: "white", border: "none" }}
-                  >
-                    <i className="fi fi-br-menu-dots-vertical"></i>
-                  </button>
-                  <ul className="dropdown-menu">
-                    <li className="p-1"><a className="dropdown-item LinkProf" href="#">
-                      <i className="fi fi-rr-envelope align-self-center me-2" style={{ fontSize: "14px" }}></i>
-                      Send Email
-                    </a></li>
-                    <li className="p-1"><a className="dropdown-item LinkProf" href="#">
-                      <i className="fi fi-sr-download align-self-center me-2" style={{ fontSize: "13px" }}></i>
-                      Download Cv
-                    </a></li>
-                  </ul>
                 </div>
-              </td>
-            </tr>
-          ))}
+              )}
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
   );
 }
+  

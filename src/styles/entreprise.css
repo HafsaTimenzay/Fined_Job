@@ -167,3 +167,6 @@
 .dropdown-toggle::after {
     display: none; /* Hide the dropdown triangle */
 }
+.mainnn-content {
+    padding-top: 210px;  /* Ajustez pour tenir compte de la hauteur de la navbar */
+  }

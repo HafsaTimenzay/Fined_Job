@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import LoginImage from '../assets/images/login.jpeg';
 import Logo from '../components/logo';
 import { useNavigate, Link } from 'react-router-dom';
+import { useEmail } from "../candidate/EmailProvider"
 
 const Signup = () => {
   const [accountType, setAccountType] = useState('Candidate');
+  const { setEmail } = useEmail(); 
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -63,7 +65,11 @@ const Signup = () => {
         });
 
         if (response.ok) {
-          navigate('/Candidate/overview');
+          if (response.ok) {
+            setEmail(formData.email); // Set email in the context
+            navigate('/Candidate/overview');  // Navigate to the overview page
+          }
+          // navigate('/Candidate/overview', { state: { email: formData.email} });
         } else {
           const errorData = await response.json();
           if (errorData.message && errorData.message.toLowerCase().includes('email')) {
@@ -76,22 +82,29 @@ const Signup = () => {
         alert('Failed to register candidate. Please try again.');
       }
     }
-    if(accountType === 'Entreprise'){
+    if (accountType === 'Entreprise') {
       try {
         const response = await fetch('http://localhost:8080/api/users/signup/recuiter', {
-          method : 'POST',
-          headers:{
+          method: 'POST',
+          headers: {
             'Content-Type': 'application/json',
           },
-          body : JSON.stringify({
+          body: JSON.stringify({
             email: formData.email,
             password: formData.password,
-          })
-        })
-      }catch (error){
-      alert('Failed to register entreprise. Please try again.');
+          }),
+        });
+    
+        if (response.ok) {
+          navigate('/Entreprise/SignIn', { state: { email: formData.email } });
+        } else {
+          alert('Failed to register entreprise.');
+        }
+      } catch (error) {
+        alert('Failed to register entreprise. Please try again.');
+      }
     }
-    } 
+    
   };
 
   return (
