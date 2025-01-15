@@ -219,7 +219,7 @@ export default function Settings() {
       personal: (
         <div className="card p-4 mb-4">
           <h5>Professional Information</h5>
-          <form>
+          <form onSubmit={(e) => handleUpdate(e, candidate)}>
             <div className="row mb-3">
               <div>
                 <span>Biography</span>

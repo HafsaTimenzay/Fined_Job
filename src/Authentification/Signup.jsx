@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import LoginImage from '../assets/images/login.jpeg';
 import Logo from '../components/logo';
 import { useNavigate, Link } from 'react-router-dom';
-import { useEmail } from "../candidate/EmailProvider"
+// import { useEmail } from "../candidate/EmailProvider"
 
 const Signup = () => {
   const [accountType, setAccountType] = useState('Candidate');
-  const { setEmail } = useEmail(); 
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -18,6 +17,8 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState(''); // New state for email error
   const navigate = useNavigate();
+
+  const email = sessionStorage.getItem('email');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
