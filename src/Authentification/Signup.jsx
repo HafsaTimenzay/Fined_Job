@@ -66,8 +66,9 @@ const Signup = () => {
 
         if (response.ok) {
           if (response.ok) {
-            setEmail(formData.email); // Set email in the context
-            navigate('/Candidate/overview');  // Navigate to the overview page
+            // Store the email in sessionStorage
+            sessionStorage.setItem('email', formData.email);
+            navigate('/Candidate/overview');  // No need to pass email in state
           }
           // navigate('/Candidate/overview', { state: { email: formData.email} });
         } else {

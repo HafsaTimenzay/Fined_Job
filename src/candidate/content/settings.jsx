@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useEmail } from "../EmailProvider"
+// import { useEmail } from "../EmailProvider"
 
 
 // Composant réutilisable pour les champs de saisie
@@ -63,7 +63,7 @@ export default function Settings() {
   const location = useLocation();
   // const email = location.state?.email;
   // const email = "htimenzay3@gmail.com"
-  const { email } = useEmail();
+  const email = sessionStorage.getItem('email') || {};
 
 
   useEffect(() => {
@@ -194,10 +194,12 @@ export default function Settings() {
           <form>
             <div className="row mb-3">
               <div>
-              <InputField label="bio" type="text" placeholder="Biography"
+                <span>Biography</span>
+              <textarea className="form-control mb-3 mt-2" name="bio" placeholder="Biography"
                   value={candidate?.bio || ''}
                   onChange={(e) => setCandidate(prev => ({ ...prev, bio: e.target.value }))}
-                />
+                ></textarea>
+                
               </div>
               <div className="col-md">
                 <FileUploader img={cv} setImg={setCv} importtext="Importer votre CV" />
@@ -226,15 +228,21 @@ export default function Settings() {
 
               </div>
             </div>
-            <div>
-              <InputField label="Linkden" type="url" placeholder="Linkden URL..."
+            <div className="row">
+              <div className="col-md-6">
+                <InputField label="Linkden" type="url" placeholder="Linkden URL..."
                 value={candidate?.linkedin_url || ''}
                 onChange={(e) => setCandidate(prev => ({ ...prev, linkedin_url: e.target.value }))}
               />
-              <InputField label="Personal Website" type="url" placeholder="Website URL..."
+              </div>
+              <div className="col-md-6">
+                <InputField label="Personal Website" type="url" placeholder="Website URL..."
                 value={candidate?.personal_website || ''}
                 onChange={(e) => setCandidate(prev => ({ ...prev, personal_website: e.target.value }))}
               />
+              </div>
+              
+              
             </div>
 
 

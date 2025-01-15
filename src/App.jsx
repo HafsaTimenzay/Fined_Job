@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { EmailProvider } from './candidate/EmailProvider';
+// import { EmailProvider } from './candidate/EmailProvider';
 import Navbar from "./components/navbar";
 import Home from "./Authentification/Home";
 import SignUp from "./Authentification/Signup";
@@ -29,7 +29,7 @@ import Applications from './enreprise/content/applications'
 const App = () => {
   return (
     <div className="main">
-      <EmailProvider>
+      {/* <EmailProvider> */}
         <Router>
           <Routes>
             {/* Route principale */}
@@ -70,7 +70,7 @@ const App = () => {
             </Route>
           </Routes>
         </Router>
-      </EmailProvider>
+      {/* </EmailProvider> */}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useEmail } from "../EmailProvider"
+// import { useEmail } from "../EmailProvider"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/candidate.css";
 import JobList from "./JobList";
@@ -22,7 +22,7 @@ const Overview = () => {
   const [candidate, setCandidate] = useState(null);
   const [profileWarning, setProfileWarning] = useState("");
   const location = useLocation();
-  const { email } = useEmail();
+  const email = sessionStorage.getItem('email') || {};
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/candidate/findByEmail?email=${email}`)
