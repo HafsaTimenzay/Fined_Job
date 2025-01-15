@@ -80,6 +80,31 @@ export default function Settings() {
     }
   }, [email]);
 
+  const handleUpdate = (e, updatedCandidate) => {
+    e.preventDefault();
+    fetch(`http://localhost:8080/api/candidate/updateByEmail?email=${email}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedCandidate),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to update candidate.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        alert("Candidate updated successfully.");
+        setCandidate(data);  // Update the candidate state with the new data
+      })
+      .catch(err => {
+        alert(`Error: ${err.message}`);
+      });
+  };
+
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -100,12 +125,11 @@ export default function Settings() {
       profile: (
         <div className="card p-4 mb-4">
           <h5>Personal Information</h5>
-          <form>
+          <form onSubmit={(e) => handleUpdate(e, candidate)}>
             <div className="row mb-3">
               <div className="col-md-3">
                 <label className="form-label">Profile Picture</label>
                 <div className="d-flex justify-content-center align-items-center mt-3">
-
                   <div
                     className="border border-dashed rounded p-4 text-center"
                     style={{ width: "350px", height: "150px" }}
@@ -125,28 +149,30 @@ export default function Settings() {
                       value={candidate?.firstname || ''}
                       onChange={(e) => setCandidate(prev => ({ ...prev, firstname: e.target.value }))}
                     />
-                    {/* <InputField label="First Name" type="text" placeholder="First Name.." /> */}
                   </div>
                   <div className="col-md-6">
-
                     <InputField
                       label="Last Name"
                       type="text"
                       placeholder="Last Name..."
                       value={candidate.lastname || ''}
-                      onChange={(e) => setCandidate({ ...candidate, lastname: e.target.value })}
+                      onChange={(e) => setCandidate(prev => ({ ...prev, lastname: e.target.value }))}
                     />
-                    {/* <InputField label="Last Name" type="text" placeholder="Last Name..." /> */}
                   </div>
                   <div className="col-md-6">
-                    <InputField label="Date Of Birth" type="date"
-                      value={candidate?.date_of_birth || ''}
+                    <InputField
+                      label="Date Of Birth"
+                      type="date"
+                      value={candidate?.dateOfBirth || ''}
                       onChange={(e) => setCandidate(prev => ({ ...prev, date_of_birth: e.target.value }))}
                     />
                   </div>
                   <div className="col-md-6">
-                    <InputField label="Telephone Number" type="tel" placeholder="06/07 0000 0000"
-                      value={candidate?.phone_number || ''}
+                    <InputField
+                      label="Telephone Number"
+                      type="tel"
+                      placeholder="06/07 0000 0000"
+                      value={candidate?.phoneNumber || ''}
                       onChange={(e) => setCandidate(prev => ({ ...prev, phone_number: e.target.value }))}
                     />
                   </div>
@@ -160,11 +186,11 @@ export default function Settings() {
                           className="form-check-input"
                           id="male"
                           name="sex"
-
+                          value="Male"
+                          checked={candidate?.gender === 'Male'}
+                          onChange={(e) => setCandidate(prev => ({ ...prev, gender: e.target.value }))}
                         />
-                        <label className="form-check-label" htmlFor="male">
-                          Male
-                        </label>
+                        <label className="form-check-label" htmlFor="male">Male</label>
                       </div>
                       <div className="form-check">
                         <input
@@ -172,10 +198,11 @@ export default function Settings() {
                           className="form-check-input"
                           id="female"
                           name="sex"
+                          value="Female"
+                          checked={candidate?.gender === 'Female'}
+                          onChange={(e) => setCandidate(prev => ({ ...prev, gender: e.target.value }))}
                         />
-                        <label className="form-check-label" htmlFor="female">
-                          Female
-                        </label>
+                        <label className="form-check-label" htmlFor="female">Female</label>
                       </div>
                     </div>
                   </div>
@@ -186,6 +213,7 @@ export default function Settings() {
               Save Update
             </button>
           </form>
+
         </div>
       ),
       personal: (
@@ -195,11 +223,13 @@ export default function Settings() {
             <div className="row mb-3">
               <div>
                 <span>Biography</span>
-              <textarea className="form-control mb-3 mt-2" name="bio" placeholder="Biography"
+                <textarea
+                  className="form-control mb-3 mt-2"
+                  name="bio"
+                  placeholder="Biography"
                   value={candidate?.bio || ''}
                   onChange={(e) => setCandidate(prev => ({ ...prev, bio: e.target.value }))}
                 ></textarea>
-                
               </div>
               <div className="col-md">
                 <FileUploader img={cv} setImg={setCv} importtext="Importer votre CV" />
@@ -207,51 +237,59 @@ export default function Settings() {
             </div>
             <div className="row mb-3">
               <div className="col-md-4">
-                <InputField label="Experience" type="text" placeholder="Experience"
-                  value={candidate?.experience_years || ''}
+                <InputField
+                  label="Experience"
+                  type="text"
+                  placeholder="Experience"
+                  value={candidate?.experienceYears || ''}
                   onChange={(e) => setCandidate(prev => ({ ...prev, experience_years: e.target.value }))}
                 />
-
               </div>
               <div className="col-md-4">
-                <InputField label="Education" type="text" placeholder="Education"
-                  value={candidate?.education_level || ''}
+                <InputField
+                  label="Education"
+                  type="text"
+                  placeholder="Education"
+                  value={candidate?.educationLevel || ''}
                   onChange={(e) => setCandidate(prev => ({ ...prev, education_level: e.target.value }))}
                 />
-
               </div>
               <div className="col-md-4">
-                <InputField label="Role" type="text" placeholder="Role"
-                  value={candidate?.job_title || ''}
+                <InputField
+                  label="Role"
+                  type="text"
+                  placeholder="Role"
+                  value={candidate?.jobTitle || ''}
                   onChange={(e) => setCandidate(prev => ({ ...prev, job_title: e.target.value }))}
                 />
-
               </div>
             </div>
             <div className="row">
               <div className="col-md-6">
-                <InputField label="Linkden" type="url" placeholder="Linkden URL..."
-                value={candidate?.linkedin_url || ''}
-                onChange={(e) => setCandidate(prev => ({ ...prev, linkedin_url: e.target.value }))}
-              />
+                <InputField
+                  label="LinkedIn"
+                  type="url"
+                  placeholder="LinkedIn URL..."
+                  value={candidate?.linkedinUrl || ''}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, linkedin_url: e.target.value }))}
+                />
               </div>
               <div className="col-md-6">
-                <InputField label="Personal Website" type="url" placeholder="Website URL..."
-                value={candidate?.personal_website || ''}
-                onChange={(e) => setCandidate(prev => ({ ...prev, personal_website: e.target.value }))}
-              />
+                <InputField
+                  label="Personal Website"
+                  type="url"
+                  placeholder="Website URL..."
+                  value={candidate?.personalWebsite || ''}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, personal_website: e.target.value }))}
+                />
               </div>
-              
-              
             </div>
 
-
-            <button type="submit" className="blue-btn"
-              style={{ float: "right" }}
-            >
+            <button type="submit" className="blue-btn" style={{ float: "right" }}>
               Save Update
             </button>
           </form>
+
         </div>
       ),
       "account-setting": (
