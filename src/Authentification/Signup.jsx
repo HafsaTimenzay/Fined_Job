@@ -86,7 +86,7 @@ const Signup = () => {
     }
     if (accountType === 'Entreprise') {
       try {
-        const response = await fetch('http://localhost:8080/api/users/signup/recuiter', {
+        const response = await fetch('http://localhost:8080/api/users/signup/recruiter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const Signup = () => {
         });
     
         if (response.ok) {
-          navigate('/Entreprise/SignIn', { state: { email: formData.email } });
+          navigate('/Entreprise/overview', { state: { email: formData.email } });
         } else {
           alert('Failed to register entreprise.');
         }

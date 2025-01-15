@@ -36,7 +36,7 @@ export default function MyJobs() {
 
     return (
         <div className="container-fluid table-responsive main-content">
-            <h5 className='m-3'>Applied Jobs <span className='small text-secondary'>({jobs.length})</span></h5>
+            <h5 className='m-3'>My Jobs <span className='small text-secondary'>({jobs.length})</span></h5>
             <table className="table">
                 <thead style={{ backgroundColor: "#e7e8fc" }}>
                     <tr style={{ backgroundColor: "#e7e8fc" }}>

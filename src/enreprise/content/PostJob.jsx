@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/candidate.css";
 
@@ -17,12 +18,12 @@ export default function PostJob() {
   const [currentRequirement, setCurrentRequirement] = useState("");
   const [benefits, setBenefits] = useState([]);
   const [currentBenefit, setCurrentBenefit] = useState("");
-  const currentDate = new Date().toString().split(' GMT')[0];
+  const currentDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
-
-  const jobTypeOptions = employmentType === "Internship"
-    ? ["Paid Internship", "Unpaid Internship", "Remote Internship"]
-    : ["Remote", "Hybrid", "On-Site", "Full-Time", "Part-Time"];
+  const jobTypeOptions =
+    employmentType === "Internship"
+      ? ["Paid Internship", "Unpaid Internship", "Remote Internship"]
+      : ["Remote", "Hybrid", "On_Site", "Full_Time", "Part_Time"];
 
   const addRequirement = () => {
     if (currentRequirement.trim() !== "") {
@@ -38,31 +39,55 @@ export default function PostJob() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const email = "entre1@gmail.com"; // Retrieve the recruiter's email from session storage
+    if (!email) {
+      alert("User not logged in. Please log in first.");
+      return;
+    }
+
     const jobData = {
-      jobTitle,
-      jobTags,
-      minSalary,
-      maxSalary,
-      education,
-      experience,
-      location,
-      jobType,
-      employmentType,
-      jobDescription,
-      requirements,
-      benefits,
-      currentDate
+      title: jobTitle,
+      company: "CompanyName", // Replace with dynamic company name if available
+      location: location,
+      subType: jobType.toUpperCase(),
+      type: employmentType.toUpperCase(),
+      minSalary: parseFloat(minSalary),
+      maxSalary: parseFloat(maxSalary),
+      description: jobDescription,
+      postedDate: currentDate,
+      expirationDate: "2024-12-31", // Set a default expiration date or allow user input
+      requirements: requirements.join(", "), // Convert array to string
+      benefits: benefits.join(", "), // Convert array to string
+      experience: experience,
+      education: education,
+      companyWebsite: "https://yourcompany.com", // Replace with dynamic data if available
+      linkedInUrl: "https://linkedin.com/company/yourcompany", // Replace with dynamic data if available
+      email, // Recruiter's email
     };
-    alert(Object.values(jobData).join(", "))
-    console.log(jobData); // Replace with API call to send jobData to the backend
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/jobs/post",
+        jobData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      if (response.status === 200) {
+        alert("Job posted successfully!");
+        window.location.href = "/Entreprise/myJobs"; // Redirect to "My Jobs" page
+      }
+    } catch (error) {
+      console.error("Error posting job:", error);
+      const errorMessage =
+        error.response?.data || "Failed to post the job. Please try again.";
+      alert(errorMessage);
+    }
   };
 
   return (
     <div className="container-fluid main-content">
       <h5 className="m-3">Post a Job</h5>
-
-
 
       {/* Job Details */}
       <div className="row mt-4">
@@ -98,7 +123,6 @@ export default function PostJob() {
           </div>
         </div>
       </div>
-
 
       {/* Education and Experience */}
       <div className="row mt-3">
@@ -136,15 +160,15 @@ export default function PostJob() {
       </div>
 
       {/* Salary */}
-      <div className="row mt-3">
-        <h6>Salary</h6>
-        <div className="col-md-6">
-          <div className="mb-3">
-            <label htmlFor="minSalary" className="form-label">
+       <div className="row mt-3">
+         <h6>Salary</h6>
+         <div className="col-md-6">
+           <div className="mb-3">
+             <label htmlFor="minSalary" className="form-label">
               Min Salary <span className="text-muted">(monthly Salary)</span>
             </label>
             <div className="input-group">
-              <input
+               <input
                 type="text"
                 className="form-control"
                 id="minSalary"
@@ -304,12 +328,11 @@ export default function PostJob() {
       </div>
 
       {/* Submit Button */}
-
       <button className="blue-btn" onClick={handleSubmit}>
         Post Job
         <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>
       </button>
-
     </div>
   );
 }
+
