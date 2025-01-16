@@ -75,7 +75,7 @@ export default function PostJob() {
 
       if (response.status === 200) {
         alert("Job posted successfully!");
-        window.location.href = "/Entreprise/myJobs"; // Redirect to "My Jobs" page
+        window.location.href = "/Entreprise/my-jobs"; // Redirect to "My Jobs" page
       }
     } catch (error) {
       console.error("Error posting job:", error);
