@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/candidate.css";
 import JobList from "./myJobs";
@@ -6,42 +6,29 @@ import { Link} from "react-router-dom";
 
 
 const Overview = () => {
-  const candidate = 
-    {
-      id: 1,
-      firstName : "Howard",
-      lastName : "Esther"
-    }
-  
-  const jobs = [
-    {
-      id: 1,
-      title: "Networking Engineer",
-      location: "Remote",
-      salary: "$50k-$80k/month",
-      dateApplied: "Feb 2, 2019 19:28",
-      status: "Active",
-      logo: "https://via.placeholder.com/30",
-    },
-    {
-      id: 2,
-      title: "Product Designer",
-      location: "Full Time",
-      salary: "$50k-$80k/month",
-      dateApplied: "Dec 7, 2019 23:26",
-      status: "Active",
-      logo: "https://via.placeholder.com/30",
-    },
-    {
-      id: 3,
-      title: "Junior Graphic Designer",
-      location: "Temporary",
-      salary: "$50k-$80k/month",
-      dateApplied: "Jan 10, 2020 10:15",
-      status: "Inactive",
-      logo: "https://via.placeholder.com/30",
-    },
-  ];
+  const [recruiter, setRecruiter] = useState(null);
+  const email = sessionStorage.getItem('email') || {};
+  console.log(email)
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/recruiter/findByEmail?email=${email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          setRecruiter(data);
+        } else {
+          setProfileWarning("Recruiter not found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setProfileWarning("Error fetching recruiter data.");
+      });
+  }, [email]);
+
+  if (!recruiter) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container-fluid main-content" style={{ height: "1000px" }}>
@@ -49,7 +36,7 @@ const Overview = () => {
       <main className="col-md p-4">
         {/* Overview Section */}
         <section className="mb-4">
-          <h4>Hello there!</h4>
+          <h4>Welcome {recruiter.companyName} !</h4>
           <p>Here is your daily activities and job alerts</p>
           <div className="container my-5">
       <div className="row">

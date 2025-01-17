@@ -119,13 +119,13 @@ export default function MyJobs() {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const email = "entre1@gmail.com"; // Fetch recruiter's email from session storage
+                const email = sessionStorage.getItem('email'); // Fetch recruiter's email from session storage
                 if (!email) {
                     setError("User not logged in.");
                     return;
                 }
 
-                const response = await fetch(`http://localhost:8080/api/jobs/recruiter?email=${email}`);
+                const response = await fetch(`http://localhost:8080/api/jobs/allJobs?email=${email}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch jobs");
                 }

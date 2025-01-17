@@ -5,13 +5,13 @@ import "../../styles/candidate.css";
 
 export default function PostJob() {
   const [jobTitle, setJobTitle] = useState("");
-  const [jobTags, setJobTags] = useState("");
   const [minSalary, setMinSalary] = useState("");
   const [maxSalary, setMaxSalary] = useState("");
   const [education, setEducation] = useState("");
   const [experience, setExperience] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
+  const [category, setCategory] = useState("");
   const [employmentType, setEmploymentType] = useState("Internship"); // Default is Internship
   const [jobDescription, setJobDescription] = useState("");
   const [requirements, setRequirements] = useState([]);
@@ -40,7 +40,7 @@ export default function PostJob() {
   };
 
   const handleSubmit = async () => {
-    const email = "entre1@gmail.com"; // Retrieve the recruiter's email from session storage
+    const email = sessionStorage.getItem('email'); // Retrieve the recruiter's email from session storage
     if (!email) {
       alert("User not logged in. Please log in first.");
       return;
@@ -52,6 +52,7 @@ export default function PostJob() {
       location: location,
       subType: jobType.toUpperCase(),
       type: employmentType.toUpperCase(),
+      category: category,
       minSalary: parseFloat(minSalary),
       maxSalary: parseFloat(maxSalary),
       description: jobDescription,
@@ -68,7 +69,7 @@ export default function PostJob() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/jobs/post",
+        `http://localhost:8080/api/jobs/post?email=${email}`,
         jobData,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -117,8 +118,8 @@ export default function PostJob() {
               className="form-control"
               id="jobKey"
               placeholder="Job keyword, tags, etc."
-              value={jobTags}
-              onChange={(e) => setJobTags(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             />
           </div>
         </div>

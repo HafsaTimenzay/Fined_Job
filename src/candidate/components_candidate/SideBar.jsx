@@ -80,13 +80,6 @@ const SideBar = () => {
               </NavLink>
             </li>
 
-            {/* Déconnexion en bas */}
-            <li className="nav-item mt-5 pt-5">
-              <NavLink to="/" className="nav-link logout ps-4 text-muted navItem">
-                <i className="fi fi-ss-sign-out-alt me-3"></i>
-                <span className="d-none d-md-inline">Log out</span>
-              </NavLink>
-            </li>
           </ul>
         </div>
       </nav>

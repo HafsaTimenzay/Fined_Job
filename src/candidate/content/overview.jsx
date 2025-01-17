@@ -22,7 +22,7 @@ const Overview = () => {
   const [candidate, setCandidate] = useState(null);
   const [profileWarning, setProfileWarning] = useState("");
   const location = useLocation();
-  const email = "salmajabrouni71@gmail.com" || {};
+  const email = sessionStorage.getItem('email') || {};
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/candidate/findByEmail?email=${email}`)

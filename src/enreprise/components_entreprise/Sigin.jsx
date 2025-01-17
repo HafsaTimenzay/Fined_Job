@@ -7,15 +7,67 @@ import Logo from '../../components/logo'
 export default function MultiStepForm() {
   const [activeTab, setActiveTab] = useState("companyInfo");
   const navigate = useNavigate();
+  const email = sessionStorage.getItem('email') || {} ;
+  console.log(email)
+
+   const [formData, setFormData] = useState({
+      companyName: "",
+      companyLogo: "",
+      companyDescription: "",
+      organisationType: "",
+      industryType: "",
+      teamSize: "",
+      yearOfEstablishment: "",
+      websiteUrl: "",
+      linkedinUrl: ""
+    });
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-
-  const handleFinishEditing = () => {
-    navigate("/Entreprise/verification");
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
   };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      companyLogo: file.name, // Update to handle file upload properly if needed
+    }));
+  };
+
+  const handleSubmit = () => {
+    fetch(`http://localhost:8080/api/recruiter/updateByEmail?email=${email}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        console.log(response + formData.organisationType)
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to update recruiter');
+        }
+      })
+      .then((data) => {
+        alert('Recruiter updated successfully!');
+        navigate("/Entreprise/verification");
+      })
+      .catch((error) => {
+        console.error('Error updating recruiter:', error);
+        alert('Failed to update recruiter.');
+      });
+  };
+
 
   return (
     <div className="container mt-4">
@@ -69,7 +121,7 @@ export default function MultiStepForm() {
                           <label htmlFor="logoUpload" className="form-label">
                             <strong>Upload Logo</strong>
                           </label>
-                          <input type="file" className="form-control" id="logoUpload" />
+                          <input type="file" className="form-control" id="logoUpload" onChange={handleFileChange}/>
                           <small className="text-muted d-block mt-2">
                             Max size: 5MB | JPG, PNG
                           </small>
@@ -81,22 +133,26 @@ export default function MultiStepForm() {
                             Company Name
                           </label>
                           <input
-                            type="text"
-                            className="form-control w-75"
-                            id="companyName"
-                            placeholder="Enter company name"
-                          />
+                          type="text"
+                          className="form-control w-75"
+                          id="companyName"
+                          placeholder="Enter company name"
+                          value={formData.companyName}
+                          onChange={handleInputChange}
+                        />
                         </div>
                         <div className="mb-3">
                           <label htmlFor="aboutUs" className="form-label">
                             About Us
                           </label>
                           <textarea
-                            className="form-control"
-                            id="aboutUs"
-                            rows="4"
-                            placeholder="Write about your company here..."
-                          ></textarea>
+                          className="form-control"
+                          id="companyDescription"
+                          rows="4"
+                          placeholder="Write about your company here..."
+                          value={formData.companyDescription}
+                          onChange={handleInputChange}
+                        ></textarea>
                         </div>
                       </div>
                     </div>
@@ -124,37 +180,43 @@ export default function MultiStepForm() {
                   <div className="mb-3">
                     <div className="row g-3">
                       <div className="col-md-4">
-                        <label htmlFor="OrganizationType" className="form-label">Organization Type</label>
+                        <label htmlFor="organisationType" className="form-label">Organization Type</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="OrganizationType"
+                          id="organisationType"
                           placeholder="Select..."
+                          value={formData.organisationType}
+                          onChange={handleInputChange}
                         />
                       </div>
                       <div className="col-md-4">
                         <div className="mb-3">
-                          <label htmlFor="IndustryType" className="form-label">
+                          <label htmlFor="industryType" className="form-label">
                             Industry Type
                           </label>
                           <input
                             type="text"
                             className="form-control"
-                            id="IndustryType"
+                            id="industryType"
                             placeholder="Select..."
+                            value={formData.industryType}
+                          onChange={handleInputChange}
                           />
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="mb-3">
-                          <label htmlFor="TeamSize" className="form-label">
+                          <label htmlFor="teamSize" className="form-label">
                             Team Size
                           </label>
                           <input
                             type="text"
                             className="form-control"
-                            id="TeamSize"
+                            id="teamSize"
                             placeholder="Select..."
+                            value={formData.teamSize}
+                          onChange={handleInputChange}
                           />
                         </div>
                       </div>
@@ -162,27 +224,19 @@ export default function MultiStepForm() {
 
                     <div className="row g-3">
                       <div className="col-md-4">
-                        <label htmlFor="YearEstablishment" className="form-label">Year Of Establishment</label>
+                        <label htmlFor="yearOfEstablishment" className="form-label">Year Of Establishment</label>
                         <input
-                          type="date"
+                          type="text"
                           className="form-control"
-                          id="YearEstablishment"
+                          id="yearOfEstablishment"
+                          value={formData.yearOfEstablishment}
+                          onChange={handleInputChange}
                         />
                       </div>
 
                     </div>
 
-                    <div className="row g-3 mt-1">
-                      <div className="col-md-12">
-                        <label htmlFor="CompanyVersion" className="form-label">Company Version</label>
-                        <textarea
-                          className="form-control"
-                          id="CompanyVersion"
-                          rows="4"
-                          placeholder="Tell us about your company version..."
-                        ></textarea>
-                      </div>
-                    </div>
+                    
                   </div>
                   {/* (Form Elements) */}
                   <button
@@ -211,24 +265,28 @@ export default function MultiStepForm() {
                   {/* Social Media Profile Form */}
                   <div className="row g-3">
                       <div className="col-md-4">
-                        <label htmlFor="Website" className="form-label">Company Website</label>
+                        <label htmlFor="websiteUrl" className="form-label">Company Website</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="Website"
+                          id="websiteUrl"
                           placeholder="Website url..."
+                          value={formData.websiteUrl}
+                          onChange={handleInputChange}
                         />
                       </div>
                       <div className="col-md-4">
                         <div className="mb-3">
-                          <label htmlFor="LinkedIn" className="form-label">
+                          <label htmlFor="linkedinUrl" className="form-label">
                             Company LinkedIn 
                           </label>
                           <input
                             type="text"
                             className="form-control"
-                            id="LinkedIn"
+                            id="linkedinUrl"
                             placeholder="LinkedIn url..."
+                            value={formData.linkedinUrl}
+                          onChange={handleInputChange}
                           />
                         </div>
                       </div>
@@ -244,7 +302,7 @@ export default function MultiStepForm() {
                     <button
                       type="button"
                       className="blue-btn"
-                      onClick={handleFinishEditing}
+                      onClick={handleSubmit}
                     >
                       Finish Editing
                       <i className="fi fi-rr-arrow-right mx-2 justify-content-center"></i>

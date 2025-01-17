@@ -69,6 +69,7 @@ const Signup = () => {
           if (response.ok) {
             // Store the email in sessionStorage
             sessionStorage.setItem('email', formData.email);
+            console.log(formData.email)
             navigate('/Candidate/overview');  // No need to pass email in state
           }
           // navigate('/Candidate/overview', { state: { email: formData.email} });
@@ -98,7 +99,9 @@ const Signup = () => {
         });
     
         if (response.ok) {
-          navigate('/Entreprise/overview', { state: { email: formData.email } });
+          sessionStorage.setItem('email', formData.email);
+          console.log(formData.email)
+          navigate('/Entreprise/signIn', { state: { email: formData.email } });
         } else {
           alert('Failed to register entreprise.');
         }

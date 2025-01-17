@@ -10,8 +10,11 @@ import Logo from "../../components/logo";
 const NavBar = () => {
   const [showLightbox, setShowLightbox] = useState(false); // State for the lightbox
   const navigate = useNavigate();
+
   const handleLogout = () => {
-    console.log("User logged out");
+    console.log("logout : "+email)
+    sessionStorage.removeItem('email');  // Clear stored email
+    navigate('/login');
     setShowLightbox(false); // Close the lightbox
   };
   const handleSettings = () => {
@@ -82,6 +85,7 @@ const NavBar = () => {
                 <Link
                   to="/"
                   className="LinkProf d-flex align-items-center text-decoration-none text-dark m-0 py-1"
+                  onClick={handleLogout}
                 >
                   <i className="fi fi-rr-sign-out-alt px-3"></i>
                   Log Out
