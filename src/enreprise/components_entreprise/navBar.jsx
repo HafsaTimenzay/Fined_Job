@@ -16,7 +16,6 @@ const NavBar = () => {
     console.log("Logging out: " + email);
   
     sessionStorage.removeItem('email'); // Clear the stored email
-    sessionStorage.clear();
     setShowLightbox(false); // Close the lightbox
     navigate('/login'); // Redirect to login
   };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -22,12 +22,6 @@ export default function Settings() {
       });
 
   const [activeTab, setActiveTab] = useState("companyInfo");
-  // const [socialLinks, setSocialLinks] = useState([
-  //   { platform: "Facebook", url: "" },
-  //   { platform: "Twitter", url: "" },
-  //   { platform: "Instagram", url: "" },
-  //   { platform: "YouTube", url: "" },
-  // ]);
   const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -41,54 +35,69 @@ export default function Settings() {
     const file = e.target.files[0];
     setFormData((prevData) => ({
       ...prevData,
-      companyLogo: file.name, // Update to handle file upload properly if needed
+      companyLogo: file.name,
     }));
   };
 
-  const handleSubmit = () => {
-    fetch(`http://localhost:8080/api/recruiter/updateByEmail?email=${email}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+  useEffect(() => {
+    if (email) {
+        fetch(`http://localhost:8080/api/recruiter/findByEmail?email=${email}`)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch recruiter data');
+                }
+            })
+            .then((data) => {
+                setFormData({
+                    companyName: data.companyName || "",
+                    companyLogo: data.companyLogo || "",
+                    companyDescription: data.companyDescription || "",
+                    organisationType: data.organisationType || "",
+                    industryType: data.industryType || "",
+                    teamSize: data.teamSize || "",
+                    yearOfEstablishment: data.yearOfEstablishment || "",
+                    websiteUrl: data.websiteUrl || "",
+                    linkedinUrl: data.linkedinUrl || ""
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching recruiter data:', error);
+            });
+    }
+}, [email]); // Dependencies to refetch when email changes
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  fetch(`http://localhost:8080/api/recruiter/updateByEmail?email=${email}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to update recruiter');
+      }
     })
-      .then((response) => {
-        console.log(response + formData.organisationType)
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Failed to update recruiter');
-        }
-      })
-      .then((data) => {
-        alert('Recruiter updated successfully!');
-      })
-      .catch((error) => {
-        console.error('Error updating recruiter:', error);
-        alert('Failed to update recruiter.');
-      });
-  };
+    .then((data) => {
+      alert('Recruiter updated successfully!');
+    })
+    .catch((error) => {
+      console.error('Error updating recruiter:', error);
+      alert('Failed to update recruiter.');
+    });
+};
+
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-
-  // const handleSocialLinkChange = (index, field, value) => {
-  //   const updatedLinks = [...socialLinks];
-  //   updatedLinks[index][field] = value;
-  //   setSocialLinks(updatedLinks);
-  // };
-
-  // const handleAddSocialLink = () => {
-  //   setSocialLinks([...socialLinks, { platform: "", url: "" }]);
-  // };
-
-  // const handleRemoveSocialLink = (index) => {
-  //   const updatedLinks = socialLinks.filter((_, i) => i !== index);
-  //   setSocialLinks(updatedLinks);
-  // };
-
 
   return (
     <div className="container mt-5 pt-3">

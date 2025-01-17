@@ -22,7 +22,11 @@ const Overview = () => {
   const [candidate, setCandidate] = useState(null);
   const [profileWarning, setProfileWarning] = useState("");
   const location = useLocation();
-  const email = sessionStorage.getItem('email') || {};
+  const email = sessionStorage.getItem('email');
+  if (!email) {
+    console.log('Email not found in sessionStorage');
+    // Handle the error or redirect to login page
+  }
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/candidate/findByEmail?email=${email}`)
@@ -124,13 +128,13 @@ const Overview = () => {
             //   {profileWarning}
             // </div>
             <div className="alert alert-danger mt-4 d-flex justify-content-between align-items-center">
-            <span>Your profile editing is not completed.</span>
-            <Link to='../settings'>
-              <button className="btn btn-primary btn-sm" style={{ backgroundColor: 'white', border: 'none', color: '#be2637' }}>Edit Profile</button>
-            </Link>
-          </div>
+              <span>Your profile editing is not completed.</span>
+              <Link to='../settings'>
+                <button className="btn btn-primary btn-sm" style={{ backgroundColor: 'white', border: 'none', color: '#be2637' }}>Edit Profile</button>
+              </Link>
+            </div>
           )}
-          
+
         </section>
 
         {/* Recently Applied Jobs */}

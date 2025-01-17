@@ -26,14 +26,14 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
-        const data = await response.json(); // Assuming the backend returns the user role
+        const data = await response.json(); // Assuming the backend returns the user role and email
         if (data.role === 'CANDIDATE') {
-          // sessionStorage.setItem('yasminajabrouni@gmail.com')
-          // console.log(email)
+          sessionStorage.setItem('email', data.email); // Now storing email in sessionStorage
           navigate('/Candidate/overview');
         } else if (data.role === 'RECRUITER') {
+          sessionStorage.setItem('email', data.email); // Storing email for recruiters too
           navigate('/Entreprise/overview');
         }
       } else {
@@ -44,6 +44,7 @@ const Login = () => {
       setError('An error occurred. Please try again.');
     }
   };
+  
 
   
 

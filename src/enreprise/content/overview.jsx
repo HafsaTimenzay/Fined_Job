@@ -7,7 +7,11 @@ import { Link} from "react-router-dom";
 
 const Overview = () => {
   const [recruiter, setRecruiter] = useState(null);
-  const email = sessionStorage.getItem('email') || {};
+  const email = sessionStorage.getItem('email');
+  if (!email) {
+    console.log('Email not found in sessionStorage');
+    // Handle the error or redirect to login page
+  }
   console.log(email)
 
   useEffect(() => {

@@ -164,16 +164,16 @@ export default function Settings() {
                       label="Date Of Birth"
                       type="date"
                       value={candidate?.dateOfBirth || ''}
-                      onChange={(e) => setCandidate(prev => ({ ...prev, date_of_birth: e.target.value }))}
+                      onChange={(e) => setCandidate(prev => ({ ...prev, dateOfBirth: e.target.value }))}
                     />
                   </div>
                   <div className="col-md-6">
                     <InputField
-                      label="Telephone Number"
+                      className="form-input-control"
                       type="tel"
                       placeholder="06/07 0000 0000"
                       value={candidate?.phoneNumber || ''}
-                      onChange={(e) => setCandidate(prev => ({ ...prev, phone_number: e.target.value }))}
+                      onChange={(e) => setCandidate(prev => ({ ...prev, phoneNumber: e.target.value }))}
                     />
                   </div>
 
@@ -242,7 +242,7 @@ export default function Settings() {
                   type="text"
                   placeholder="Experience"
                   value={candidate?.experienceYears || ''}
-                  onChange={(e) => setCandidate(prev => ({ ...prev, experience_years: e.target.value }))}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, experienceYears: e.target.value }))}
                 />
               </div>
               <div className="col-md-4">
@@ -251,7 +251,7 @@ export default function Settings() {
                   type="text"
                   placeholder="Education"
                   value={candidate?.educationLevel || ''}
-                  onChange={(e) => setCandidate(prev => ({ ...prev, education_level: e.target.value }))}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, educationLevel: e.target.value }))}
                 />
               </div>
               <div className="col-md-4">
@@ -260,7 +260,7 @@ export default function Settings() {
                   type="text"
                   placeholder="Role"
                   value={candidate?.jobTitle || ''}
-                  onChange={(e) => setCandidate(prev => ({ ...prev, job_title: e.target.value }))}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, jobTitle: e.target.value }))}
                 />
               </div>
             </div>
@@ -271,7 +271,7 @@ export default function Settings() {
                   type="url"
                   placeholder="LinkedIn URL..."
                   value={candidate?.linkedinUrl || ''}
-                  onChange={(e) => setCandidate(prev => ({ ...prev, linkedin_url: e.target.value }))}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, linkedinUrl: e.target.value }))}
                 />
               </div>
               <div className="col-md-6">
@@ -280,7 +280,7 @@ export default function Settings() {
                   type="url"
                   placeholder="Website URL..."
                   value={candidate?.personalWebsite || ''}
-                  onChange={(e) => setCandidate(prev => ({ ...prev, personal_website: e.target.value }))}
+                  onChange={(e) => setCandidate(prev => ({ ...prev, personalWebsite: e.target.value }))}
                 />
               </div>
             </div>
