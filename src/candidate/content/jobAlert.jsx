@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 const JobAlert = () => {
   const locationData = useLocation();
   const { title, location: jobLocation } = locationData.state || {};  // const jobs = [
+  const email = sessionStorage.getItem('email');
 
   const [selectedJob, setSelectedJob] = useState();
   const [isLightBoxVisible, setLightBoxVisible] = useState(false);
@@ -87,16 +88,16 @@ useEffect(() => {
   const handleSubmitApplication = async (e) => {
     e.preventDefault();
 
-    if (!selectedJob || !description || !resumeFile) {
-        alert("Please fill in all fields and upload a resume.");
+    if (!selectedJob || !description) {
+        alert("Please fill the cover letter.");
         return;
     }
 
     const formData = new FormData();
-    formData.append("candidateId", 1); // Replace with the actual candidate ID (e.g., from authentication)
     formData.append("jobId", selectedJob.id);
     formData.append("description", description);
     formData.append("resume", resumeFile);
+    
 
     try {
        // Step 1: Upload the file
@@ -116,12 +117,11 @@ useEffect(() => {
 
        // Step 2: Submit the job application
        const applicationData = {
-           candidateId: 1, // Replace with the actual candidate ID (e.g., from authentication)
            jobId: selectedJob.id,
            description: description,
            resumePath: filePath, // Use the file path returned from the upload
        };
-        const response = await fetch("http://localhost:8080/api/applications/apply", {
+        const response = await fetch(`http://localhost:8080/api/applications/apply?email=${email}&&jobId=3`, {
             method: "POST",
             body: formData,
         });
@@ -323,16 +323,16 @@ useEffect(() => {
                       </button>
                       <h2>Apply for the Job</h2>
                       <p>Please fill in the necessary details to proceed.</p>
-                      <form onSubmit={handleSubmitApplication}>
+                      <form onSubmit={handleSubmitApplication} encType="multipart/form-data">
                         <div className="boxLight mb-3">
                           <label htmlFor="description" className="form-label text-left">
-                            Description
+                            Cover Letter
                           </label>
                           <textarea
                             className="form-control"
                             id="description"
                             rows="4"
-                            placeholder="Enter your description here"
+                            placeholder="Enter your letter here"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                           ></textarea>

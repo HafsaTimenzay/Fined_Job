@@ -30,6 +30,8 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json(); // Assuming the backend returns the user role
         if (data.role === 'CANDIDATE') {
+          // sessionStorage.setItem('yasminajabrouni@gmail.com')
+          // console.log(email)
           navigate('/Candidate/overview');
         } else if (data.role === 'RECRUITER') {
           navigate('/Entreprise/overview');

@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom"; 
 import '../../styles/candidate.css';
 import Img2 from '../../assets/images/apple.jpg';
+import { clippingParents } from '@popperjs/core';
 
 export default function JobList() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    
     useEffect(() => {
+        const email = sessionStorage.getItem('email');
+        console.log(email)
         const fetchAppliedJobs = async () => {
             try {
-                const candidateId = 1; 
-                const response = await fetch(`http://localhost:8080/api/applications/candidate/${candidateId}`);
+                const response = await fetch(`http://localhost:8080/api/applications/all?email=${email}`);
                 if (response.ok) {
                     const data = await response.json();
                     setJobs(data);

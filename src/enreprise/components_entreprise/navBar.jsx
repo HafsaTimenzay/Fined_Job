@@ -12,10 +12,13 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log("logout : "+email)
-    sessionStorage.removeItem('email');  // Clear stored email
-    navigate('/login');
+    const email = sessionStorage.getItem('email'); // Fetch email for debugging
+    console.log("Logging out: " + email);
+  
+    sessionStorage.removeItem('email'); // Clear the stored email
+    sessionStorage.clear();
     setShowLightbox(false); // Close the lightbox
+    navigate('/login'); // Redirect to login
   };
   const handleSettings = () => {
     navigate("/settings");
